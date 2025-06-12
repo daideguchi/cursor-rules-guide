@@ -1,0 +1,208 @@
+# Cursor Rules for Next.js 14 TypeScript Project
+
+## Project Overview
+
+This is a comprehensive Cursor Rules guide built with Next.js 14 (App Router), TypeScript, Tailwind CSS, and modern React patterns. Focus on creating high-quality, performant, and accessible code.
+
+## Code Style & Standards
+
+### TypeScript
+
+- Use strict TypeScript with proper type definitions
+- Prefer interfaces over types for object definitions
+- Use generic types for reusable components
+- Always define return types for functions
+- Use `const assertions` where appropriate
+- Avoid `any` type - use proper typing or `unknown`
+
+### React Best Practices
+
+- Use functional components with hooks
+- Prefer composition over inheritance
+- Use `React.memo()` for performance optimization when needed
+- Implement proper error boundaries
+- Use `useCallback` and `useMemo` judiciously to prevent unnecessary re-renders
+- Follow the hooks rules strictly
+
+### Next.js 14 App Router
+
+- Use Server Components by default
+- Add `'use client'` directive only when client-side features are needed
+- Leverage the new `app/` directory structure
+- Use proper loading, error, and not-found pages
+- Implement proper SEO with metadata API
+- Use dynamic imports for code splitting
+
+### File Organization
+
+- Group related files in feature-based folders
+- Use index files for clean imports
+- Place shared utilities in `lib/` directory
+- Keep components atomic and focused
+- Separate UI components from business logic
+
+### Naming Conventions
+
+- Use PascalCase for React components
+- Use camelCase for functions and variables
+- Use SCREAMING_SNAKE_CASE for constants
+- Use kebab-case for file names (except components)
+- Use descriptive and meaningful names
+
+## Styling Guidelines
+
+### Tailwind CSS
+
+- Use utility-first approach
+- Prefer Tailwind classes over custom CSS
+- Use semantic color names from the theme
+- Implement responsive design with mobile-first approach
+- Use consistent spacing scale
+- Create custom components for repeated patterns
+
+### CSS Organization
+
+- Keep custom CSS minimal
+- Use CSS variables for theme values
+- Group related styles together
+- Use PostCSS plugins appropriately
+
+## Component Architecture
+
+### Structure
+
+```
+components/
+├── ui/           # Basic UI components (Button, Input, etc.)
+├── layout/       # Layout-specific components
+├── providers/    # Context providers
+└── [feature]/    # Feature-specific components
+```
+
+### Props & APIs
+
+- Use TypeScript interfaces for props
+- Implement proper default props
+- Use children prop appropriately
+- Create compound components when needed
+- Support forwarded refs for DOM elements
+
+## Performance Optimization
+
+### General
+
+- Use React.lazy() for code splitting
+- Implement proper image optimization with Next.js Image component
+- Use proper caching strategies
+- Minimize bundle size
+- Implement proper loading states
+
+### Rendering
+
+- Avoid unnecessary re-renders
+- Use proper dependency arrays in hooks
+- Implement proper memoization
+- Use Suspense boundaries appropriately
+
+## Accessibility
+
+### Requirements
+
+- Implement proper ARIA attributes
+- Ensure keyboard navigation works
+- Use semantic HTML elements
+- Provide proper focus management
+- Implement proper color contrast
+- Add proper alt text for images
+- Use proper heading hierarchy
+
+## State Management
+
+### Local State
+
+- Use useState for simple local state
+- Use useReducer for complex state logic
+- Implement proper state lifting
+- Use context for app-wide state
+- Avoid prop drilling
+
+### Forms
+
+- Use controlled components
+- Implement proper validation
+- Provide immediate feedback
+- Handle loading and error states
+
+## Error Handling
+
+### Implementation
+
+- Use Error Boundaries for React errors
+- Implement proper try-catch blocks
+- Provide meaningful error messages
+- Log errors appropriately
+- Graceful degradation for failed features
+
+## Testing Approach
+
+### Structure
+
+- Write unit tests for utilities
+- Create integration tests for components
+- Use proper mocking strategies
+- Test accessibility requirements
+- Implement visual regression tests
+
+## Security
+
+### Best Practices
+
+- Sanitize user inputs
+- Implement proper CSP headers
+- Use HTTPS in production
+- Validate data on both client and server
+- Implement proper authentication
+
+## Development Workflow
+
+### Code Quality
+
+- Use ESLint and Prettier consistently
+- Implement proper pre-commit hooks
+- Write meaningful commit messages
+- Use proper branching strategy
+- Review code thoroughly
+
+### Documentation
+
+- Write clear component documentation
+- Document complex business logic
+- Maintain up-to-date README
+- Use JSDoc comments for functions
+- Document API endpoints
+
+## Specific to This Project
+
+### UI/UX Focus
+
+- Prioritize smooth animations with Framer Motion
+- Implement responsive design for all screen sizes
+- Use consistent design system
+- Focus on user experience and accessibility
+- Implement proper loading states and transitions
+
+### Content Management
+
+- Structure content for easy maintenance
+- Use proper typography hierarchy
+- Implement search and filtering functionality
+- Ensure content is accessible and well-organized
+
+### Interactive Features
+
+- Implement smooth scrolling and navigation
+- Create engaging user interactions
+- Use proper state management for UI state
+- Implement proper progress tracking
+
+Remember: Always prioritize code readability, maintainability, and user experience. Write code that is self-documenting and follows established patterns.

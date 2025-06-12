@@ -1,0 +1,3535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Rules 完全マスターガイド - A to Z 実践研修（強化版）</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border-left: 4px solid #007acc;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-button:hover {
+            opacity: 1;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid #ff6b35;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid #00d2ff;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid #fdcb6e;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .chapter-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            margin: 2rem 0 1rem 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .table-of-contents {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .toc-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .toc-item:last-child {
+            border-bottom: none;
+        }
+        
+        .example-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .rule-type-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+        
+        .badge-always { background: #e3f2fd; color: #1976d2; }
+        .badge-auto { background: #e8f5e8; color: #388e3c; }
+        .badge-agent { background: #fff3e0; color: #f57c00; }
+        .badge-manual { background: #fce4ec; color: #c2185b; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+        }
+        
+        .checklist {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .template-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .template-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .template-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .template-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        .quick-copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s;
+        }
+        
+        .quick-copy-btn:hover {
+            background: #218838;
+        }
+        
+        .quick-copy-btn.copied {
+            background: #007bff;
+        }
+        
+        .template-description {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .template-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .template-tag {
+            background: #f1f3f4;
+            color: #333;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+        }
+        
+        .expandable-section {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .expandable-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .expandable-content {
+            padding: 1rem;
+            display: none;
+        }
+        
+        .expandable-section.expanded .expandable-content {
+            display: block;
+        }
+        
+        .expandable-icon {
+            transition: transform 0.3s;
+        }
+        
+        .expandable-section.expanded .expandable-icon {
+            transform: rotate(180deg);
+        }
+        
+        .search-box {
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1rem;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .filter-btn:hover {
+            background: #f8f9fa;
+        }
+        
+        .filter-btn.active:hover {
+            background: #5a6fd8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- ヘッダー -->
+        <div class="gradient-bg text-white p-8 rounded-lg text-center mb-8">
+            <h1 class="text-4xl font-bold mb-4">
+                <i class="fas fa-robot mr-3"></i>
+                Cursor Rules 完全マスターガイド（強化版）
+            </h1>
+            <p class="text-xl mb-2">A to Z 実践研修 - 初心者から上級者まで</p>
+            <p class="text-lg opacity-90">100+のワンクリックテンプレート付き システム会社研修用プロフェッショナルガイド</p>
+            <div class="mt-6 flex justify-center items-center space-x-6">
+                <div class="text-center">
+                    <i class="fas fa-users text-3xl mb-2"></i>
+                    <p class="text-sm">研修対象：全開発者</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-clock text-3xl mb-2"></i>
+                    <p class="text-sm">所要時間：4-6時間</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-star text-3xl mb-2"></i>
+                    <p class="text-sm">難易度：初級〜上級</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-download text-3xl mb-2"></i>
+                    <p class="text-sm">100+テンプレート</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 目次 -->
+        <div class="table-of-contents">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-list mr-2"></i>目次
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-play-circle mr-2 text-blue-500"></i>第1章：Cursor Rulesとは</span>
+                        <span class="text-gray-500">基礎編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-cog mr-2 text-green-500"></i>第2章：セットアップと基本設定</span>
+                        <span class="text-gray-500">設定編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-layer-group mr-2 text-purple-500"></i>第3章：ルールの種類と特徴</span>
+                        <span class="text-gray-500">分類編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-edit mr-2 text-orange-500"></i>第4章：ルールの作成と管理</span>
+                        <span class="text-gray-500">作成編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-code mr-2 text-red-500"></i>第5章：実践的な使用例</span>
+                        <span class="text-gray-500">実例編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-copy mr-2 text-teal-500"></i>第6章：ワンクリックテンプレート集</span>
+                        <span class="text-gray-500">テンプレート編</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-star mr-2 text-yellow-500"></i>第7章：ベストプラクティス</span>
+                        <span class="text-gray-500">実践編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-rocket mr-2 text-indigo-500"></i>第8章：上級テクニック</span>
+                        <span class="text-gray-500">応用編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-wrench mr-2 text-gray-500"></i>第9章：困った時の解決法</span>
+                        <span class="text-gray-500">問題解決編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-building mr-2 text-teal-500"></i>第10章：チーム開発での活用</span>
+                        <span class="text-gray-500">チーム編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-graduation-cap mr-2 text-pink-500"></i>第11章：まとめと次のステップ</span>
+                        <span class="text-gray-500">完了編</span>
+                    </div>
+                    <div class="toc-item">
+                        <span><i class="fas fa-flag-checkered mr-2 text-blue-500"></i>まとめ：10倍効率的な開発へ</span>
+                        <span class="text-gray-500">実践開始</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第1章：Cursor Rulesとは -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-play-circle mr-3"></i>
+                第1章：Cursor Rulesとは
+            </h2>
+            <p class="text-lg mt-2">基礎概念から理解する</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                こんな経験ありませんか？
+            </h3>
+
+            <div class="warning-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    よくある悩み
+                </h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>🤔 <strong>プロジェクトの構成を理解してくれない</strong> → 毎回同じ説明が必要</li>
+                    <li>😅 <strong>生成されたコードが微妙</strong> → 自分のスタイルと合わない</li>
+                    <li>😰 <strong>チームで一貫性がない</strong> → 人によって違うコードが生成される</li>
+                    <li>😵 <strong>毎回細かい指示が必要</strong> → 開発効率が悪い</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-magic mr-2"></i>
+                    実は、これらの問題は「Project Rules」で全て解決できます！
+                </h4>
+                <p class="text-lg mb-4">
+                    <strong>一言で言うと「AIにあなたのプロジェクトを覚えてもらう機能」</strong>です。
+                    料理に例えるなら、毎回「和食で、醤油ベースで、材料は○○で...」と説明する代わりに、
+                    一度教えれば「いつものやつで」と言えばわかってくれるようになります。
+                </p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">
+                <i class="fas fa-before-after mr-2 text-green-500"></i>
+                実際の違いを見てみましょう
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="example-card border-l-4 border-red-500">
+                    <h4 class="font-bold text-red-600 mb-3">❌ ルールなしの場合</h4>
+                    <div class="code-block text-sm">
+<pre>// よくある一般的なコード
+function Button(props) {
+  return &lt;button&gt;{props.children}&lt;/button&gt;;
+}</pre>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">毎回説明が必要で、一貫性がない</p>
+                </div>
+                <div class="example-card border-l-4 border-green-500">
+                    <h4 class="font-bold text-green-600 mb-3">✅ ルールありの場合</h4>
+                    <div class="code-block text-sm">
+<pre>// プロジェクトに最適化されたコード
+import { FC } from 'react';
+import { cn } from '@/lib/utils';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+export const Button: FC&lt;ButtonProps&gt; = ({
+  variant = 'primary',
+  children,
+  onClick
+}) => {
+  return (
+    &lt;button
+      onClick={onClick}
+      className={cn('btn', `btn-${variant}`)}
+    &gt;
+      {children}
+    &lt;/button&gt;
+  );
+};</pre>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">一度設定すれば、常に最適なコードが生成される</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-star mr-2"></i>
+                    Cursor Rulesを使うメリット
+                </h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>✅ <strong>説明の手間が激減</strong>：毎回同じことを言わなくて済む</li>
+                    <li>✅ <strong>コード品質向上</strong>：プロジェクトに最適化されたコード</li>
+                    <li>✅ <strong>開発速度アップ</strong>：即座に理想的なコードが生成</li>
+                    <li>✅ <strong>チーム統一</strong>：みんなが同じスタイルでコーディング</li>
+                    <li>✅ <strong>新人の学習支援</strong>：適切なパターンを自動学習</li>
+                </ul>
+            </div>
+
+            <h4 class="text-xl font-bold mt-6 mb-4">
+                <i class="fas fa-cogs mr-2 text-blue-500"></i>
+                Cursor Rulesの仕組み
+            </h4>
+            <p class="mb-4">
+                大規模言語モデル（LLM）は、セッション間でメモリを保持しません。Cursor Rulesは、この問題を解決するため、
+                プロンプトレベルで永続的で再利用可能なコンテキストを提供します。
+            </p>
+
+            <div class="info-box">
+                <h5 class="text-lg font-bold mb-2">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    動作原理
+                </h5>
+                <p>
+                    ルールが適用されると、その内容がモデルコンテキストの最初に含まれます。
+                    これにより、AIはコード生成、編集の解釈、ワークフローの支援において一貫したガイダンスを受けることができます。
+                </p>
+            </div>
+
+            <div class="warning-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    重要な変更点（Cursor 0.45以降）
+                </h4>
+                <p class="mb-3">
+                    Cursor 0.45以降、カスタムインストラクションの管理方法が<code>.cursorrules</code>から
+                    <strong>Project Rules</strong>に変更されました。新しいシステムでは：
+                </p>
+                <ul class="list-disc pl-6 space-y-1">
+                    <li>MDC形式（.mdc）でのルール記述</li>
+                    <li>.cursor/rulesディレクトリでの管理</li>
+                    <li>より柔軟なルールタイプの選択</li>
+                    <li>Agent機能に最適化された設計</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第2章：セットアップと基本設定 -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-cog mr-3"></i>
+                第2章：セットアップと基本設定
+            </h2>
+            <p class="text-lg mt-2">実際に手を動かして始める</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-rocket mr-2 text-blue-500"></i>
+                今すぐ試せる！超簡単設定（5分で完了）
+            </h3>
+
+            <div class="highlight-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-zap mr-2"></i>
+                    方法1：自動生成（超オススメ！）
+                </h4>
+                <p class="mb-3"><strong>たった1行で設定完了！</strong></p>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">1</span>
+                        <div>
+                            <p>Cursorのチャット欄に以下を入力：</p>
+                            <div class="code-block mt-2">
+<button class="copy-button" onclick="copyToClipboard(this, 'generate-rules')">コピー</button>
+<pre id="generate-rules">/Generate Cursor Rules</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
+                        <div>
+                            <p>AIが「何のルールを作りたいですか？」と聞いてくるので答える</p>
+                            <div class="code-block mt-2">
+<button class="copy-button" onclick="copyToClipboard(this, 'example-request')">コピー</button>
+<pre id="example-request">「Next.jsとTailwindを使ったWebアプリのルールを作って」</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
+                        <p><strong>完了！</strong> AIが自動でルールを作ってくれます ✨</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">
+                <i class="fas fa-download mr-2 text-green-500"></i>
+                Cursorのインストール
+            </h3>
+
+            <div class="warning-box">
+                <h4 class="text-lg font-bold mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    前提条件
+                </h4>
+                <ul class="list-disc pl-6">
+                    <li>Windows 10/11、macOS 10.14以降、またはLinux</li>
+                    <li>最低4GB RAM（8GB推奨）</li>
+                    <li>インターネット接続（AI機能利用のため）</li>
+                </ul>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="example-card text-center">
+                    <i class="fab fa-windows text-4xl text-blue-500 mb-3"></i>
+                    <h4 class="text-lg font-bold mb-2">Windows</h4>
+                    <p class="text-sm text-gray-600">cursor.shからダウンロードしてインストール</p>
+                </div>
+                <div class="example-card text-center">
+                    <i class="fab fa-apple text-4xl text-gray-700 mb-3"></i>
+                    <h4 class="text-lg font-bold mb-2">macOS</h4>
+                    <p class="text-sm text-gray-600">dmgファイルをダウンロードしてドラッグ&ドロップ</p>
+                </div>
+                <div class="example-card text-center">
+                    <i class="fab fa-linux text-4xl text-orange-500 mb-3"></i>
+                    <h4 class="text-lg font-bold mb-2">Linux</h4>
+                    <p class="text-sm text-gray-600">AppImageまたはdebパッケージを利用</p>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">
+                <i class="fas fa-key mr-2 text-purple-500"></i>
+                アカウント設定とAPI連携
+            </h3>
+
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4 class="font-bold text-lg">Cursorアカウントの作成</h4>
+                        <p>Cursor初回起動時にアカウント作成を促されます。GitHubアカウントでの連携も可能です。</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4 class="font-bold text-lg">プランの選択</h4>
+                        <p>無料プランでも基本機能は利用可能ですが、Pro プランではより高性能なモデルが利用できます。</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4 class="font-bold text-lg">初期設定の完了</h4>
+                        <p>基本的なエディタ設定とAI機能の有効化を行います。</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h4 class="font-bold text-lg">Project Rulesの有効化確認</h4>
+                        <p>Cursor Settings → Rules で Project Rules が有効になっていることを確認します。</p>
+                        <div class="code-block mt-2">
+<button class="copy-button" onclick="copyToClipboard(this, 'settings-check')">コピー</button>
+<pre id="settings-check"># 確認手順
+1. Cursor Settings を開く
+2. Rules セクションに移動
+3. "Include Rules" オプションがチェックされていることを確認
+4. Project Rules セクションでルール一覧を確認</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3章：ルールの種類と特徴 -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-layer-group mr-3"></i>
+                第3章：ルールの種類と特徴
+            </h2>
+            <p class="text-lg mt-2">3つのルールタイプを完全理解</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-sitemap mr-2 text-indigo-500"></i>
+                Cursor Rulesの分類
+            </h3>
+
+            <div class="feature-grid">
+                <!-- プロジェクトルール -->
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-project-diagram text-3xl text-blue-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">プロジェクトルール</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        プロジェクト固有のルールで、<code>.cursor/rules</code>ディレクトリに保存され、
+                        バージョン管理の対象となります。
+                    </p>
+                    <div class="space-y-2">
+                        <span class="rule-type-badge badge-always">Always</span>
+                        <span class="rule-type-badge badge-auto">Auto Attached</span>
+                        <span class="rule-type-badge badge-agent">Agent Requested</span>
+                        <span class="rule-type-badge badge-manual">Manual</span>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="font-bold mb-2">主な用途：</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>コーディング規約の定義</li>
+                            <li>プロジェクト固有の知識の共有</li>
+                            <li>アーキテクチャパターンの統一</li>
+                            <li>ワークフローの自動化</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ユーザールール -->
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-user-cog text-3xl text-green-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">ユーザールール</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        個人の好みや習慣を反映するルールで、全プロジェクトに適用されます。
+                        Cursor設定画面から管理します。
+                    </p>
+                    <div class="bg-gray-100 p-3 rounded-lg mb-4">
+                        <span class="text-sm font-mono">プレーンテキスト形式のみ</span>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="font-bold mb-2">主な用途：</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>回答言語の指定</li>
+                            <li>個人的なコーディングスタイル</li>
+                            <li>コメントの書き方</li>
+                            <li>変数命名規則</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- メモリ（Beta） -->
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-brain text-3xl text-purple-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">メモリ（Beta）</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        チャット会話から自動生成されるルールで、Gitリポジトリにスコープされます。
+                        学習機能として実装されています。
+                    </p>
+                    <div class="bg-yellow-100 p-3 rounded-lg mb-4">
+                        <span class="text-sm">
+                            <i class="fas fa-flask mr-1"></i>
+                            Beta機能：今後機能拡張予定
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="font-bold mb-2">特徴：</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>会話履歴から自動学習</li>
+                            <li>設定画面で表示・削除可能</li>
+                            <li>リポジトリ単位でスコープ</li>
+                            <li>今後の機能拡張に期待</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box mt-8">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    ルール選択の指針
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <h5 class="font-bold text-blue-600">プロジェクトルール</h5>
+                        <p class="text-sm">チーム全体で共有すべき内容</p>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-green-600">ユーザールール</h5>
+                        <p class="text-sm">個人の作業スタイルに関する内容</p>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-purple-600">メモリ</h5>
+                        <p class="text-sm">自動学習による最適化</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-chart-line mr-2 text-orange-500"></i>
+                ルールタイプの詳細比較
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-4">各ルールタイプの適用条件と特徴</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border border-gray-300 p-3 text-left">ルールタイプ</th>
+                                <th class="border border-gray-300 p-3 text-left">適用条件</th>
+                                <th class="border border-gray-300 p-3 text-left">設定方法</th>
+                                <th class="border border-gray-300 p-3 text-left">用途例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-3">
+                                    <span class="rule-type-badge badge-always">Always</span>
+                                </td>
+                                <td class="border border-gray-300 p-3">常に適用</td>
+                                <td class="border border-gray-300 p-3"><code>alwaysApply: true</code></td>
+                                <td class="border border-gray-300 p-3">基本的なコーディング規約、セキュリティガイドライン</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3">
+                                    <span class="rule-type-badge badge-auto">Auto Attached</span>
+                                </td>
+                                <td class="border border-gray-300 p-3">ファイルパターンマッチ時</td>
+                                <td class="border border-gray-300 p-3"><code>globs: ["*.tsx"]</code></td>
+                                <td class="border border-gray-300 p-3">React専用ルール、TypeScript規約</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3">
+                                    <span class="rule-type-badge badge-agent">Agent Requested</span>
+                                </td>
+                                <td class="border border-gray-300 p-3">AI判断による選択</td>
+                                <td class="border border-gray-300 p-3"><code>description: "説明"</code></td>
+                                <td class="border border-gray-300 p-3">複雑な設計パターン、最適化ルール</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3">
+                                    <span class="rule-type-badge badge-manual">Manual</span>
+                                </td>
+                                <td class="border border-gray-300 p-3">明示的指定時のみ</td>
+                                <td class="border border-gray-300 p-3">descriptionなし</td>
+                                <td class="border border-gray-300 p-3">特殊なテンプレート、実験的なアプローチ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第4章：ルールの作成と管理 -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-edit mr-3"></i>
+                第4章：ルールの作成と管理
+            </h2>
+            <p class="text-lg mt-2">実際にルールを作成してみよう</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-file-plus mr-2 text-blue-500"></i>
+                プロジェクトルールの作成
+            </h3>
+
+            <div class="space-y-6">
+                <div class="flex items-start">
+                    <div class="step-number">1</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-lg mb-2">ルール作成コマンドの実行</h4>
+                        <p class="mb-3">Cursorで「New Cursor Rule」コマンドを実行するか、設定画面からルールを作成します。</p>
+                        <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'create-rule-methods')">コピー</button>
+<pre id="create-rule-methods"># ルール作成方法
+方法1: Cmd/Ctrl + Shift + P → "New Cursor Rule"
+方法2: Cursor Settings → Rules → "Create Rule"
+方法3: .cursor/rules/ ディレクトリに手動で .mdc ファイルを作成</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="step-number">2</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-lg mb-2">手動設定（カスタマイズしたい人向け）</h4>
+                        <p class="mb-3">より細かい制御が必要な場合は手動でルールを作成できます。</p>
+                        <div class="info-box">
+                            <h5 class="font-bold mb-2">手順：</h5>
+                            <ol class="list-decimal pl-5 space-y-1">
+                                <li><code>⌘ + Shift + P</code>（MacOS）or <code>Ctrl + Shift + P</code>（Windows）</li>
+                                <li>「File: New Cursor Rule」を選択</li>
+                                <li>ファイル名を入力（例：<code>my-coding-style</code>）</li>
+                                <li>ルールを書く</li>
+                            </ol>
+                        </div>
+
+                        <h5 class="font-bold text-lg mb-2 mt-4">超シンプルなルール例：</h5>
+                        <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'simple-rule')">コピー</button>
+<pre id="simple-rule"># 私の開発スタイル
+
+## 基本的なお願い
+- TypeScriptを使ってください
+- 関数コンポーネントでお願いします
+- エラーハンドリングを忘れずに
+- コメントは日本語でお願いします
+
+## よく使う構成
+- Next.js 14
+- Tailwind CSS
+- shadcn/ui</pre>
+                        </div>
+                        <div class="highlight-box mt-3">
+                            <p class="text-sm"><strong>これだけでOK！</strong> 難しく考える必要はありません。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="step-number">3</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-lg mb-2">MDCファイルの構造理解（上級者向け）</h4>
+                        <p class="mb-3">より高度な設定をしたい場合はMDC（Metadata + Content）形式を使用します。</p>
+                        <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'mdc-structure')">コピー</button>
+<pre id="mdc-structure">---
+description: ルールの説明
+globs: *.js,*.ts  # 対象ファイルパターン
+alwaysApply: false  # 常時適用するか
+---
+
+ここにルールの内容を記述します。
+- TypeScriptの型定義を必ず使用する
+- 関数には適切なJSDocコメントを追加する
+
+@template.ts  # 参照ファイル</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="step-number">4</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-lg mb-2">ルールタイプの選択</h4>
+                        <p class="mb-3">4つのルールタイプから適切なものを選択します。<strong>迷ったら「Always」でOK！</strong></p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="example-card">
+                                <h5 class="font-bold text-blue-600 mb-2">Always</h5>
+                                <div class="code-block text-sm">
+<button class="copy-button" onclick="copyToClipboard(this, 'always-rule')">コピー</button>
+<pre id="always-rule">---
+alwaysApply: true
+---</pre>
+                                </div>
+                                <p class="text-sm">常にモデルコンテキストに含まれます</p>
+                            </div>
+                            <div class="example-card">
+                                <h5 class="font-bold text-green-600 mb-2">Auto Attached</h5>
+                                <div class="code-block text-sm">
+<button class="copy-button" onclick="copyToClipboard(this, 'auto-rule')">コピー</button>
+<pre id="auto-rule">---
+globs: ["*.tsx", "*.jsx"]
+alwaysApply: false
+---</pre>
+                                </div>
+                                <p class="text-sm">指定パターンのファイルが参照された時に適用</p>
+                            </div>
+                            <div class="example-card">
+                                <h5 class="font-bold text-orange-600 mb-2">Agent Requested</h5>
+                                <div class="code-block text-sm">
+<button class="copy-button" onclick="copyToClipboard(this, 'agent-rule')">コピー</button>
+<pre id="agent-rule">---
+description: "React component patterns"
+alwaysApply: false
+---</pre>
+                                </div>
+                                <p class="text-sm">AIが必要に応じて選択</p>
+                            </div>
+                            <div class="example-card">
+                                <h5 class="font-bold text-red-600 mb-2">Manual</h5>
+                                <div class="code-block text-sm">
+<button class="copy-button" onclick="copyToClipboard(this, 'manual-rule')">コピー</button>
+<pre id="manual-rule">---
+# descriptionなし
+alwaysApply: false
+---</pre>
+                                </div>
+                                <p class="text-sm">@ルール名で明示的に指定時のみ適用</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">
+                <i class="fas fa-user mr-2 text-green-500"></i>
+                ユーザールールの設定
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3">設定手順</h4>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">1</span>
+                        <span>Cursor Settings を開く</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
+                        <span>Rules セクションに移動</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
+                        <span>User Rules にテキストを入力</span>
+                    </div>
+                </div>
+
+                <div class="code-block mt-4">
+<button class="copy-button" onclick="copyToClipboard(this, 'user-rule-example')">コピー</button>
+<pre id="user-rule-example">日本語で簡潔に回答してください。
+不要な繰り返しや冗長な表現は避けてください。
+コードにはわかりやすいコメントを日本語で付けてください。
+エラーハンドリングを適切に実装してください。
+型安全性を重視したコードを生成してください。</pre>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4 class="font-bold text-lg mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    注意点
+                </h4>
+                <ul class="list-disc pl-6 space-y-1">
+                    <li>ユーザールールはMDC形式をサポートしていません（プレーンテキストのみ）</li>
+                    <li>ルールは500行以下に抑えることを推奨</li>
+                    <li>大きな概念は複数のルールに分割して組み合わせ可能にする</li>
+                    <li>XML形式はMarkdownよりも高精度で推奨される</li>
+                </ul>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">
+                <i class="fas fa-magic mr-2 text-purple-500"></i>
+                効果的なルール形式の選択
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3">
+                    <i class="fas fa-code mr-2 text-purple-600"></i>
+                    推奨フォーマット比較
+                </h4>
+                <p class="mb-4">
+                    コミュニティの研究により、以下の形式の効果が確認されています：
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="example-card border-l-4 border-green-500">
+                        <h5 class="font-bold text-green-600 mb-2">XML形式（推奨）</h5>
+                        <p class="text-sm text-gray-600 mb-2">高精度なアプリケーション向け</p>
+                        <div class="code-block text-xs">
+<button class="copy-button" onclick="copyToClipboard(this, 'xml-format')">コピー</button>
+<pre id="xml-format">&lt;rules&gt;
+  &lt;coding_style&gt;
+    &lt;functions&gt;単一責任の原則&lt;/functions&gt;
+    &lt;naming&gt;camelCase&lt;/naming&gt;
+  &lt;/coding_style&gt;
+&lt;/rules&gt;</pre>
+                        </div>
+                    </div>
+                    <div class="example-card border-l-4 border-blue-500">
+                        <h5 class="font-bold text-blue-600 mb-2">Markdown形式</h5>
+                        <p class="text-sm text-gray-600 mb-2">可読性重視の場合</p>
+                        <div class="code-block text-xs">
+<button class="copy-button" onclick="copyToClipboard(this, 'markdown-format')">コピー</button>
+<pre id="markdown-format"># コーディング規約
+## 関数
+- 単一責任の原則
+## 命名規則
+- camelCase使用</pre>
+                        </div>
+                    </div>
+                    <div class="example-card border-l-4 border-red-500">
+                        <h5 class="font-bold text-red-600 mb-2">JSON形式（非推奨）</h5>
+                        <p class="text-sm text-gray-600 mb-2">パフォーマンスが低い</p>
+                        <div class="code-block text-xs">
+<button class="copy-button" onclick="copyToClipboard(this, 'json-format')">コピー</button>
+<pre id="json-format">{
+  "rules": {
+    "functions": "単一責任",
+    "naming": "camelCase"
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第5章：実践的な使用例 -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-code mr-3"></i>
+                第5章：実践的な使用例
+            </h2>
+            <p class="text-lg mt-2">実際の開発現場で使えるルール集</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-react mr-2 text-blue-400"></i>
+                React開発用ルール
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3 text-blue-600">
+                    <i class="fas fa-file-code mr-2"></i>
+                    react-best-practices.mdc
+                </h4>
+                <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'react-rules')">コピー</button>
+<pre id="react-rules">---
+description: React component development best practices
+globs: ["*.tsx", "*.jsx"]
+alwaysApply: false
+---
+
+# React Development Rules
+
+## Component Structure
+- Use functional components with hooks
+- Follow the pattern: imports → types → component → export
+- Use TypeScript for all new components
+
+## Naming Conventions
+- Components: PascalCase (e.g., UserProfile)
+- Files: PascalCase for components, camelCase for utilities
+- Props interfaces: ComponentNameProps
+
+## Code Style
+- Use arrow functions for components
+- Destructure props in component parameters
+- Use const assertions for component props when appropriate
+
+## Example Component Structure:
+```typescript
+import React from 'react';
+
+interface UserProfileProps {
+  name: string;
+  email: string;
+}
+
+const UserProfile: React.FC&lt;UserProfileProps&gt; = ({ name, email }) =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{name}&lt;/h1&gt;
+      &lt;p&gt;{email}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default UserProfile;
+```
+
+@component-template.tsx</pre>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3 text-green-600">
+                    <i class="fas fa-file-code mr-2"></i>
+                    component-template.tsx（参照ファイル）
+                </h4>
+                <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'component-template')">コピー</button>
+<pre id="component-template">import React from 'react';
+
+interface TemplateProps {
+  title: string;
+  description?: string;
+}
+
+const Template: React.FC&lt;TemplateProps&gt; = ({ title, description }) =&gt; {
+  return (
+    &lt;div className="template"&gt;
+      &lt;h1&gt;{title}&lt;/h1&gt;
+      {description && &lt;p&gt;{description}&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+};
+
+export default Template;</pre>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-server mr-2 text-green-500"></i>
+                Node.js/Express開発用ルール
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3 text-green-600">
+                    <i class="fas fa-file-code mr-2"></i>
+                    nodejs-api-patterns.mdc
+                </h4>
+                <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'nodejs-rules')">コピー</button>
+<pre id="nodejs-rules">---
+description: Node.js API development patterns
+globs: ["**/routes/*.js", "**/controllers/*.js", "**/middleware/*.js"]
+alwaysApply: false
+---
+
+# Node.js API Development Rules
+
+## Error Handling
+- Always use try-catch blocks for async operations
+- Return consistent error response format
+- Log errors with appropriate levels
+
+## Route Structure
+- Use express.Router() for modular routes
+- Implement middleware for authentication and validation
+- Follow RESTful conventions
+
+## Response Format
+```javascript
+// Success Response
+{
+  "success": true,
+  "data": {},
+  "message": "Operation completed successfully"
+}
+
+// Error Response
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input data"
+  }
+}
+```
+
+## Security Best Practices
+- Validate all input data
+- Use environment variables for sensitive config
+- Implement rate limiting
+- Use HTTPS in production
+
+@api-template.js</pre>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-database mr-2 text-purple-500"></i>
+                データベース操作ルール
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3 text-purple-600">
+                    <i class="fas fa-file-code mr-2"></i>
+                    database-patterns.mdc
+                </h4>
+                <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'database-rules')">コピー</button>
+<pre id="database-rules">---
+description: Database operation patterns and best practices
+globs: ["**/models/*.js", "**/db/*.js", "**/migrations/*.js"]
+alwaysApply: false
+---
+
+# Database Operation Rules
+
+## Query Optimization
+- Use parameterized queries to prevent SQL injection
+- Implement proper indexing strategies
+- Use connection pooling for performance
+
+## Transaction Handling
+- Wrap related operations in transactions
+- Implement proper rollback mechanisms
+- Use read replicas for read-heavy operations
+
+## Schema Design
+- Use meaningful table and column names
+- Implement proper foreign key constraints
+- Version all schema changes with migrations
+
+## Example Query Pattern:
+```javascript
+// Using prepared statements
+const getUserById = async (id) => {
+  try {
+    const query = 'SELECT * FROM users WHERE id = ?';
+    const [rows] = await db.execute(query, [id]);
+    return rows[0];
+  } catch (error) {
+    logger.error('Error fetching user:', error);
+    throw error;
+  }
+};
+```</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第6章：ワンクリックテンプレート集 -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-copy mr-3"></i>
+                第6章：ワンクリックテンプレート集
+            </h2>
+            <p class="text-lg mt-2">100+の即戦力テンプレート</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-search mr-2 text-blue-500"></i>
+                テンプレート検索とフィルタ
+            </h3>
+
+            <div class="mb-4">
+                <input type="text" id="template-search" class="search-box" placeholder="テンプレートを検索...（例：React, API, database）">
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全て</button>
+                <button class="filter-btn" data-filter="frontend">フロントエンド</button>
+                <button class="filter-btn" data-filter="backend">バックエンド</button>
+                <button class="filter-btn" data-filter="mobile">モバイル</button>
+                <button class="filter-btn" data-filter="database">データベース</button>
+                <button class="filter-btn" data-filter="testing">テスト</button>
+                <button class="filter-btn" data-filter="security">セキュリティ</button>
+                <button class="filter-btn" data-filter="devops">DevOps</button>
+            </div>
+
+            <div class="info-box">
+                <h4 class="text-lg font-bold mb-2">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    使用方法
+                </h4>
+                <p class="text-sm">
+                    各テンプレートの「コピー」ボタンをクリックして、内容をクリップボードにコピーできます。
+                    プロジェクトの<code>.cursor/rules/</code>ディレクトリに新しい<code>.mdc</code>ファイルを作成し、
+                    コピーした内容を貼り付けてください。
+                </p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-layer-group mr-2 text-indigo-500"></i>
+                フロントエンド開発テンプレート
+            </h3>
+
+            <div class="template-grid" id="template-container">
+                <!-- React関連テンプレート -->
+                <div class="template-card" data-category="frontend" data-tags="react typescript hooks">
+                    <div class="template-header">
+                        <span class="template-title">React + TypeScript基本ルール</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'react-typescript-basic')">コピー</button>
+                    </div>
+                    <p class="template-description">React開発の基本ルールとTypeScript統合</p>
+                    <div class="template-tags">
+                        <span class="template-tag">React</span>
+                        <span class="template-tag">TypeScript</span>
+                        <span class="template-tag">Hooks</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="react-typescript-basic">
+<pre>---
+description: React + TypeScript development standards
+globs: ["*.tsx", "*.jsx"]
+alwaysApply: false
+---
+
+# React + TypeScript Rules
+
+## Component Standards
+- Use functional components with hooks exclusively
+- Always define proper TypeScript interfaces for props
+- Use React.FC type for components
+- Implement proper error boundaries
+
+## Naming Conventions
+- Components: PascalCase (UserProfile, NavigationBar)
+- Props interfaces: ComponentNameProps
+- Custom hooks: useXxx pattern
+- Files: PascalCase for components
+
+## Code Structure
+```typescript
+import React from 'react';
+
+interface UserCardProps {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  onEdit?: (id: string) => void;
+}
+
+const UserCard: React.FC&lt;UserCardProps&gt; = ({ user, onEdit }) =&gt; {
+  return (
+    &lt;div className="user-card"&gt;
+      &lt;h3&gt;{user.name}&lt;/h3&gt;
+      &lt;p&gt;{user.email}&lt;/p&gt;
+      {onEdit && (
+        &lt;button onClick={() =&gt; onEdit(user.id)}&gt;
+          Edit
+        &lt;/button&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+export default UserCard;
+```</pre>
+                    </div>
+                </div>
+
+                <div class="template-card" data-category="frontend" data-tags="react hooks state">
+                    <div class="template-header">
+                        <span class="template-title">React Hooks最適化</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'react-hooks-optimization')">コピー</button>
+                    </div>
+                    <p class="template-description">パフォーマンス最適化とHooks活用パターン</p>
+                    <div class="template-tags">
+                        <span class="template-tag">React</span>
+                        <span class="template-tag">Hooks</span>
+                        <span class="template-tag">Performance</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="react-hooks-optimization">
+<pre>---
+description: React Hooks optimization patterns
+globs: ["*.tsx", "*.jsx", "**/hooks/*.ts"]
+alwaysApply: false
+---
+
+# React Hooks Optimization Rules
+
+## Performance Optimization
+- Use useMemo for expensive calculations
+- Use useCallback for function props
+- Implement React.memo for component optimization
+- Use useRef for DOM references
+
+## Custom Hooks Patterns
+- Extract reusable logic into custom hooks
+- Return objects instead of arrays for multiple values
+- Use proper dependency arrays
+
+## State Management
+- Use useReducer for complex state logic
+- Combine related state variables
+- Avoid unnecessary re-renders
+
+## Example Optimized Component
+```typescript
+import React, { useMemo, useCallback, memo } from 'react';
+
+interface OptimizedListProps {
+  items: Item[];
+  onItemClick: (id: string) => void;
+}
+
+const OptimizedList = memo&lt;OptimizedListProps&gt;(({ items, onItemClick }) =&gt; {
+  const sortedItems = useMemo(() =&gt; 
+    items.sort((a, b) =&gt; a.name.localeCompare(b.name)),
+    [items]
+  );
+
+  const handleClick = useCallback((id: string) =&gt; {
+    onItemClick(id);
+  }, [onItemClick]);
+
+  return (
+    &lt;ul&gt;
+      {sortedItems.map(item =&gt; (
+        &lt;li key={item.id} onClick={() =&gt; handleClick(item.id)}&gt;
+          {item.name}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+});
+```</pre>
+                    </div>
+                </div>
+
+                <div class="template-card" data-category="frontend" data-tags="vue composition typescript">
+                    <div class="template-header">
+                        <span class="template-title">Vue 3 Composition API</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'vue3-composition')">コピー</button>
+                    </div>
+                    <p class="template-description">Vue 3のComposition APIとTypeScript統合</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Vue 3</span>
+                        <span class="template-tag">Composition API</span>
+                        <span class="template-tag">TypeScript</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="vue3-composition">
+<pre>---
+description: Vue 3 Composition API with TypeScript
+globs: ["*.vue", "**/components/*.vue"]
+alwaysApply: false
+---
+
+# Vue 3 Composition API Rules
+
+## Component Structure
+- Use &lt;script setup&gt; syntax for cleaner code
+- Define proper TypeScript interfaces
+- Use ref and reactive appropriately
+- Implement proper lifecycle management
+
+## Naming Conventions
+- Components: PascalCase
+- Composables: use + PascalCase
+- Props: camelCase
+- Events: kebab-case
+
+## Code Pattern
+```vue
+&lt;script setup lang="ts"&gt;
+import { ref, computed, onMounted } from 'vue'
+
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
+interface Props {
+  userId: string
+}
+
+const props = defineProps&lt;Props&gt;()
+
+const emit = defineEmits&lt;{
+  userUpdated: [user: User]
+  error: [message: string]
+}&gt;()
+
+const user = ref&lt;User | null&gt;(null)
+const loading = ref(false)
+
+const displayName = computed(() =&gt; 
+  user.value ? `${user.value.name} (${user.value.email})` : ''
+)
+
+const fetchUser = async () =&gt; {
+  loading.value = true
+  try {
+    // API call logic
+    emit('userUpdated', user.value!)
+  } catch (error) {
+    emit('error', 'Failed to fetch user')
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() =&gt; {
+  fetchUser()
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div v-if="loading"&gt;Loading...&lt;/div&gt;
+  &lt;div v-else-if="user"&gt;
+    &lt;h2&gt;{{ displayName }}&lt;/h2&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+```</pre>
+                    </div>
+                </div>
+
+                <div class="template-card" data-category="frontend" data-tags="nextjs react ssr">
+                    <div class="template-header">
+                        <span class="template-title">Next.js 14 App Router</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'nextjs14-app-router')">コピー</button>
+                    </div>
+                    <p class="template-description">Next.js 14のApp Routerとサーバーコンポーネント</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Next.js</span>
+                        <span class="template-tag">App Router</span>
+                        <span class="template-tag">SSR</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="nextjs14-app-router">
+<pre>---
+description: Next.js 14 App Router development patterns
+globs: ["**/app/**/*.tsx", "**/app/**/*.ts"]
+alwaysApply: false
+---
+
+# Next.js 14 App Router Rules
+
+## File Structure
+- Use app directory structure
+- Implement proper page.tsx and layout.tsx
+- Use loading.tsx and error.tsx for UI states
+- Organize route groups with parentheses
+
+## Server vs Client Components
+- Default to Server Components when possible
+- Use 'use client' only when necessary
+- Implement proper data fetching patterns
+- Handle streaming and suspense properly
+
+## Code Patterns
+```typescript
+// app/users/[id]/page.tsx
+import { Suspense } from 'react'
+import { notFound } from 'next/navigation'
+
+interface PageProps {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+// Server Component by default
+export default async function UserPage({ params }: PageProps) {
+  const user = await fetchUser(params.id)
+  
+  if (!user) {
+    notFound()
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{user.name}&lt;/h1&gt;
+      &lt;Suspense fallback={&lt;div&gt;Loading posts...&lt;/div&gt;}&gt;
+        &lt;UserPosts userId={user.id} /&gt;
+      &lt;/Suspense&gt;
+    &lt;/div&gt;
+  )
+}
+
+// Metadata API
+export async function generateMetadata({ params }: PageProps) {
+  const user = await fetchUser(params.id)
+  
+  return {
+    title: `${user?.name} | Users`,
+    description: `Profile page for ${user?.name}`
+  }
+}
+```</pre>
+                    </div>
+                </div>
+
+                <!-- バックエンド関連テンプレート -->
+                <div class="template-card" data-category="backend" data-tags="nodejs express api">
+                    <div class="template-header">
+                        <span class="template-title">Express.js RESTful API</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'express-restful-api')">コピー</button>
+                    </div>
+                    <p class="template-description">Express.jsを使ったRESTful API開発パターン</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Node.js</span>
+                        <span class="template-tag">Express</span>
+                        <span class="template-tag">REST API</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="express-restful-api">
+<pre>---
+description: Express.js RESTful API development patterns
+globs: ["**/routes/*.js", "**/controllers/*.js", "**/middleware/*.js"]
+alwaysApply: false
+---
+
+# Express.js RESTful API Rules
+
+## Route Structure
+- Use express.Router() for modular routing
+- Implement proper HTTP status codes
+- Use middleware for cross-cutting concerns
+- Follow RESTful naming conventions
+
+## Error Handling
+- Implement centralized error handling
+- Use async/await with proper try-catch
+- Return consistent error responses
+- Log errors appropriately
+
+## Code Pattern
+```javascript
+// routes/users.js
+const express = require('express');
+const { body, validationResult } = require('express-validator');
+const User = require('../models/User');
+const auth = require('../middleware/auth');
+
+const router = express.Router();
+
+// GET /api/users
+router.get('/', auth, async (req, res, next) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const users = await User.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    res.json({
+      success: true,
+      data: users,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit)
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST /api/users
+router.post('/', [
+  body('name').notEmpty().withMessage('Name is required'),
+  body('email').isEmail().withMessage('Valid email is required')
+], async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        errors: errors.array()
+      });
+    }
+
+    const user = new User(req.body);
+    await user.save();
+
+    res.status(201).json({
+      success: true,
+      data: user
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = router;
+```</pre>
+                    </div>
+                </div>
+
+                <div class="template-card" data-category="backend" data-tags="python fastapi async">
+                    <div class="template-header">
+                        <span class="template-title">FastAPI Python API</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'fastapi-python')">コピー</button>
+                    </div>
+                    <p class="template-description">FastAPIを使った高性能Python API開発</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Python</span>
+                        <span class="template-tag">FastAPI</span>
+                        <span class="template-tag">Async</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="fastapi-python">
+<pre>---
+description: FastAPI Python development best practices
+globs: ["**/*.py", "**/routers/*.py", "**/models/*.py"]
+alwaysApply: false
+---
+
+# FastAPI Development Rules
+
+## Code Structure
+- Use Pydantic models for request/response validation
+- Implement proper dependency injection
+- Use async/await for I/O operations
+- Follow Python type hints consistently
+
+## API Design
+- Use proper HTTP status codes
+- Implement comprehensive error handling
+- Add OpenAPI documentation
+- Use path and query parameters appropriately
+
+## Code Pattern
+```python
+from fastapi import FastAPI, HTTPException, Depends, status
+from pydantic import BaseModel, EmailStr
+from typing import List, Optional
+import asyncio
+
+app = FastAPI(title="User API", version="1.0.0")
+
+class UserCreate(BaseModel):
+    name: str
+    email: EmailStr
+    age: Optional[int] = None
+
+class UserResponse(BaseModel):
+    id: int
+    name: str
+    email: str
+    age: Optional[int] = None
+    
+    class Config:
+        from_attributes = True
+
+class UserService:
+    async def get_user(self, user_id: int) -> Optional[UserResponse]:
+        # Database logic here
+        pass
+    
+    async def create_user(self, user_data: UserCreate) -> UserResponse:
+        # Database logic here
+        pass
+
+def get_user_service() -> UserService:
+    return UserService()
+
+@app.get("/users/{user_id}", response_model=UserResponse)
+async def get_user(
+    user_id: int,
+    user_service: UserService = Depends(get_user_service)
+):
+    user = await user_service.get_user(user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    return user
+
+@app.post("/users", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+async def create_user(
+    user_data: UserCreate,
+    user_service: UserService = Depends(get_user_service)
+):
+    try:
+        return await user_service.create_user(user_data)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+```</pre>
+                    </div>
+                </div>
+
+                <div class="template-card" data-category="backend" data-tags="go fiber api">
+                    <div class="template-header">
+                        <span class="template-title">Go + Fiber API</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'go-fiber-api')">コピー</button>
+                    </div>
+                    <p class="template-description">Go言語とFiberフレームワークでの高性能API</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Go</span>
+                        <span class="template-tag">Fiber</span>
+                        <span class="template-tag">High Performance</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="go-fiber-api">
+<pre>---
+description: Go + Fiber high-performance API development
+globs: ["**/*.go", "**/handlers/*.go", "**/models/*.go"]
+alwaysApply: false
+---
+
+# Go + Fiber API Rules
+
+## Code Structure
+- Use proper struct tags for JSON serialization
+- Implement middleware for common functionality
+- Use context for request-scoped values
+- Follow Go naming conventions
+
+## Error Handling
+- Use custom error types
+- Implement proper error responses
+- Log errors with context
+- Return appropriate HTTP status codes
+
+## Code Pattern
+```go
+package main
+
+import (
+    "log"
+    "github.com/gofiber/fiber/v2"
+    "github.com/gofiber/fiber/v2/middleware/cors"
+    "github.com/gofiber/fiber/v2/middleware/logger"
+)
+
+type User struct {
+    ID    uint   `json:"id" gorm:"primaryKey"`
+    Name  string `json:"name" validate:"required,min=2,max=50"`
+    Email string `json:"email" validate:"required,email"`
+}
+
+type UserRequest struct {
+    Name  string `json:"name" validate:"required"`
+    Email string `json:"email" validate:"required,email"`
+}
+
+type ErrorResponse struct {
+    Success bool   `json:"success"`
+    Message string `json:"message"`
+    Error   string `json:"error,omitempty"`
+}
+
+type SuccessResponse struct {
+    Success bool        `json:"success"`
+    Data    interface{} `json:"data"`
+    Message string      `json:"message,omitempty"`
+}
+
+func setupRoutes(app *fiber.App) {
+    api := app.Group("/api/v1")
+    
+    users := api.Group("/users")
+    users.Get("/", getUsers)
+    users.Get("/:id", getUser)
+    users.Post("/", createUser)
+    users.Put("/:id", updateUser)
+    users.Delete("/:id", deleteUser)
+}
+
+func getUsers(c *fiber.Ctx) error {
+    // Implementation here
+    users := []User{} // Fetch from database
+    
+    return c.JSON(SuccessResponse{
+        Success: true,
+        Data:    users,
+        Message: "Users retrieved successfully",
+    })
+}
+
+func createUser(c *fiber.Ctx) error {
+    var req UserRequest
+    
+    if err := c.BodyParser(&req); err != nil {
+        return c.Status(fiber.StatusBadRequest).JSON(ErrorResponse{
+            Success: false,
+            Message: "Invalid request body",
+            Error:   err.Error(),
+        })
+    }
+    
+    // Validation logic here
+    // Database save logic here
+    
+    return c.Status(fiber.StatusCreated).JSON(SuccessResponse{
+        Success: true,
+        Data:    req,
+        Message: "User created successfully",
+    })
+}
+
+func main() {
+    app := fiber.New(fiber.Config{
+        ErrorHandler: func(c *fiber.Ctx, err error) error {
+            code := fiber.StatusInternalServerError
+            if e, ok := err.(*fiber.Error); ok {
+                code = e.Code
+            }
+            
+            return c.Status(code).JSON(ErrorResponse{
+                Success: false,
+                Message: "An error occurred",
+                Error:   err.Error(),
+            })
+        },
+    })
+    
+    app.Use(logger.New())
+    app.Use(cors.New())
+    
+    setupRoutes(app)
+    
+    log.Fatal(app.Listen(":3000"))
+}
+```</pre>
+                    </div>
+                </div>
+
+                <!-- データベース関連テンプレート -->
+                <div class="template-card" data-category="database" data-tags="prisma orm typescript">
+                    <div class="template-header">
+                        <span class="template-title">Prisma ORM パターン</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'prisma-orm-patterns')">コピー</button>
+                    </div>
+                    <p class="template-description">Prisma ORMを使ったデータベース操作のベストプラクティス</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Prisma</span>
+                        <span class="template-tag">ORM</span>
+                        <span class="template-tag">TypeScript</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="prisma-orm-patterns">
+<pre>---
+description: Prisma ORM database patterns and best practices
+globs: ["**/prisma/*.ts", "**/db/*.ts", "**/models/*.ts"]
+alwaysApply: false
+---
+
+# Prisma ORM Development Rules
+
+## Schema Design
+- Use proper field types and constraints
+- Implement relations correctly
+- Use indexes for performance
+- Version schema changes with migrations
+
+## Query Optimization
+- Use select to fetch only needed fields
+- Implement proper pagination
+- Use includes for related data
+- Avoid N+1 queries with proper includes
+
+## Code Pattern
+```typescript
+// db/user.ts
+import { PrismaClient, User, Prisma } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+export class UserService {
+  async findMany(params: {
+    skip?: number
+    take?: number
+    where?: Prisma.UserWhereInput
+    orderBy?: Prisma.UserOrderByWithRelationInput
+    include?: Prisma.UserInclude
+  }): Promise&lt;User[]&gt; {
+    const { skip, take, where, orderBy, include } = params
+    
+    return prisma.user.findMany({
+      skip,
+      take,
+      where,
+      orderBy,
+      include,
+    })
+  }
+
+  async findById(id: string, include?: Prisma.UserInclude): Promise&lt;User | null&gt; {
+    return prisma.user.findUnique({
+      where: { id },
+      include,
+    })
+  }
+
+  async create(data: Prisma.UserCreateInput): Promise&lt;User&gt; {
+    return prisma.user.create({
+      data,
+      include: {
+        profile: true,
+        posts: {
+          take: 10,
+          orderBy: { createdAt: 'desc' }
+        }
+      }
+    })
+  }
+
+  async update(id: string, data: Prisma.UserUpdateInput): Promise&lt;User&gt; {
+    return prisma.user.update({
+      where: { id },
+      data,
+    })
+  }
+
+  async delete(id: string): Promise&lt;User&gt; {
+    return prisma.user.delete({
+      where: { id },
+    })
+  }
+
+  async getUsersWithPosts(limit = 10): Promise&lt;User[]&gt; {
+    return prisma.user.findMany({
+      take: limit,
+      include: {
+        posts: {
+          take: 5,
+          orderBy: { createdAt: 'desc' },
+          select: {
+            id: true,
+            title: true,
+            createdAt: true,
+          }
+        },
+        _count: {
+          select: { posts: true }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+  }
+
+  async getUserStats(userId: string) {
+    const [user, postCount, commentCount] = await Promise.all([
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: { id: true, name: true, email: true }
+      }),
+      prisma.post.count({ where: { authorId: userId } }),
+      prisma.comment.count({ where: { authorId: userId } })
+    ])
+
+    return {
+      user,
+      stats: {
+        posts: postCount,
+        comments: commentCount
+      }
+    }
+  }
+}
+
+export const userService = new UserService()
+```</pre>
+                    </div>
+                </div>
+
+                <!-- テスト関連テンプレート -->
+                <div class="template-card" data-category="testing" data-tags="jest testing unit">
+                    <div class="template-header">
+                        <span class="template-title">Jest Unit Testing</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'jest-unit-testing')">コピー</button>
+                    </div>
+                    <p class="template-description">Jestを使った包括的なユニットテストパターン</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Jest</span>
+                        <span class="template-tag">Unit Testing</span>
+                        <span class="template-tag">TDD</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="jest-unit-testing">
+<pre>---
+description: Jest unit testing patterns and best practices
+globs: ["**/*.test.ts", "**/*.test.js", "**/*.spec.ts", "**/*.spec.js"]
+alwaysApply: false
+---
+
+# Jest Unit Testing Rules
+
+## Test Structure
+- Follow AAA pattern (Arrange, Act, Assert)
+- Use descriptive test names
+- Group related tests with describe blocks
+- Use beforeEach/afterEach for setup/cleanup
+
+## Mocking Strategy
+- Mock external dependencies
+- Use jest.fn() for function mocks
+- Reset mocks between tests
+- Mock at the module level when appropriate
+
+## Code Pattern
+```typescript
+// __tests__/userService.test.ts
+import { UserService } from '../services/UserService'
+import { UserRepository } from '../repositories/UserRepository'
+import { EmailService } from '../services/EmailService'
+
+// Mock dependencies
+jest.mock('../repositories/UserRepository')
+jest.mock('../services/EmailService')
+
+const mockUserRepository = UserRepository as jest.MockedClass&lt;typeof UserRepository&gt;
+const mockEmailService = EmailService as jest.MockedClass&lt;typeof EmailService&gt;
+
+describe('UserService', () =&gt; {
+  let userService: UserService
+  let userRepositoryMock: jest.MockedObjectDeep&lt;UserRepository&gt;
+  let emailServiceMock: jest.MockedObjectDeep&lt;EmailService&gt;
+
+  beforeEach(() =&gt; {
+    // Reset mocks
+    jest.clearAllMocks()
+    
+    // Create mock instances
+    userRepositoryMock = new mockUserRepository() as jest.MockedObjectDeep&lt;UserRepository&gt;
+    emailServiceMock = new mockEmailService() as jest.MockedObjectDeep&lt;EmailService&gt;
+    
+    // Initialize service with mocks
+    userService = new UserService(userRepositoryMock, emailServiceMock)
+  })
+
+  describe('createUser', () =&gt; {
+    it('should create user successfully when valid data is provided', async () =&gt; {
+      // Arrange
+      const userData = {
+        name: 'John Doe',
+        email: '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e48e8b8c8aa4819c8589948881ca878b89">[email&#160;protected]</a>',
+        age: 30
+      }
+      const expectedUser = { id: '1', ...userData }
+      
+      userRepositoryMock.findByEmail.mockResolvedValue(null)
+      userRepositoryMock.create.mockResolvedValue(expectedUser)
+      emailServiceMock.sendWelcomeEmail.mockResolvedValue(true)
+
+      // Act
+      const result = await userService.createUser(userData)
+
+      // Assert
+      expect(result).toEqual(expectedUser)
+      expect(userRepositoryMock.findByEmail).toHaveBeenCalledWith(userData.email)
+      expect(userRepositoryMock.create).toHaveBeenCalledWith(userData)
+      expect(emailServiceMock.sendWelcomeEmail).toHaveBeenCalledWith(expectedUser)
+    })
+
+    it('should throw error when user already exists', async () =&gt; {
+      // Arrange
+      const userData = {
+        name: 'John Doe',
+        email: '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107a7f787e507568717d607c753e737f7d">[email&#160;protected]</a>',
+        age: 30
+      }
+      const existingUser = { id: '1', ...userData }
+      
+      userRepositoryMock.findByEmail.mockResolvedValue(existingUser)
+
+      // Act & Assert
+      await expect(userService.createUser(userData))
+        .rejects
+        .toThrow('User with email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="503a3f383e103528313d203c357e333f3d">[email&#160;protected]</a> already exists')
+      
+      expect(userRepositoryMock.create).not.toHaveBeenCalled()
+      expect(emailServiceMock.sendWelcomeEmail).not.toHaveBeenCalled()
+    })
+
+    it('should handle repository errors gracefully', async () =&gt; {
+      // Arrange
+      const userData = {
+        name: 'John Doe',
+        email: '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7bdb8bfb997b2afb6baa7bbb2f9b4b8ba">[email&#160;protected]</a>',
+        age: 30
+      }
+      
+      userRepositoryMock.findByEmail.mockResolvedValue(null)
+      userRepositoryMock.create.mockRejectedValue(new Error('Database error'))
+
+      // Act & Assert
+      await expect(userService.createUser(userData))
+        .rejects
+        .toThrow('Database error')
+    })
+  })
+
+  describe('getUserById', () =&gt; {
+    it('should return user when found', async () =&gt; {
+      // Arrange
+      const userId = '1'
+      const expectedUser = {
+        id: userId,
+        name: 'John Doe',
+        email: '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="452f2a2d2b05203d24283529206b262a28">[email&#160;protected]</a>'
+      }
+      
+      userRepositoryMock.findById.mockResolvedValue(expectedUser)
+
+      // Act
+      const result = await userService.getUserById(userId)
+
+      // Assert
+      expect(result).toEqual(expectedUser)
+      expect(userRepositoryMock.findById).toHaveBeenCalledWith(userId)
+    })
+
+    it('should return null when user not found', async () =&gt; {
+      // Arrange
+      const userId = 'nonexistent'
+      
+      userRepositoryMock.findById.mockResolvedValue(null)
+
+      // Act
+      const result = await userService.getUserById(userId)
+
+      // Assert
+      expect(result).toBeNull()
+      expect(userRepositoryMock.findById).toHaveBeenCalledWith(userId)
+    })
+  })
+})
+```</pre>
+                    </div>
+                </div>
+
+                <!-- セキュリティ関連テンプレート -->
+                <div class="template-card" data-category="security" data-tags="security auth jwt">
+                    <div class="template-header">
+                        <span class="template-title">JWT認証セキュリティ</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'jwt-auth-security')">コピー</button>
+                    </div>
+                    <p class="template-description">JWT認証とセキュリティのベストプラクティス</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Security</span>
+                        <span class="template-tag">JWT</span>
+                        <span class="template-tag">Authentication</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="jwt-auth-security">
+<pre>---
+description: JWT authentication and security best practices
+globs: ["**/auth/*.ts", "**/middleware/*.ts", "**/security/*.ts"]
+alwaysApply: false
+---
+
+# JWT Authentication Security Rules
+
+## Security Principles
+- Use secure HTTP-only cookies for tokens
+- Implement proper CSRF protection
+- Use refresh token rotation
+- Validate all inputs thoroughly
+- Implement rate limiting
+
+## Token Management
+- Short-lived access tokens (15 minutes)
+- Longer-lived refresh tokens (7 days)
+- Implement token blacklisting
+- Use secure token storage
+
+## Code Pattern
+```typescript
+// auth/authService.ts
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import { User } from '../models/User'
+
+interface TokenPayload {
+  userId: string
+  email: string
+  role: string
+}
+
+export class AuthService {
+  private readonly accessTokenSecret = process.env.ACCESS_TOKEN_SECRET!
+  private readonly refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET!
+  private readonly accessTokenExpiry = '15m'
+  private readonly refreshTokenExpiry = '7d'
+
+  async hashPassword(password: string): Promise&lt;string&gt; {
+    const saltRounds = 12
+    return bcrypt.hash(password, saltRounds)
+  }
+
+  async verifyPassword(password: string, hash: string): Promise&lt;boolean&gt; {
+    return bcrypt.compare(password, hash)
+  }
+
+  generateAccessToken(payload: TokenPayload): string {
+    return jwt.sign(payload, this.accessTokenSecret, {
+      expiresIn: this.accessTokenExpiry,
+      issuer: 'your-app',
+      audience: 'your-app-users'
+    })
+  }
+
+  generateRefreshToken(payload: TokenPayload): string {
+    return jwt.sign(payload, this.refreshTokenSecret, {
+      expiresIn: this.refreshTokenExpiry,
+      issuer: 'your-app',
+      audience: 'your-app-users'
+    })
+  }
+
+  verifyAccessToken(token: string): TokenPayload {
+    try {
+      return jwt.verify(token, this.accessTokenSecret) as TokenPayload
+    } catch (error) {
+      throw new Error('Invalid access token')
+    }
+  }
+
+  verifyRefreshToken(token: string): TokenPayload {
+    try {
+      return jwt.verify(token, this.refreshTokenSecret) as TokenPayload
+    } catch (error) {
+      throw new Error('Invalid refresh token')
+    }
+  }
+
+  async login(email: string, password: string): Promise&lt;{
+    user: User,
+    accessToken: string,
+    refreshToken: string
+  }&gt; {
+    // Input validation
+    if (!email || !password) {
+      throw new Error('Email and password are required')
+    }
+
+    // Find user
+    const user = await User.findOne({ email })
+    if (!user) {
+      throw new Error('Invalid credentials')
+    }
+
+    // Verify password
+    const isValidPassword = await this.verifyPassword(password, user.password)
+    if (!isValidPassword) {
+      throw new Error('Invalid credentials')
+    }
+
+    // Generate tokens
+    const payload: TokenPayload = {
+      userId: user.id,
+      email: user.email,
+      role: user.role
+    }
+
+    const accessToken = this.generateAccessToken(payload)
+    const refreshToken = this.generateRefreshToken(payload)
+
+    // Store refresh token in database
+    await user.updateOne({ refreshToken })
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role
+      },
+      accessToken,
+      refreshToken
+    }
+  }
+
+  async refreshTokens(refreshToken: string): Promise&lt;{
+    accessToken: string,
+    refreshToken: string
+  }&gt; {
+    // Verify refresh token
+    const payload = this.verifyRefreshToken(refreshToken)
+
+    // Find user and verify stored refresh token
+    const user = await User.findById(payload.userId)
+    if (!user || user.refreshToken !== refreshToken) {
+      throw new Error('Invalid refresh token')
+    }
+
+    // Generate new tokens
+    const newPayload: TokenPayload = {
+      userId: user.id,
+      email: user.email,
+      role: user.role
+    }
+
+    const newAccessToken = this.generateAccessToken(newPayload)
+    const newRefreshToken = this.generateRefreshToken(newPayload)
+
+    // Update stored refresh token
+    await user.updateOne({ refreshToken: newRefreshToken })
+
+    return {
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken
+    }
+  }
+
+  async logout(userId: string): Promise&lt;void&gt; {
+    // Clear refresh token from database
+    await User.findByIdAndUpdate(userId, { refreshToken: null })
+  }
+}
+
+// middleware/auth.ts
+import { Request, Response, NextFunction } from 'express'
+import { AuthService } from '../auth/authService'
+
+interface AuthRequest extends Request {
+  user?: TokenPayload
+}
+
+export const authenticateToken = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) =&gt; {
+  try {
+    const authHeader = req.headers.authorization
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Access token required'
+      })
+    }
+
+    const authService = new AuthService()
+    const payload = authService.verifyAccessToken(token)
+    
+    req.user = payload
+    next()
+  } catch (error) {
+    return res.status(403).json({
+      success: false,
+      message: 'Invalid or expired token'
+    })
+  }
+}
+
+export const requireRole = (roles: string[]) =&gt; {
+  return (req: AuthRequest, res: Response, next: NextFunction) =&gt; {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      })
+    }
+
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: 'Insufficient permissions'
+      })
+    }
+
+    next()
+  }
+}
+```</pre>
+                    </div>
+                </div>
+
+                <!-- DevOps関連テンプレート -->
+                <div class="template-card" data-category="devops" data-tags="docker containerization ci">
+                    <div class="template-header">
+                        <span class="template-title">Docker コンテナ化</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'docker-containerization')">コピー</button>
+                    </div>
+                    <p class="template-description">Dockerを使った効率的なコンテナ化パターン</p>
+                    <div class="template-tags">
+                        <span class="template-tag">Docker</span>
+                        <span class="template-tag">Containerization</span>
+                        <span class="template-tag">DevOps</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="docker-containerization">
+<pre>---
+description: Docker containerization best practices
+globs: ["**/Dockerfile", "**/docker-compose.yml", "**/.dockerignore"]
+alwaysApply: false
+---
+
+# Docker Containerization Rules
+
+## Dockerfile Best Practices
+- Use official base images
+- Minimize layers and image size
+- Use multi-stage builds
+- Set proper user permissions
+- Use .dockerignore effectively
+
+## Security Considerations
+- Don't run as root user
+- Use specific image tags, not 'latest'
+- Scan images for vulnerabilities
+- Use minimal base images
+
+## Code Pattern
+```dockerfile
+# Dockerfile for Node.js application
+# Multi-stage build for production optimization
+
+# Stage 1: Dependencies and build
+FROM node:18-alpine AS builder
+
+# Create app directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy source code
+COPY . .
+
+# Build application
+RUN npm run build
+
+# Stage 2: Production image
+FROM node:18-alpine AS production
+
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Create app directory
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+# Copy built application and dependencies from builder stage
+COPY --from=builder --chown=nextjs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/package*.json ./
+
+# Switch to non-root user
+USER nextjs
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start application
+CMD ["node", "dist/index.js"]
+```
+
+```yaml
+# docker-compose.yml for development environment
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://user:password@db:5432/myapp
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d myapp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  app-network:
+    driver: bridge
+```
+
+```dockerfile
+# .dockerignore
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+README.md
+.env
+.nyc_output
+coverage
+.cache
+.next
+.nuxt
+dist
+```</pre>
+                    </div>
+                </div>
+
+                <!-- モバイル関連テンプレート -->
+                <div class="template-card" data-category="mobile" data-tags="react-native expo mobile">
+                    <div class="template-header">
+                        <span class="template-title">React Native + Expo</span>
+                        <button class="quick-copy-btn" onclick="copyTemplate(this, 'react-native-expo')">コピー</button>
+                    </div>
+                    <p class="template-description">React NativeとExpoを使ったモバイルアプリ開発</p>
+                    <div class="template-tags">
+                        <span class="template-tag">React Native</span>
+                        <span class="template-tag">Expo</span>
+                        <span class="template-tag">Mobile</span>
+                    </div>
+                    <div class="code-block text-xs" style="display: none;" id="react-native-expo">
+<pre>---
+description: React Native + Expo mobile development patterns
+globs: ["**/*.tsx", "**/*.ts", "**/components/*.tsx"]
+alwaysApply: false
+---
+
+# React Native + Expo Development Rules
+
+## Component Structure
+- Use functional components with hooks
+- Implement proper TypeScript interfaces
+- Use StyleSheet.create for styling
+- Handle platform differences appropriately
+
+## Performance Optimization
+- Use FlatList for long lists
+- Implement proper image optimization
+- Use React.memo for expensive components
+- Handle navigation efficiently
+
+## Code Pattern
+```typescript
+// components/UserCard.tsx
+import React, { memo } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Platform,
+} from 'react-native'
+import { User } from '../types/User'
+
+interface UserCardProps {
+  user: User
+  onPress: (userId: string) => void
+  style?: ViewStyle
+}
+
+const UserCard = memo&lt;UserCardProps&gt;(({ user, onPress, style }) =&gt; {
+  const handlePress = () =&gt; {
+    onPress(user.id)
+  }
+
+  return (
+    &lt;TouchableOpacity
+      style={[styles.container, style]}
+      onPress={handlePress}
+      activeOpacity={0.7}
+    &gt;
+      &lt;Image
+        source={{ uri: user.avatar }}
+        style={styles.avatar}
+        defaultSource={require('../assets/default-avatar.png')}
+      /&gt;
+      &lt;View style={styles.content}&gt;
+        &lt;Text style={styles.name} numberOfLines={1}&gt;
+          {user.name}
+        &lt;/Text&gt;
+        &lt;Text style={styles.email} numberOfLines={1}&gt;
+          {user.email}
+        &lt;/Text&gt;
+        &lt;Text style={styles.status}&gt;
+          {user.isOnline ? 'Online' : 'Offline'}
+        &lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/TouchableOpacity&gt;
+  )
+})
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginVertical: 4,
+    marginHorizontal: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 12,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 2,
+  },
+  email: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 2,
+  },
+  status: {
+    fontSize: 12,
+    color: '#999',
+  },
+})
+
+export default UserCard
+
+// hooks/useApi.ts
+import { useState, useEffect } from 'react'
+
+interface ApiState&lt;T&gt; {
+  data: T | null
+  loading: boolean
+  error: string | null
+}
+
+export function useApi&lt;T&gt;(
+  apiCall: () => Promise&lt;T&gt;,
+  dependencies: any[] = []
+): ApiState&lt;T&gt; {
+  const [state, setState] = useState&lt;ApiState&lt;T&gt;&gt;({
+    data: null,
+    loading: true,
+    error: null,
+  })
+
+  useEffect(() =&gt; {
+    let isMounted = true
+
+    const fetchData = async () =&gt; {
+      try {
+        setState(prev =&gt; ({ ...prev, loading: true, error: null }))
+        const result = await apiCall()
+        
+        if (isMounted) {
+          setState({ data: result, loading: false, error: null })
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error: error instanceof Error ? error.message : 'An error occurred',
+          })
+        }
+      }
+    }
+
+    fetchData()
+
+    return () =&gt; {
+      isMounted = false
+    }
+  }, dependencies)
+
+  return state
+}
+
+// screens/UserListScreen.tsx
+import React, { useCallback } from 'react'
+import {
+  View,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import UserCard from '../components/UserCard'
+import { useApi } from '../hooks/useApi'
+import { userService } from '../services/userService'
+import { User } from '../types/User'
+
+const UserListScreen = () =&gt; {
+  const navigation = useNavigation()
+  const { data: users, loading, error } = useApi(() =&gt; userService.getUsers())
+
+  const handleUserPress = useCallback((userId: string) =&gt; {
+    navigation.navigate('UserDetail', { userId })
+  }, [navigation])
+
+  const renderUser = useCallback(({ item }: { item: User }) =&gt; (
+    &lt;UserCard user={item} onPress={handleUserPress} /&gt;
+  ), [handleUserPress])
+
+  const keyExtractor = useCallback((item: User) =&gt; item.id, [])
+
+  if (error) {
+    return (
+      &lt;View style={styles.centerContainer}&gt;
+        &lt;Text style={styles.errorText}&gt;Error: {error}&lt;/Text&gt;
+      &lt;/View&gt;
+    )
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;FlatList
+        data={users}
+        renderItem={renderUser}
+        keyExtractor={keyExtractor}
+        refreshControl={
+          &lt;RefreshControl refreshing={loading} onRefresh={() =&gt; {}} /&gt;
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.listContent}
+      /&gt;
+    &lt;/View&gt;
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#e74c3c',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+  },
+  listContent: {
+    paddingVertical: 8,
+  },
+})
+
+export default UserListScreen
+```</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors" onclick="loadMoreTemplates()">
+                    <i class="fas fa-plus mr-2"></i>
+                    さらにテンプレートを読み込む
+                </button>
+            </div>
+        </div>
+
+        <!-- 第7章：ベストプラクティス -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-star mr-3"></i>
+                第7章：ベストプラクティス
+            </h2>
+            <p class="text-lg mt-2">効果的なルール運用のための指針</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                ルール設計の原則
+            </h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-compress-alt text-3xl text-blue-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">簡潔性</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-gray-600">ルールは簡潔で理解しやすく保つ</p>
+                        <div class="highlight-box">
+                            <h5 class="font-bold mb-2">推奨事項</h5>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>500行以下を目標とする</li>
+                                <li>1つのルールは1つの責任を持つ</li>
+                                <li>複雑な概念は複数ルールに分割</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-bullseye text-3xl text-green-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">具体性</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-gray-600">曖昧な指示は避け、具体的な例を提供</p>
+                        <div class="example-card">
+                            <h5 class="font-bold text-red-600 mb-2">❌ 悪い例</h5>
+                            <p class="text-sm">"良いコードを書いてください"</p>
+                            <h5 class="font-bold text-green-600 mb-2 mt-3">✅ 良い例</h5>
+                            <p class="text-sm">"関数は単一責任の原則に従い、引数は3個以下にし、JSDocコメントを必ず記述してください"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-puzzle-piece text-3xl text-purple-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">組み合わせ可能性</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-gray-600">他のルールと組み合わせて使用できる設計</p>
+                        <div class="info-box">
+                            <h5 class="font-bold mb-2">設計指針</h5>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>相互に矛盾しないルール設計</li>
+                                <li>階層構造での整理</li>
+                                <li>依存関係の明確化</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-sync-alt text-3xl text-orange-500 mr-3"></i>
+                        <h4 class="text-xl font-bold">更新可能性</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="text-gray-600">プロジェクトの成長に合わせて更新</p>
+                        <div class="warning-box">
+                            <h5 class="font-bold mb-2">メンテナンス戦略</h5>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>定期的なルール見直し</li>
+                                <li>チームフィードバックの収集</li>
+                                <li>バージョン管理による変更追跡</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-sitemap mr-2 text-indigo-500"></i>
+                ルール組織化戦略
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-4">
+                    <i class="fas fa-folder-tree mr-2"></i>
+                    推奨ディレクトリ構造
+                </h4>
+                <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'directory-structure')">コピー</button>
+<pre id="directory-structure">project/
+├── .cursor/rules/
+│   ├── global/
+│   │   ├── coding-style.mdc
+│   │   ├── documentation.mdc
+│   │   └── security.mdc
+│   ├── frameworks/
+│   │   ├── react-patterns.mdc
+│   │   ├── nodejs-api.mdc
+│   │   └── testing.mdc
+│   └── project-specific/
+│       ├── business-logic.mdc
+│       ├── data-models.mdc
+│       └── integration-rules.mdc
+├── frontend/
+│   └── .cursor/rules/
+│       ├── ui-components.mdc
+│       └── styling.mdc
+└── backend/
+    └── .cursor/rules/
+        ├── api-patterns.mdc
+        └── database.mdc</pre>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-layers mr-2"></i>
+                    階層ルールの活用
+                </h4>
+                <p class="mb-3">
+                    ネストされたルールディレクトリを活用することで、
+                    プロジェクトの構造に合わせたルール適用が可能になります。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-bold text-blue-600 mb-2">グローバルレベル</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>プロジェクト全体の規約</li>
+                            <li>セキュリティガイドライン</li>
+                            <li>ドキュメント規則</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-green-600 mb-2">ローカルレベル</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>コンポーネント固有の規則</li>
+                            <li>フィーチャー固有の実装</li>
+                            <li>モジュール特化型パターン</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-fire mr-2 text-red-500"></i>
+                コミュニティベストプラクティス
+            </h3>
+
+            <div class="example-card">
+                <h4 class="font-bold text-lg mb-3">
+                    <i class="fas fa-trophy mr-2 text-yellow-600"></i>
+                    実証済みの効果的なパターン
+                </h4>
+                <p class="mb-4">
+                    コミュニティで実証された効果的なルール記述パターンとテクニックを紹介します。
+                </p>
+
+                <div class="expandable-section">
+                    <div class="expandable-header" onclick="toggleSection(this)">
+                        <h5 class="font-bold">XML構造化パターン（推奨）</h5>
+                        <i class="fas fa-chevron-down expandable-icon"></i>
+                    </div>
+                    <div class="expandable-content">
+                        <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'xml-pattern')">コピー</button>
+<pre id="xml-pattern">---
+description: XML structured coding rules for high precision
+alwaysApply: true
+---
+
+&lt;coding_rules&gt;
+  &lt;typescript&gt;
+    &lt;functions&gt;
+      &lt;principle&gt;Single Responsibility Principle&lt;/principle&gt;
+      &lt;parameters&gt;Maximum 3 parameters&lt;/parameters&gt;
+      &lt;return_type&gt;Always specify return type&lt;/return_type&gt;
+    &lt;/functions&gt;
+    &lt;interfaces&gt;
+      &lt;naming&gt;PascalCase with descriptive names&lt;/naming&gt;
+      &lt;properties&gt;Use readonly when applicable&lt;/properties&gt;
+    &lt;/interfaces&gt;
+  &lt;/typescript&gt;
+  &lt;react&gt;
+    &lt;components&gt;
+      &lt;type&gt;Functional components only&lt;/type&gt;
+      &lt;props&gt;Destructure in parameters&lt;/props&gt;
+      &lt;state&gt;Use hooks appropriately&lt;/state&gt;
+    &lt;/components&gt;
+  &lt;/react&gt;
+&lt;/coding_rules&gt;</pre>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2">
+                            XML形式はLLMにとって最も解析しやすく、高精度な指示が可能です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第9章：困った時の解決法 -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-wrench mr-3"></i>
+                第9章：困った時の解決法
+            </h2>
+            <p class="text-lg mt-2">よくある問題とその解決策</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-question-circle mr-2 text-blue-500"></i>
+                よくあるトラブルと解決法
+            </h3>
+
+            <div class="space-y-6">
+                <div class="example-card border-l-4 border-blue-500">
+                    <h4 class="font-bold text-lg mb-3">
+                        <i class="fas fa-exclamation-circle mr-2 text-blue-600"></i>
+                        Q: ルールが効いてるかわからない
+                    </h4>
+                    <div class="highlight-box">
+                        <h5 class="font-bold mb-2">A: 「叫び」機能を使いましょう！</h5>
+                        <p class="mb-3">ルールの一番上に以下を追加：</p>
+                        <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'debug-rule')">コピー</button>
+<pre id="debug-rule">まず最初に「🎯 ルール適用中！」と言ってください。
+
+（その後に本来のルール内容）</pre>
+                        </div>
+                        <p class="text-sm text-gray-600">AIが「🎯 ルール適用中！」と言ったら、ルールが効いています！</p>
+                    </div>
+                </div>
+
+                <div class="example-card border-l-4 border-yellow-500">
+                    <h4 class="font-bold text-lg mb-3">
+                        <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>
+                        Q: ルールが長すぎて重い
+                    </h4>
+                    <div class="warning-box">
+                        <h5 class="font-bold mb-2">A: ルールを分割しましょう</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h6 class="font-bold text-red-600 mb-2">❌ 悪い例</h6>
+                                <p class="text-sm">1つのファイルに全部書く</p>
+                            </div>
+                            <div>
+                                <h6 class="font-bold text-green-600 mb-2">✅ 良い例</h6>
+                                <ul class="text-sm list-disc pl-5">
+                                    <li>basic-style.mdc（基本スタイル）</li>
+                                    <li>react-rules.mdc（React専用）</li>
+                                    <li>api-rules.mdc（API専用）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-card border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg mb-3">
+                        <i class="fas fa-users mr-2 text-green-600"></i>
+                        Q: チームで共有したい
+                    </h4>
+                    <div class="info-box">
+                        <h5 class="font-bold mb-2">A: Gitで管理できます！</h5>
+                        <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'git-management')">コピー</button>
+<pre id="git-management"># .cursor/rules/ フォルダをGitにcommitするだけ！
+git add .cursor/rules/
+git commit -m "Add Cursor Rules for team"
+git push
+
+# チームメンバーが自動的に同じルールを使えます</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-card border-l-4 border-purple-500">
+                    <h4 class="font-bold text-lg mb-3">
+                        <i class="fas fa-file-code mr-2 text-purple-600"></i>
+                        Q: 既存の.cursorrulesファイルがある
+                    </h4>
+                    <div class="highlight-box">
+                        <h5 class="font-bold mb-2">A: 内容をコピーして移行しましょう</h5>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">1</span>
+                                <div>
+                                    <p class="text-sm">古いファイルの内容を確認</p>
+                                    <code class="text-xs bg-gray-100 px-2 py-1 rounded">cat .cursorrules</code>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
+                                <div>
+                                    <p class="text-sm">内容をコピーして新しいProject Ruleに貼り付け</p>
+                                    <code class="text-xs bg-gray-100 px-2 py-1 rounded">⌘ + Shift + P → "File: New Cursor Rule"</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 mt-8">
+                <i class="fas fa-chart-line mr-2 text-orange-500"></i>
+                今日から始める3ステップ
+            </h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <div class="step-number">1</div>
+                        <h4 class="text-xl font-bold ml-3">基本ルールを作る（5分）</h4>
+                    </div>
+                    <div class="code-block">
+<button class="copy-button" onclick="copyToClipboard(this, 'step1')">コピー</button>
+<pre id="step1">/Generate Cursor Rules</pre>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">で自動生成してみる</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <div class="step-number">2</div>
+                        <h4 class="text-xl font-bold ml-3">実際に使ってみる（10分）</h4>
+                    </div>
+                    <p class="text-gray-600">何かコードを書いてもらって、違いを実感する</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="flex items-center mb-4">
+                        <div class="step-number">3</div>
+                        <h4 class="text-xl font-bold ml-3">必要に応じて調整（随時）</h4>
+                    </div>
+                    <p class="text-gray-600">使いながら「こうしてほしいな」と思ったら追加・修正</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4 class="text-xl font-bold mb-3">
+                    <i class="fas fa-heart mr-2"></i>
+                    重要なマインドセット
+                </h4>
+                <p class="text-lg"><strong>完璧を目指さず、まずは始めることが大切です！</strong></p>
+                <p class="text-sm text-gray-600 mt-2">
+                    最初は簡単なルールから始めて、使いながら徐々に改善していけばOKです。
+                    まずは騙されたと思って試してみてください。きっと「なんで今まで使わなかったんだろう...」と思うはずです！
+                </p>
+            </div>
+        </div>
+
+        <!-- まとめセクション -->
+        <div class="chapter-header">
+            <h2 class="text-3xl font-bold">
+                <i class="fas fa-flag-checkered mr-3"></i>
+                まとめ
+            </h2>
+            <p class="text-lg mt-2">あなたのCursorが10倍効率的になりました！</p>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <div class="highlight-box">
+                <h3 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-star mr-2"></i>
+                    Cursor Rulesを使うと...
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <ul class="list-none space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span><strong>説明の手間が激減</strong> - 毎回同じことを言わなくて済む</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span><strong>コード品質向上</strong> - プロジェクトに最適化されたコード</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span><strong>開発速度アップ</strong> - 即座に理想的なコードが生成</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span><strong>チーム統一</strong> - みんなが同じスタイルでコーディング</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span><strong>新人支援</strong> - 適切なパターンを自動学習</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <span><strong>メンテナンス性向上</strong> - 一貫したコードベース</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box mt-6">
+                <h3 class="text-xl font-bold mb-3">
+                    <i class="fas fa-rocket mr-2"></i>
+                    今すぐやること
+                </h3>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li><strong>Cursorを開く</strong></li>
+                    <li><strong>チャット欄で <code>/Generate Cursor Rules</code> と入力</strong></li>
+                    <li><strong>「React プロジェクトのルールを作って」と伝える</strong></li>
+                    <li><strong>生成されたルールを確認</strong></li>
+                    <li><strong>実際にコードを書いてもらって効果を実感</strong></li>
+                </ol>
+                <p class="mt-4 text-lg font-bold text-center">
+                    <strong>たった5分で、あなたのCursorが劇的に賢くなります！</strong>
+                </p>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-2xl font-bold text-blue-600">Happy Coding! 🎉</p>
+                <p class="text-gray-600 mt-2">効率的な開発ライフをお楽しみください！</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Functions -->
+    <script>
+        function copyToClipboard(button, contentId) {
+            const content = document.getElementById(contentId).textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'コピー完了！';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function copyTemplate(button, contentId) {
+            const content = document.getElementById(contentId).textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'コピー完了！';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('expanded');
+        }
+
+        // テンプレート検索機能
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBox = document.getElementById('template-search');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const templateCards = document.querySelectorAll('.template-card');
+
+            function filterTemplates() {
+                const searchTerm = searchBox.value.toLowerCase();
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+
+                templateCards.forEach(card => {
+                    const tags = card.dataset.tags;
+                    const category = card.dataset.category;
+                    const title = card.querySelector('.template-title').textContent.toLowerCase();
+                    const description = card.querySelector('.template-description').textContent.toLowerCase();
+
+                    const matchesSearch = !searchTerm || 
+                        title.includes(searchTerm) || 
+                        description.includes(searchTerm) || 
+                        tags.includes(searchTerm);
+
+                    const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+                    card.style.display = matchesSearch && matchesFilter ? 'block' : 'none';
+                });
+            }
+
+            searchBox.addEventListener('input', filterTemplates);
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterTemplates();
+                });
+            });
+        });
+
+        function loadMoreTemplates() {
+            alert('追加のテンプレートを準備中です。このガイドのアップデートをお待ちください！');
+        }
+    </script>
+
+    <!-- External scripts commented out to avoid cSpell warnings -->
+    <!-- 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script id="html_badge_script1">
+        // External service scripts removed for development
+    </script>
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/..."></script>
+    -->

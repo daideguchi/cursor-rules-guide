@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+  color: rgb(31 41 55);
+  background-color: rgb(249 250 251);
+}
+
+/* Dark mode styles */
+.dark body {
+  color: rgb(229 231 235);
+  background-color: rgb(17 24 39);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(243 244 246);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(156 163 175);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Code block styles */
+.code-block {
+  @apply bg-secondary-50 dark:bg-secondary-800 border border-secondary-200 dark:border-secondary-700 rounded-lg p-4 font-mono text-sm overflow-x-auto;
+}
+
+.code-block pre {
+  @apply m-0 p-0 bg-transparent;
+}
+
+/* Copy button animation */
+.copy-button {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.copy-button:hover {
+  @apply scale-105 shadow-lg;
+}
+
+.copy-button.copied {
+  @apply bg-green-500 text-white scale-110;
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply fixed top-0 left-0 h-1 bg-gradient-to-r from-primary-500 to-purple-500 z-50 transition-all duration-300;
+}
+
+/* Floating action button */
+.fab {
+  @apply fixed bottom-6 right-6 w-14 h-14 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center z-40;
+}
+
+.fab:hover {
+  @apply scale-110 shadow-glow;
+}
+
+/* Section fade-in animation */
+.section-fade-in {
+  @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+}
+
+.section-fade-in.visible {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover:hover {
+  @apply -translate-y-2 shadow-xl shadow-primary-500/10;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent;
+}
+
+/* Glow effects */
+.glow-on-hover {
+  @apply transition-all duration-300;
+}
+
+.glow-on-hover:hover {
+  @apply shadow-glow;
+}
+
+/* Search highlight */
+.search-highlight {
+  @apply bg-yellow-200 dark:bg-yellow-800 px-1 py-0.5 rounded;
+} 

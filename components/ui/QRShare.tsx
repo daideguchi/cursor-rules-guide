@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { 
   QrCode, 
@@ -32,26 +32,22 @@ export function QRShare({ config }: QRShareProps) {
   const [copied, setCopied] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
 
-  useEffect(() => {
-    generateShareUrl()
+  const generateShareUrl = useCallback(async () => {
+    setIsGenerating(true)
+    try {
+      const url = new URL(window.location.href)
+      url.searchParams.set('config', JSON.stringify(config))
+      setShareUrl(url.toString())
+    } catch (error) {
+      console.error('Error generating share URL:', error)
+    } finally {
+      setIsGenerating(false)
+    }
   }, [config])
 
-  const generateShareUrl = async () => {
-    setIsGenerating(true)
-    
-    // 設定をBase64エンコードしてURLに組み込む
-    const encodedConfig = btoa(JSON.stringify(config))
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
-    const url = `${baseUrl}/setup?config=${encodedConfig}`
-    
-    setShareUrl(url)
-    
-    // QRコード生成 (実際の実装ではAPI使用)
-    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`
-    setQrCodeUrl(qrApiUrl)
-    
-    setIsGenerating(false)
-  }
+  useEffect(() => {
+    generateShareUrl()
+  }, [generateShareUrl])
 
   const copyToClipboard = async (text: string) => {
     try {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, BookOpen, X } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
@@ -72,28 +72,56 @@ export function TableOfContents({ isOpen, onClose }: TableOfContentsProps) {
   const [activeSection, setActiveSection] = useState<string>('')
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set())
 
-  // Track which sections are in view
-  const sectionRefs = tocItems.map((item) => {
-    const { ref, inView } = useInView({
-      threshold: 0.1,
-      rootMargin: '-20% 0px -70% 0px',
-    })
-    return { id: item.id, ref, inView }
+  // 各セクションのrefを作成
+  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+
+  // 各セクションの可視性を監視
+  const sectionInView = useInView({
+    threshold: 0.2,
+    rootMargin: '-20% 0px -80% 0px',
   })
 
+  // セクションの可視性が変更されたときの処理
   useEffect(() => {
-    const activeRef = sectionRefs.find((ref) => ref.inView)
-    if (activeRef) {
-      setActiveSection(activeRef.id)
-    }
-  }, [sectionRefs.map((ref) => ref.inView)])
+    const currentRefs = sectionRefs.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            setActiveSection(id);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '-20% 0px -80% 0px',
+      }
+    );
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    // 各セクションを監視
+    Object.values(currentRefs).forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
+      }
+    });
+
+    return () => {
+      Object.values(currentRefs).forEach((ref) => {
+        if (ref) {
+          observer.unobserve(ref);
+        }
+      });
+    };
+  }, []);
+
+  // セクションへのスクロール
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
     if (element) {
-      const headerOffset = 80
+      const offset = 80 // ヘッダーの高さ分のオフセット
       const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      const offsetPosition = elementPosition + window.pageYOffset - offset
 
       window.scrollTo({
         top: offsetPosition,

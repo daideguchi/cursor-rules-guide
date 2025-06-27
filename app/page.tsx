@@ -1534,7 +1534,7 @@ export default function Home() {
                         export ANTHROPIC_API_KEY="your-api-key-here"<br />
                         <br />
                         # 永続化のため.bashrcまたは.zshrcに追加<br />
-                        echo 'export ANTHROPIC_API_KEY="your-api-key-here"' >> ~/.bashrc<br />
+                        echo 'export ANTHROPIC_API_KEY="your-api-key-here"' &gt;&gt; ~/.bashrc<br />
                         <br />
                         # Windows PowerShellの場合<br />
                         $env:ANTHROPIC_API_KEY="your-api-key-here"

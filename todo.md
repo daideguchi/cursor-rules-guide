@@ -489,11 +489,30 @@
 ### 今後のタスク
 
 - [x] 🔴 開発サーバーの立ち上げと Git リポジトリ更新（2025 年 6 月 19 日完了）
+
   - Next.js 14 開発サーバーの正常起動確認
   - http://localhost:3000 での動作確認
   - 変更ファイルのコミットとリモートリポジトリへの push
   - .specstory での開発履歴記録の整理
   - todo.md のタスク管理システム更新
+
+- [x] 🔴 新しい GitHub リポジトリ作成と Vercel デプロイ（2025 年 6 月 26 日完了）
+
+  - 新しい GitHub リポジトリ「cursor-rules-guide」の作成
+  - 既存コードの完全移行とプッシュ
+  - TypeScript ビルドエラー修正（JSX 内の>>記号を HTML エンティティに変更）
+  - ESLint 依存関係問題の解決（ビルド時 ESLint 無効化）
+  - Vercel 本番環境デプロイ成功
+  - 本番サイト URL: https://cursor-rule-b9mzbfiay-daideguchis-projects.vercel.app
+  - GitHub リポジトリ: https://github.com/daideguchi/cursor-rules-guide
+
+- [x] 🔴 README にワンコマンド自動セットアップ機能の詳細追加（2025 年 6 月 26 日完了）
+  - ワンコマンド機能の説明とメリットを詳細追加
+  - 6 つのルールファイル（dev-rules, uiux, performance, security, testing, project-management）の詳細説明
+  - .mdc ファイルの役割と効果を分かりやすく解説
+  - クイックスタートセクションで実際のコマンド例を提供
+  - 完全ガイドサイトへのリンクと学習パス紹介
+  - GitHub リポジトリに正常プッシュ完了
 - [x] 🔴 Claude Code AI 開発チーム構築完全マスターガイドの UI 反映（2025 年 6 月 19 日完了）
   - 提供された HTML コンテンツを完全に Next.js コンポーネントに変換
   - 8 つの主要セクションの実装（基本概念、AI 組織、メリット・デメリット、必要環境、セットアップ、開発事例、運用のコツ、トラブル解決）

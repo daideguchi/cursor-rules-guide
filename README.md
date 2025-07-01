@@ -13,6 +13,43 @@
 - 💾 **100+テンプレート**: ワンクリックでコピーできるルール集
 - 🔍 **高度な検索機能**: フィルタリングとハイライト機能
 
+## ⚡ ワンコマンド自動セットアップ
+
+このガイドの最大の特徴は、**ワンコマンドで Cursor Rules を自動設定できる**ことです。
+
+### 🎯 何ができるの？
+
+たった **1 つのコマンドをコピー&ペースト** するだけで、以下の 6 つの厳選されたルールファイルが自動で設定されます：
+
+- 📝 **dev-rules.mdc** - 開発・コーディングの基本ルール
+- 🎨 **uiux.mdc** - UI/UX デザインと実装ガイドライン
+- 🚀 **performance.mdc** - パフォーマンス最適化ルール
+- 🔒 **security.mdc** - セキュリティベストプラクティス
+- 🧪 **testing.mdc** - テスト設計と実装ガイド
+- 📋 **project-management.mdc** - プロジェクト管理と品質保証
+
+### 💡 使い方
+
+1. **Cursor を開く** - 任意のプロジェクトフォルダで
+2. **コマンドを実行** - ガイド内のワンコマンドをコピー&ペースト
+3. **完了！** - `.cursor/rules/` フォルダに全ルールファイルが自動作成されます
+
+### 🎉 こんな人におすすめ
+
+- 「Cursor は使ってるけど、もっと効率的に使いたい」
+- 「AI に的確な指示を出せるようになりたい」
+- 「チームでコーディング規約を統一したい」
+- 「品質の高いコードを効率的に書きたい」
+
+### 📋 .mdc ファイルって何？
+
+`.mdc`ファイルは**AI への取扱説明書**のようなものです。一度設定すれば、Cursor が：
+
+- プロジェクトのルールを理解して適切なコードを提案
+- 一貫したコーディングスタイルを維持
+- セキュリティやパフォーマンスを考慮した実装を自動提案
+- あなたの専属アシスタントとして動作
+
 ## 🚀 セットアップ
 
 ### 前提条件
@@ -67,6 +104,41 @@ cursor-rules-guide/
 ├── tsconfig.json        # TypeScript設定
 └── package.json         # 依存関係
 ```
+
+## 🔥 クイックスタート（ワンコマンド）
+
+### すぐに試したい方向け
+
+```bash
+# Cursor Rules を一瞬で設定
+mkdir -p .cursor/rules && curl -s https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/setup.sh | bash
+```
+
+### 手動で設定したい方向け
+
+```bash
+# ディレクトリ作成
+mkdir -p .cursor/rules
+
+# 各ルールファイルをダウンロード
+curl -o .cursor/rules/dev-rules.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/dev-rules.mdc"
+curl -o .cursor/rules/uiux.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/uiux.mdc"
+curl -o .cursor/rules/performance.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/performance.mdc"
+curl -o .cursor/rules/security.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/security.mdc"
+curl -o .cursor/rules/testing.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/testing.mdc"
+curl -o .cursor/rules/project-management.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/project-management.mdc"
+```
+
+**🎊 完了！** これで Cursor がプロレベルの AI アシスタントに変身します。
+
+### 📖 詳しい使い方を知りたい方
+
+**👉 [完全ガイドサイトを見る](https://cursor-rule-b9mzbfiay-daideguchis-projects.vercel.app)**
+
+- 段階的な学習パス（レベル 1〜5）
+- プロジェクトタイプ別の活用法
+- AI 組織運用（Claude Code Company）
+- 実際の成功事例とベストプラクティス
 
 ## 🎨 技術スタック
 

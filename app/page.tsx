@@ -85,7 +85,7 @@ function CodeBlock({ code, language = "bash", title, defaultExpanded = false }: 
   const hasMoreLines = code.split('\n').length > 3;
 
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-6 max-w-full overflow-hidden">
       {title && (
         <div className="bg-gray-800 text-white px-4 py-2 text-sm font-medium rounded-t-lg flex items-center justify-between">
           <span>{title}</span>
@@ -107,7 +107,7 @@ function CodeBlock({ code, language = "bash", title, defaultExpanded = false }: 
           </button>
         </div>
       )}
-      <div className="bg-gray-900 rounded-b-lg overflow-hidden" style={{ backgroundColor: '#2d2d2d' }}>
+      <div className="bg-gray-900 rounded-b-lg overflow-hidden max-w-full" style={{ backgroundColor: '#2d2d2d' }}>
         <div className="flex items-center justify-between px-4 py-2 border-b border-gray-700">
           <span className="text-gray-300 text-sm">{language}</span>
           <div className="flex items-center space-x-2">
@@ -149,16 +149,16 @@ function CodeBlock({ code, language = "bash", title, defaultExpanded = false }: 
         </div>
         <div className="p-4">
           {isExpanded ? (
-            <pre className="text-sm text-gray-100" style={{ color: '#f8f8f2', whiteSpace: 'pre-wrap', wordBreak: 'break-word', overflowWrap: 'break-word' }}>
-              <code>{code}</code>
+            <pre className="text-sm text-gray-100" style={{ color: '#f8f8f2', whiteSpace: 'pre-wrap', wordBreak: 'break-word', overflowWrap: 'break-word', maxWidth: '100%', width: '100%' }}>
+              <code style={{ maxWidth: '100%', width: '100%', wordBreak: 'break-word', overflowWrap: 'break-word' }}>{code}</code>
             </pre>
           ) : (
             <div 
               className="cursor-pointer hover:bg-gray-800 rounded transition-colors p-2 -m-2"
               onClick={() => setIsExpanded(true)}
             >
-              <pre className="text-sm text-gray-100 overflow-x-auto pointer-events-none" style={{ color: '#f8f8f2' }}>
-                <code>{previewLines}</code>
+              <pre className="text-sm text-gray-100 pointer-events-none" style={{ color: '#f8f8f2', whiteSpace: 'pre-wrap', wordBreak: 'break-word', overflowWrap: 'break-word', maxWidth: '100%', width: '100%' }}>
+                <code style={{ maxWidth: '100%', width: '100%', wordBreak: 'break-word', overflowWrap: 'break-word' }}>{previewLines}</code>
               </pre>
               {hasMoreLines && (
                 <div className="mt-2 text-xs text-gray-400 italic flex items-center justify-between">
@@ -7174,8 +7174,8 @@ alwaysApply: true
                     13.2 🚀 基本的なCursor Rulesセットアップ
                   </h3>
                   
-                  <div className="space-y-6">
-                    <div>
+                  <div className="space-y-6 max-w-full overflow-hidden" style={{ maxWidth: '100%', width: '100%' }}>
+                    <div className="max-w-full overflow-hidden">
                       <h4 className="text-lg font-semibold mb-3" style={{ color: COLORS.text }}>
                         1. 基本セットアップ（すべてのプロジェクト共通）
                       </h4>
@@ -7185,11 +7185,11 @@ alwaysApply: true
                       />
                     </div>
 
-                    <div>
+                    <div className="max-w-full overflow-hidden">
                       <h4 className="text-lg font-semibold mb-3" style={{ color: COLORS.text }}>
                         2. プロジェクト種別対応セットアップ
                       </h4>
-                      <div className="grid gap-4">
+                      <div className="grid gap-4" style={{ maxWidth: '100%', overflow: 'hidden' }}>
                         {[
                           {
                             title: "Next.js プロジェクト",
@@ -7204,7 +7204,7 @@ alwaysApply: true
                             command: `mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && echo "🎉 Node.js API用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           }
                         ].map((setup, index) => (
-                          <div key={index}>
+                          <div key={index} className="max-w-full overflow-hidden">
                             <h5 className="font-medium mb-2" style={{ color: COLORS.text }}>
                               {setup.title}
                             </h5>

@@ -1,0 +1,24 @@
+<svg width="880" height="200" viewBox="0 0 880 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="880" height="200" fill="#000000"/>
+  
+  <!-- Cursor Logo -->
+  <g transform="translate(100, 50)">
+    <!-- 3D Cube -->
+    <g>
+      <!-- Front face -->
+      <path d="M 0 50 L 50 50 L 50 100 L 0 100 Z" fill="#FFFFFF"/>
+      <!-- Right face -->
+      <path d="M 50 50 L 75 25 L 75 75 L 50 100 Z" fill="#D0D0D0"/>
+      <!-- Top face -->
+      <path d="M 0 50 L 25 25 L 75 25 L 50 50 Z" fill="#E8E8E8"/>
+      
+      <!-- Inner triangle (white) -->
+      <path d="M 20 70 L 40 70 L 30 55 Z" fill="#000000"/>
+    </g>
+  </g>
+  
+  <!-- CURSOR Text -->
+  <g transform="translate(250, 75)">
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#FFFFFF">CURSOR</text>
+  </g>
+</svg>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cursor「ルール」機能 完全ガイド：AI開発アシスタントをカスタマイズする</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    }
+.chart-container {
+    position: relative;
+    margin: 3em auto;
+    max-width: 500px;
+    height: 400px;
+    overflow: visible;
+    aspect-ratio: 7/5;}
+img {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 280px;
+    margin: 1em auto;
+    border-radius: 8px;
+    }
+h5 {
+    font-size: 16px;
+    }
+body {
+    font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, メイリオ, Osaka, "MS PGothic", arial, helvetica, sans-serif;
+    line-height: 1.8;
+    font-size: 16px;
+    color: #333;
+    background-color: #fafafa;
+    margin: 0 24px 0 24px;
+    padding: 0;
+    max-width: None;
+    }
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 40px 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+h1, h2, h3, h4 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-size: 28px;
+    }
+h1 {
+    font-size: 28px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5em;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    }
+h2 {
+    font-size: 22px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.4em;
+    }
+h3 {
+    font-size: 20px;
+    }
+p {
+    margin-bottom: 1.2em;
+    }
+a {
+    color: #1a73e8;
+    text-decoration: none;
+    }
+a:hover {
+    text-decoration: underline;
+    }
+code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    background-color: #f3f3f3;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    }
+pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1.5em;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.5;
+    }
+pre code {
+    background-color: transparent;
+    padding: 0;
+    }
+blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1.5em;
+    margin: 1.5em 0;
+    color: #666;
+    font-style: italic;
+    }
+ul, ol {
+    padding-left: 1.5em;
+    margin-bottom: 1.2em;
+    }
+li {
+    margin-bottom: 0.5em;
+    }
+strong {
+    font-weight: 600;
+    color: #1a1a1a;
+    }
+#toc {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 2em;
+    }
+#toc h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    }
+#toc ul {
+    padding-left: 20px;
+    list-style-type: none;
+    }
+#toc ul li a {
+    color: #333;
+    }
+#toc ul ul {
+    padding-left: 20px;
+    }
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
+}
+
+@media only screen and (max-device-width: 768px) {
+            body {
+                padding: 0;
+                margin: 0;
+                font-family: PingFang SC;
+                font-size: 15px;
+                line-height: 1.5;
+            }
+
+            .container {
+                padding: 0;
+                margin: 16px 20px 30px;
+                box-shadow: none;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: PingFang SC;
+            }
+
+            h1 {
+                font-size: 1.87em;
+                line-height: 1.6;
+                margin-bottom: 0.5em;
+                text-align: center;
+            }
+
+            h2 {
+                font-size: 1.6em;
+                font-weight: 600;
+                margin-top: 1.3em;
+                margin-bottom: 0.8em;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 0.5em;
+            }
+
+            h3 {
+                font-size: 1.2em;
+                font-weight: 600;
+                margin-top: 1em;
+                margin-bottom: 0.6em;
+            }
+
+            h4 {
+                font-size: 1.1em;
+                font-weight: 500;
+                margin-top: 1em;
+                margin-bottom: 0.5em;
+                font-style: normal;
+            }
+
+            h5 {
+                font-size: 1em;
+                font-weight: 500;
+                margin-bottom: 1.2em;
+            }
+
+            ul,
+            ol {
+                font-size: 1em; /* Equivalent to 17.6px if base is 16px */
+                font-weight: 400;
+                margin-bottom: 1.2em;
+                line-height: 1.8;
+            }
+
+            p {
+                font-size: 1em;
+                line-height: 1.8; /* Equivalent to 17.6px if base is 16px */
+                font-weight: 400;
+                margin-top: 0.8em;
+                margin-bottom: 0.8em;
+            }
+
+            blockquote {
+                padding: 1em 1.2em;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        figcaption {
+            margin-top: 0.5em;
+            font-size: 0.8em; /* Equivalent to 17.6px if base is 16px */
+            font-weight: 400;
+            text-align: center;
+            font-style: normal;
+            color: #7F8896;
+        }
+
+        img {
+            display: block;
+            overflow: hidden;
+            max-width: 100%;
+            max-height: 335px;
+            margin: 1em auto;
+            border-radius: 8px;
+        }
+        }</style>
+</head>
+<body><div class="container">
+<main>
+<h1 id="section-main-title">Cursor「ルール」機能 完全ガイド：AI開発アシスタントをカスタマイズする</h1>
+<nav id="toc">
+<h3 id="section-0-1">目次</h3>
+<ul>
+<li><a href="#intro">1. はじめに：Cursorの「ルール」とは？</a></li>
+<li><a href="#rule-types">2. ルールの種類と適用範囲</a>
+<ul>
+<li><a href="#project-rules">プロジェクトルール (Project Rules)</a></li>
+<li><a href="#user-rules">ユーザールール (User Rules)</a></li>
+<li><a href="#legacy-rules">レガシー形式：.cursorrules</a></li>
+</ul>
+</li>
+<li><a href="#project-rule-details">3. プロジェクトルールの詳細な設定</a>
+<ul>
+<li><a href="#rule-anatomy">ルールの構造 (Rule Anatomy)</a></li>
+<li><a href="#application-types">4つの適用タイプ</a></li>
+<li><a href="#nested-rules">ネストされたルールとスコープ管理</a></li>
+</ul>
+</li>
+<li><a href="#creating-rules">4. ルールの作成と管理</a>
+<ul>
+<li><a href="#how-to-create">ルールの作成方法</a></li>
+<li><a href="#generate-from-chat">チャットからのルール生成</a></li>
+</ul>
+</li>
+<li><a href="#use-cases-and-best-practices">5. 実践的なユースケースとベストプラクティス</a>
+<ul>
+<li><a href="#practical-examples">具体的な活用例</a></li>
+<li><a href="#best-practices">効果的なルールを作成するためのベストプラクティス</a></li>
+</ul>
+</li>
+<li><a href="#application-mechanism">6. ルールの適用メカニズムと注意点</a></li>
+<li><a href="#conclusion">7. まとめ</a></li>
+</ul>
+</nav>
+<h2 id="section-intro">1. はじめに：Cursorの「ルール」とは？</h2>
+<p>Cursorの「ルール」機能は、AIアシスタント（Agentおよびインライン編集）に対して、プロジェクト固有の指示やコーディング規約、ワークフローを永続的に提供するための強力な仕組みです。大規模言語モデル（LLM）は通常、対話のたびにコンテキストを記憶しませんが、ルール機能はこの制約を克服します。</p>
+<blockquote>
+            ルールは、AIへのプロンプトの先頭に一貫したコンテキストとして挿入されます。これにより、AIはコード生成、編集、ワークフロー支援において、常にプロジェクトの背景や規約を理解した上で応答できるようになります。<br/>
+<a href="https://docs.cursor.com/context/rules" target="_blank">出典: Cursor公式ドキュメント</a>
+</blockquote>
+<p>この機能を活用することで、開発者はAIの挙動を細かく制御し、チーム全体の生産性とコード品質を飛躍的に向上させることが可能です。</p>
+<h2 id="section-rule-types">2. ルールの種類と適用範囲</h2>
+<p>Cursorでは、主に2種類のルールがサポートされており、それぞれ適用範囲と管理方法が異なります。</p>
+<h3 id="section-project-rules">プロジェクトルール (Project Rules)</h3>
+<p><strong>プロジェクトルール</strong>は、特定のプロジェクトにスコープを限定したルールです。プロジェクトのルートディレクトリに <code>.cursor/rules/</code> というフォルダを作成し、その中にルールファイルを配置します。これらのファイルはGitなどのバージョン管理システムでチームと共有できるため、プロジェクト固有の知識を体系化するのに最適です。</p>
+<ul>
+<li><strong>場所:</strong> プロジェクト内の <code>.cursor/rules/</code> ディレクトリ</li>
+<li><strong>スコープ:</strong> 当該プロジェクトのみ</li>
+<li><strong>主な用途:</strong>
+<ul>
+<li>コードベースに関するドメイン固有の知識のエンコード</li>
+<li>プロジェクト固有のワークフローやテンプレートの自動化</li>
+<li>コーディングスタイルやアーキテクチャに関する決定事項の標準化</li>
+</ul>
+</li>
+</ul>
+<h3 id="section-user-rules">ユーザールール (User Rules)</h3>
+<p><strong>ユーザールール</strong>は、個人のCursor環境全体に適用されるグローバルな設定です。プロジェクトを横断して一貫させたい個人的なコーディングスタイルや、AIとの対話における好みを定義するのに使用します。</p>
+<ul>
+<li><strong>場所:</strong> Cursorの設定画面 (<code>Cursor Settings → Rules</code>)</li>
+<li><strong>スコープ:</strong> すべてのプロジェクト</li>
+<li><strong>主な用途:</strong>
+<ul>
+<li>「回答は簡潔にしてください」といったAIへのコミュニケーションスタイルの指示</li>
+<li>個人的に好む変数名やコメントのスタイル指定</li>
+</ul>
+</li>
+</ul>
+<h3 id="section-legacy-rules">レガシー形式：.cursorrules</h3>
+<p>プロジェクトのルートに配置する <code>.cursorrules</code> ファイルも依然としてサポートされていますが、現在は非推奨とされています。より柔軟で管理しやすい<strong>プロジェクトルール</strong>への移行が推奨されています。</p>
+<h2 id="section-project-rule-details">3. プロジェクトルールの詳細な設定</h2>
+<p>プロジェクトルールは、その適用条件を細かく制御できるため、非常に強力です。ルールのファイル構造と適用タイプを理解することが重要です。</p>
+<h3 id="section-rule-anatomy">ルールの構造 (Rule Anatomy)</h3>
+<p>各ルールは、メタデータとコンテンツ本体をサポートするMDC (<code>.mdc</code>) 形式のファイルとして記述されます。ファイルの先頭にメタデータブロックを記述し、ルールの挙動を定義します。</p>
+<pre><code>---
+description: RPCサービスの定型文。サービスの定義時に使用します。
+globs:
+  - "server/api/rpc/**/*.ts"
+alwaysApply: false
+---
+# RPCサービスに関する指示
+
+- 内部RPCパターンを使用してサービスを定義してください。
+- サービス名は常にスネークケース（snake_case）を使用してください。
+
+# 参照ファイル
+@service-template.ts
+</code></pre>
+<ul>
+<li><code>description</code>: AIがルールを適用するか判断する際に参照する説明文（後述の <code>Agent Requested</code> タイプで必須）。</li>
+<li><code>globs</code>: ルールが自動的に適用されるファイルパスのパターン。gitignore形式のパターンが利用できます。</li>
+<li><code>alwaysApply</code>: <code>true</code> に設定すると、常にルールが適用されます。</li>
+<li><code>@filename.ts</code>: <code>@</code> を付けてファイル名を記述すると、そのファイルの内容が追加のコンテキストとしてAIに提供されます。</li>
+</ul>
+<h3 id="section-application-types">4つの適用タイプ</h3>
+<p>プロジェクトルールには4つの適用タイプがあり、それぞれ異なるトリガーで有効化されます。これにより、必要なときに必要なルールだけをAIに提供できます。</p>
+<div class="chart-container" id="canvas-parent-1">
+<canvas id="ruleTriggerChart"></canvas>
+</div>
+<script>
+            const ctx = document.getElementById('ruleTriggerChart').getContext('2d');
+            const ruleTriggerChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['ユーザーール (User Rule)', 'Always (常時適用)', 'Auto Attached (自動適用)', 'Agent Requested (AIによる要求)', 'Manual (手動適用)'],
+                    datasets: [{
+                        label: '自動化レベル',
+                        data: [100, 95, 75, 50, 10],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(153, 102, 255, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'ルール適用タイプのトリガー条件と自動化レベル',
+                            font: { size: 18 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const triggers = {
+                                        0: 'トリガー: 常に適用 (グローバル)',
+                                        1: 'トリガー: 常に適用 (プロジェクト内)',
+                                        2: 'トリガー: 参照ファイルのパスがglobパターンに一致',
+                                        3: 'トリガー: AIがクエリとの関連性を判断',
+                                        4: 'トリガー: ユーザーがチャットで @ルール名 を指定'
+                                    };
+                                    return triggers[context.dataIndex];
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '自動化レベル (高 → 低)'
+                            },
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return ''; // X軸のラベルを非表示
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+<ul>
+<li><strong>Always (常時適用):</strong> 最も単純なタイプで、常にAIのコンテキストに含まれます。フレームワークの規約など、プロジェクト全体で普遍的な指示に適しています。</li>
+<li><strong>Auto Attached (自動適用):</strong> <code>globs</code> プロパティで指定されたファイルパターンのいずれかに一致するファイルがAIのコンテキストに含まれた場合に、自動的に適用されます。例えば、<code>frontend/components/</code> 内のファイルを編集しているときだけフロントエンド用のルールを適用するといった使い方ができます。</li>
+<li><strong>Agent Requested (AIによる要求):</strong> 最もインテリジェントなタイプです。AIはユーザーのクエリやコンテキストを分析し、利用可能なルールの中から関連性が高いと判断したものを自ら選択して適用します。このタイプでは、AIが判断の根拠とするために、<code>description</code> の記述が不可欠です。</li>
+<li><strong>Manual (手動適用):</strong> ユーザーがチャットで <code>@ルール名</code> のように明示的に呼び出した場合にのみ適用されます。特定のテンプレートを適用したい場合などに便利です。</li>
+</ul>
+<h3 id="section-nested-rules">ネストされたルールとスコープ管理</h3>
+<p><code>.cursor/rules/</code> ディレクトリは、プロジェクトのサブディレクトリ内にも配置できます。これにより、より細かい粒度でルールのスコープを管理できます。</p>
+<pre><code>project/
+  .cursor/rules/      # プロジェクト全体のルール
+  backend/
+    server/
+      .cursor/rules/  # バックエンドサーバー固有のルール
+  frontend/
+    .cursor/rules/      # フロントエンド固有のルール
+</code></pre>
+<p>ネストされたルールは、そのディレクトリ以下のファイルが参照された際に自動的に適用候補となります。</p>
+<h2 id="section-creating-rules">4. ルールの作成と管理</h2>
+<p>ルールの作成は、コマンドや設定画面から簡単に行えます。</p>
+<h3 id="section-how-to-create">ルールの作成方法</h3>
+<p>ルールを作成するには、以下の2つの方法があります。</p>
+<ol>
+<li><strong>コマンドパレットを使用:</strong> <code>Ctrl+Shift+P</code> (Windows) または <code>Cmd+Shift+P</code> (Mac) でコマンドパレットを開き、「New Cursor Rule」と入力して実行します。これにより、<code>.cursor/rules/</code> ディレクトリに新しいルールファイルが生成されます。</li>
+<li><strong>設定画面を使用:</strong> <code>Cursor Settings &gt; Rules</code> に移動し、そこから新しいルールを作成します。この画面では、プロジェクト内のすべてのルールとそのステータスを一覧で確認できます。</li>
+</ol>
+<h3 id="section-generate-from-chat">チャットからのルール生成</h3>
+<p>AIとの対話の中で決定したコーディング方針やワークフローを、その場でルールとして保存できます。チャットで <code>/Generate Cursor Rules</code> コマンドを使用すると、Cursorはそれまでの会話内容を基にルールを生成してくれます。これは、繰り返し発生するタスクの指示を効率的にルール化するのに非常に便利です。</p>
+<h2 id="section-use-cases-and-best-practices">5. 実践的なユースケースとベストプラクティス</h2>
+<p>ルールを効果的に活用するための具体例と、作成時のヒントを紹介します。</p>
+<h3 id="section-practical-examples">具体的な活用例</h3>
+<ul>
+<li><strong>フロントエンドコンポーネントの標準化:</strong>
+<blockquote>
+                    componentsディレクトリで作業する場合：<br/>
+                    - スタイリングには常にTailwind CSSを使用する<br/>
+                    - アニメーションにはFramer Motionを使用する<br/>
+                    - コンポーネントの命名規則に従う
+                </blockquote>
+</li>
+<li><strong>APIエンドポイントのバリデーション強制:</strong>
+<blockquote>
+                    APIディレクトリ内：<br/>
+                    - すべてのバリデーションにzodを使用する<br/>
+                    - zodスキーマで戻り値の型を定義する<br/>
+                    - スキーマから生成された型をエクスポートする
+                </blockquote>
+</li>
+<li><strong>Expressサービスのテンプレート提供:</strong>
+<blockquote>
+                    Expressサービスを作成する際は、このテンプレートを使用してください：<br/>
+                    - RESTfulの原則に従う<br/>
+                    - エラーハンドリングミドルウェアを含める<br/>
+                    - 適切なロギングを設定する<br/>
+                    @express-service-template.ts
+                </blockquote>
+</li>
+</ul>
+<h3 id="section-best-practices">効果的なルールを作成するためのベストプラクティス</h3>
+<p>高品質なルールは、AIのパフォーマンスを最大化する鍵です。</p>
+<ul>
+<li><strong>焦点を絞り、具体的かつ実行可能に:</strong> 曖昧な指示（例：「良いコードを書いて」）は避け、「この関数は純粋関数であるべき」のように具体的な指示を与えます。</li>
+<li><strong>ルールを小さく保つ:</strong> 1つのルールは500行未満に抑えるのが理想です。大きなルールは、複数の構成可能な小さなルールに分割しましょう。</li>
+<li><strong>具体的な例や参照ファイルを提供する:</strong> 抽象的な説明よりも、実際のコード例や <code>@</code> を使ったファイル参照の方がAIにとって理解しやすくなります。</li>
+<li><strong>明確な内部ドキュメントのように書く:</strong> チームの新しいメンバーが読んでも理解できるような、明確で簡潔な言葉で記述します。</li>
+<li><strong>繰り返しを避けるために再利用する:</strong> チャットで同じ指示を何度も繰り返していることに気づいたら、それはルール化する絶好の機会です。</li>
+</ul>
+<h2 id="section-application-mechanism">6. ルールの適用メカニズムと注意点</h2>
+<p>ルールの適用順序や競合について理解することは、意図しないAIの挙動を避けるために重要です。</p>
+<blockquote>
+            Cursorのコミュニティフォーラムでの議論によると、ルール間に厳密な優先順位（precedence）は設定されていません。ユーザーールと「Always」タイプのプロジェクトルールは常に適用され、その他のルールは設定されたトリガーに基づいてコンテキストに追加されます。<br/>
+<a href="https://forum.cursor.com/t/rules-hierarchy-in-cursor/108589" target="_blank">出典: Cursor Community Forum</a>
+</blockquote>
+<p>これは、ルールが単純に連結されてAIのプロンプトを形成することを意味します。そのため、<strong>ルール間で矛盾する指示を書かないように注意が必要</strong>です。例えば、ユーザーールで「インデントはスペース4つ」と指定し、プロジェクトルールで「インデントはスペース2つ」と指定すると、AIが混乱し、一貫性のない出力をする可能性があります。</p>
+<p>ルールが期待通りに適用されない場合は、以下の点を確認してください：</p>
+<ul>
+<li><strong>ルールのタイプ:</strong> <code>Agent Requested</code> の場合は <code>description</code> が明確か？ <code>Auto Attached</code> の場合は <code>globs</code> のパターンが正しいか？</li>
+<li><strong>スコープ:</strong> ルールが配置されているディレクトリは、対象ファイルに対して適切か？</li>
+<li><strong>明確さ:</strong> 指示が曖昧で、AIが解釈に困っていないか？</li>
+</ul>
+<h2 id="section-conclusion">7. まとめ</h2>
+<p>Cursorの「ルール」機能は、単なるAIチャットボットを、プロジェクトの文脈を深く理解した専門の開発アシスタントへと昇華させるための強力なツールです。<strong>プロジェクトルール</strong>でチームの規約を標準化し、<strong>ユーザールール</strong>で個人の好みを反映させることで、開発体験を劇的に向上させることができます。</p>
+<p>まずは、頻繁に使う定型的なコードや、繰り返し与えている指示を簡単なルールにすることから始めてみましょう。ルールを整備していくことで、AIはより賢く、より信頼できるパートナーとなり、あなたの開発ワークフローに不可欠な存在となるでしょう。</p>
+</main>
+</div></body>
+</html>

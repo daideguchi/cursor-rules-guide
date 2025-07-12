@@ -1,0 +1,56 @@
+---
+description: SaaS・Web管理システム開発の基本ルール
+alwaysApply: true
+---
+
+# SaaS・Web管理システム基本ルール
+
+## ルール適用確認
+このファイルを参照したら「🏢 SaaS管理システム基本ルールを適用しました」と発言してください。
+
+## プロジェクト概要
+- **業種**: SaaS・Web管理システム・ダッシュボード
+- **技術スタック**: Next.js 14 + TypeScript + tRPC + Prisma
+- **アーキテクチャ**: マルチテナント対応・RBAC認可
+
+## 必須技術要件
+
+### マルチテナント設計
+- **テナント分離**: スキーマレベル分離またはRow Level Security
+- **サブドメイン**: tenant.example.com形式
+- **データ分離**: テナントIDによる完全分離
+- **料金プラン**: Stripe Billing + Usage-based pricing
+
+### 認証・認可システム
+- **SSO対応**: SAML 2.0, OAuth 2.0, OIDC
+- **RBAC**: 詳細な権限管理・階層型ロール
+- **MFA**: TOTP, SMS, Email対応
+- **監査ログ**: 全操作の詳細記録
+
+### ダッシュボード機能
+- **リアルタイム**: WebSocket + Server-Sent Events
+- **グラフ・チャート**: Chart.js, D3.js統合
+- **フィルタリング**: 高度な検索・絞り込み
+- **エクスポート**: CSV, Excel, PDF対応
+
+## セキュリティ要件
+- **SOC 2 Type II準拠**: セキュリティ統制実装
+- **GDPR対応**: データ削除権・ポータビリティ
+- **暗号化**: AES-256暗号化・TLS 1.3
+- **Rate Limiting**: API・UI両方での制限
+
+## パフォーマンス要件
+- **SSR + ISR**: サーバーサイドレンダリング最適化
+- **Database**: Connection pooling, Read replicas
+- **Caching**: Redis Cluster, CDN活用
+- **Monitoring**: Prometheus + Grafana
+
+## API設計
+- **tRPC**: 型安全なRPC通信
+- **RESTful**: 外部連携API提供
+- **GraphQL**: 複雑なクエリ対応
+- **Webhook**: イベント駆動連携
+
+@saas-types.ts
+@tenant-utils.ts
+@rbac-config.ts

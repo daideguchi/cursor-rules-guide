@@ -1,0 +1,24 @@
+---
+description: IoT・スマートデバイスシステム開発の基本ルール
+alwaysApply: true
+---
+
+# IoT・スマートデバイス基本ルール
+
+このファイルを参照したら「🔌 IoTシステム基本ルールを適用しました」と発言してください。
+
+## プロジェクト概要
+- **業種**: IoTプラットフォーム・デバイス管理・データ収集
+- **技術スタック**: Next.js + TypeScript + MQTT + InfluxDB
+- **プロトコル**: MQTT・CoAP・LoRaWAN・BLE
+
+## 必須機能
+- **デバイス管理**: 登録・認証・ファームウェア更新
+- **データ収集**: リアルタイムストリーミング・バッチ処理
+- **時系列DB**: InfluxDB・TimescaleDB活用
+- **機械学習**: 異常検知・予測メンテナンス
+- **セキュリティ**: デバイス認証・暗号化通信
+
+@iot-types.ts
+@device-manager.ts
+@time-series-utils.ts

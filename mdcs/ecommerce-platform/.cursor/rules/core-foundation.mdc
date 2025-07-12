@@ -1,0 +1,98 @@
+---
+description: ECプラットフォーム開発の基本ルールと設計思想
+alwaysApply: true
+---
+
+# ECプラットフォーム基本ルール
+
+## プロジェクト概要
+- **業種**: ECサイト・オンラインショップ
+- **技術スタック**: Next.js 14 + TypeScript + Prisma + Stripe
+- **アーキテクチャ**: マイクロサービス指向のモノリシック構成
+- **品質方針**: 高可用性・セキュリティ・パフォーマンス最優先
+
+## ルール適用確認
+このファイルを参照したら「🛒 ECプラットフォーム基本ルールを適用しました」と発言してください。
+
+## 必須技術要件
+
+### セキュリティ最優先
+- **PCI DSS準拠**: 決済情報の取り扱いは必ずStripe経由
+- **HTTPS必須**: 全通信はSSL/TLS暗号化
+- **CSRF保護**: 全フォームにCSRFトークン実装
+- **XSS対策**: HTMLエスケープとCSP実装必須
+- **認証**: JWT + リフレッシュトークン方式
+
+### パフォーマンス要件
+- **Core Web Vitals**: LCP < 2.5s, FID < 100ms, CLS < 0.1
+- **画像最適化**: Next.js Image組み込み + WebP変換
+- **CDN活用**: 静的アセットは必ずCDN配信
+- **キャッシュ戦略**: Redis + ISR組み合わせ
+- **バンドル最適化**: Dynamic imports必須
+
+### アクセシビリティ
+- **WCAG 2.1 AA準拠**: 全ページでアクセシビリティ確保
+- **キーボードナビゲーション**: 全機能をキーボードで操作可能
+- **スクリーンリーダー対応**: aria-label, role属性適切に設定
+- **カラーコントラスト**: 4.5:1以上のコントラスト比
+
+## ディレクトリ構造
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # 認証関連ページ
+│   ├── (shop)/            # ショップ関連ページ
+│   └── api/               # API Routes
+├── components/            # 再利用可能コンポーネント
+│   ├── ui/               # プリミティブUI
+│   ├── forms/            # フォーム関連
+│   ├── ecommerce/        # EC専用コンポーネント
+│   └── layouts/          # レイアウト
+├── lib/                  # ユーティリティ
+│   ├── auth/            # 認証ロジック
+│   ├── payments/        # 決済処理
+│   ├── inventory/       # 在庫管理
+│   └── analytics/       # 分析機能
+├── types/               # TypeScript型定義
+└── hooks/               # カスタムフック
+```
+
+## コーディング規約
+
+### 命名規則
+- **コンポーネント**: PascalCase (ProductCard, CartSummary)
+- **ページ**: kebab-case (product-detail, checkout-success)
+- **関数**: camelCase (calculateTax, validateEmail)
+- **定数**: UPPER_SNAKE_CASE (MAX_CART_ITEMS, TAX_RATE)
+
+### TypeScript必須ルール
+- **strict mode**: 必ず有効化
+- **型安全性**: any禁止、unknown活用
+- **Zod使用**: API入出力は必ずZodで検証
+- **型生成**: PrismaからDB型自動生成
+
+### エラーハンドリング
+- **Error Boundary**: 各ページレベルで実装
+- **ユーザー通知**: toast通知でエラー状態表示
+- **ログ記録**: Sentryでエラー追跡
+- **フォールバック**: 適切なfallback UI提供
+
+## 禁止事項
+- ❌ 決済情報のローカル保存
+- ❌ SQLインジェクション脆弱性
+- ❌ 個人情報のログ出力
+- ❌ 未検証データの直接使用
+- ❌ インラインスタイル使用
+- ❌ console.logの本番残留
+
+## 品質チェックリスト
+- ✅ セキュリティ監査通過
+- ✅ パフォーマンステスト合格
+- ✅ アクセシビリティテスト完了
+- ✅ ユニットテスト85%以上カバレッジ
+- ✅ E2Eテスト主要フロー網羅
+- ✅ SEO最適化確認
+
+@ecommerce-types.ts
+@payment-utils.ts
+@security-config.ts

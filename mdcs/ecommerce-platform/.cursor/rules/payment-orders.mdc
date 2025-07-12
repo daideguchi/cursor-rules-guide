@@ -1,0 +1,436 @@
+---
+description: 決済・注文管理機能の専用ルール（PCI DSS準拠必須）
+globs:
+  - "src/app/(shop)/checkout/**/*.tsx"
+  - "src/app/api/payments/**/*.ts"
+  - "src/lib/payments/**/*.ts"
+  - "src/lib/orders/**/*.ts"
+alwaysApply: false
+---
+
+# 決済・注文管理ルール
+
+## 🔒 PCI DSS準拠必須事項
+
+### 絶対禁止事項
+- ❌ **カード情報の保存**: 一切のカード情報をサーバーに保存禁止
+- ❌ **ログ出力**: カード番号・CVVのログ出力絶対禁止
+- ❌ **URL含有**: カード情報をURL・クエリパラメータに含めない
+- ❌ **ローカル保存**: ブラウザストレージへのカード情報保存禁止
+
+### Stripe必須活用
+```typescript
+// 正しい決済フロー実装
+const processPayment = async (orderData: OrderData) => {
+  try {
+    // 1. PaymentIntentをサーバーで作成
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: orderData.total * 100, // セント単位
+      currency: 'jpy',
+      metadata: {
+        orderId: orderData.id,
+        customerId: orderData.customerId
+      }
+    });
+    
+    // 2. クライアントで決済確認（Stripe Elements使用）
+    const { error } = await stripe.confirmCardPayment(
+      paymentIntent.client_secret,
+      {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: orderData.billingAddress.name,
+            email: orderData.customer.email
+          }
+        }
+      }
+    );
+    
+    if (error) {
+      throw new PaymentError(error.message);
+    }
+    
+    // 3. 決済成功後の注文確定処理
+    await confirmOrder(orderData.id, paymentIntent.id);
+    
+  } catch (error) {
+    await handlePaymentError(error, orderData.id);
+    throw error;
+  }
+};
+```
+
+## 注文管理データモデル
+
+### 注文情報完全定義
+```typescript
+interface Order {
+  id: string;                    // 注文ID（UUID）
+  orderNumber: string;           // 注文番号（ユーザー向け）
+  customerId: string;            // 顧客ID
+  status: OrderStatus;           // 注文状態
+  
+  // 注文アイテム
+  items: OrderItem[];
+  
+  // 金額計算
+  pricing: {
+    subtotal: number;            // 小計
+    tax: number;                 // 税額
+    shipping: number;            // 送料
+    discount: number;            // 割引額
+    total: number;               // 合計
+    currency: Currency;          // 通貨
+  };
+  
+  // 配送情報
+  shipping: {
+    address: Address;            // 配送先住所
+    method: ShippingMethod;      // 配送方法
+    trackingNumber?: string;     // 追跡番号
+    estimatedDelivery?: Date;    // 配送予定日
+    actualDelivery?: Date;       // 実際の配送日
+  };
+  
+  // 請求情報
+  billing: {
+    address: Address;            // 請求先住所
+    method: PaymentMethod;       // 支払い方法
+    paymentIntentId?: string;    // Stripe PaymentIntent ID
+    transactionId?: string;      // 取引ID
+  };
+  
+  // 注文処理履歴
+  statusHistory: OrderStatusHistory[];
+  
+  // メタデータ
+  notes?: string;               // 備考
+  tags?: string[];              // タグ
+  source: OrderSource;          // 注文元（web, mobile, api等）
+  
+  // タイムスタンプ
+  createdAt: Date;
+  updatedAt: Date;
+  completedAt?: Date;
+  cancelledAt?: Date;
+}
+
+interface OrderItem {
+  id: string;
+  productId: string;
+  variationId?: string;
+  sku: string;
+  name: string;                 // 注文時点の商品名
+  price: number;                // 注文時点の価格
+  quantity: number;
+  total: number;                // price × quantity
+  attributes?: Record<string, string>; // 商品属性（サイズ・色等）
+}
+
+enum OrderStatus {
+  PENDING = 'pending',           // 支払い待ち
+  PAID = 'paid',                // 支払い完了
+  PROCESSING = 'processing',     // 処理中
+  SHIPPED = 'shipped',          // 発送済み
+  DELIVERED = 'delivered',      // 配送完了
+  CANCELLED = 'cancelled',      // キャンセル
+  REFUNDED = 'refunded'         // 返金済み
+}
+```
+
+## 決済フロー実装
+
+### チェックアウトプロセス
+```typescript
+// 1. カート→注文変換
+const createOrderFromCart = async (cartId: string, customerData: CustomerData) => {
+  const cart = await getCart(cartId);
+  
+  // 在庫確認
+  await validateInventory(cart.items);
+  
+  // 税額・送料計算
+  const pricing = await calculateOrderPricing(cart, customerData.address);
+  
+  // 注文作成
+  const order = await prisma.order.create({
+    data: {
+      customerId: customerData.id,
+      items: cart.items,
+      pricing,
+      status: OrderStatus.PENDING,
+      shipping: customerData.shippingAddress,
+      billing: customerData.billingAddress
+    }
+  });
+  
+  return order;
+};
+
+// 2. 在庫確保
+const reserveInventory = async (orderItems: OrderItem[]) => {
+  return await prisma.$transaction(async (tx) => {
+    for (const item of orderItems) {
+      await tx.product.update({
+        where: { id: item.productId },
+        data: {
+          inventory: {
+            reserved: { increment: item.quantity }
+          }
+        }
+      });
+    }
+  });
+};
+
+// 3. 注文確定処理
+const confirmOrder = async (orderId: string, paymentIntentId: string) => {
+  return await prisma.$transaction(async (tx) => {
+    // 注文状態更新
+    const order = await tx.order.update({
+      where: { id: orderId },
+      data: {
+        status: OrderStatus.PAID,
+        billing: {
+          paymentIntentId
+        },
+        statusHistory: {
+          create: {
+            status: OrderStatus.PAID,
+            timestamp: new Date(),
+            note: '決済完了'
+          }
+        }
+      }
+    });
+    
+    // 在庫確定減算
+    for (const item of order.items) {
+      await tx.product.update({
+        where: { id: item.productId },
+        data: {
+          inventory: {
+            quantity: { decrement: item.quantity },
+            reserved: { decrement: item.quantity }
+          }
+        }
+      });
+    }
+    
+    // カート削除
+    await tx.cart.delete({
+      where: { customerId: order.customerId }
+    });
+    
+    return order;
+  });
+};
+```
+
+## Webhook処理（Stripe）
+
+### 支払い状態同期
+```typescript
+// Stripe Webhook処理
+export async function POST(request: Request) {
+  const signature = request.headers.get('stripe-signature');
+  const payload = await request.text();
+  
+  let event: Stripe.Event;
+  
+  try {
+    event = stripe.webhooks.constructEvent(
+      payload,
+      signature!,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (error) {
+    console.error('Webhook signature verification failed:', error);
+    return new Response('Invalid signature', { status: 400 });
+  }
+  
+  switch (event.type) {
+    case 'payment_intent.succeeded':
+      await handlePaymentSuccess(event.data.object as Stripe.PaymentIntent);
+      break;
+      
+    case 'payment_intent.payment_failed':
+      await handlePaymentFailure(event.data.object as Stripe.PaymentIntent);
+      break;
+      
+    case 'charge.dispute.created':
+      await handleChargeback(event.data.object as Stripe.Dispute);
+      break;
+      
+    default:
+      console.log(`Unhandled event type: ${event.type}`);
+  }
+  
+  return new Response('OK', { status: 200 });
+}
+
+const handlePaymentSuccess = async (paymentIntent: Stripe.PaymentIntent) => {
+  const orderId = paymentIntent.metadata.orderId;
+  
+  await updateOrderStatus(orderId, OrderStatus.PAID, {
+    paymentIntentId: paymentIntent.id,
+    transactionId: paymentIntent.charges.data[0]?.id
+  });
+  
+  // 在庫確定・メール送信・フルフィルメント開始
+  await startFulfillment(orderId);
+};
+```
+
+## 税額計算
+
+### 地域別税率対応
+```typescript
+interface TaxConfiguration {
+  country: string;
+  state?: string;
+  taxRate: number;
+  taxName: string;
+  taxType: 'inclusive' | 'exclusive';
+}
+
+const calculateTax = async (items: OrderItem[], address: Address): Promise<TaxCalculation> => {
+  const taxConfig = await getTaxConfiguration(address);
+  
+  let taxableAmount = 0;
+  const itemTaxes: ItemTax[] = [];
+  
+  for (const item of items) {
+    const product = await getProduct(item.productId);
+    
+    if (product.taxClass === 'taxable') {
+      const itemTax = item.total * (taxConfig.taxRate / 100);
+      taxableAmount += item.total;
+      
+      itemTaxes.push({
+        itemId: item.id,
+        taxAmount: itemTax,
+        taxRate: taxConfig.taxRate,
+        taxName: taxConfig.taxName
+      });
+    }
+  }
+  
+  return {
+    totalTax: itemTaxes.reduce((sum, tax) => sum + tax.taxAmount, 0),
+    taxableAmount,
+    itemTaxes,
+    taxConfiguration: taxConfig
+  };
+};
+```
+
+## 注文管理機能
+
+### 注文検索・フィルタリング
+```typescript
+const searchOrders = async (params: OrderSearchParams) => {
+  const where: Prisma.OrderWhereInput = {
+    ...(params.customerId && { customerId: params.customerId }),
+    ...(params.status && { status: params.status }),
+    ...(params.dateRange && {
+      createdAt: {
+        gte: params.dateRange.start,
+        lte: params.dateRange.end
+      }
+    }),
+    ...(params.orderNumber && {
+      orderNumber: { contains: params.orderNumber, mode: 'insensitive' }
+    })
+  };
+  
+  return await prisma.order.findMany({
+    where,
+    include: {
+      customer: true,
+      items: {
+        include: { product: true }
+      },
+      statusHistory: true
+    },
+    orderBy: { createdAt: 'desc' },
+    skip: params.offset,
+    take: params.limit
+  });
+};
+
+// 注文ステータス更新
+const updateOrderStatus = async (
+  orderId: string, 
+  newStatus: OrderStatus, 
+  metadata?: Record<string, any>
+) => {
+  return await prisma.order.update({
+    where: { id: orderId },
+    data: {
+      status: newStatus,
+      statusHistory: {
+        create: {
+          status: newStatus,
+          timestamp: new Date(),
+          metadata
+        }
+      }
+    }
+  });
+};
+```
+
+## 返品・返金処理
+
+### 返金フロー
+```typescript
+const processRefund = async (orderId: string, refundData: RefundData) => {
+  const order = await getOrder(orderId);
+  
+  // Stripeで返金実行
+  const refund = await stripe.refunds.create({
+    payment_intent: order.billing.paymentIntentId,
+    amount: refundData.amount * 100, // セント単位
+    reason: refundData.reason,
+    metadata: {
+      orderId,
+      refundType: refundData.type
+    }
+  });
+  
+  // 注文状態更新
+  await updateOrderStatus(orderId, OrderStatus.REFUNDED, {
+    refundId: refund.id,
+    refundAmount: refundData.amount,
+    refundReason: refundData.reason
+  });
+  
+  // 在庫復旧（必要に応じて）
+  if (refundData.restoreInventory) {
+    await restoreInventory(order.items);
+  }
+  
+  return refund;
+};
+```
+
+## セキュリティ・監査
+
+### 監査ログ
+- **注文作成**: 全注文作成をログ記録
+- **決済処理**: 決済試行・成功・失敗をログ記録
+- **状態変更**: 注文状態変更をログ記録
+- **アクセス制御**: 注文データアクセスをログ記録
+
+### 不正検知
+- **高額注文**: 閾値超え注文の手動確認
+- **短時間大量注文**: 同一顧客の連続注文監視
+- **地域不整合**: 請求先・配送先の地域差チェック
+- **カード検証**: CVV・住所確認の徹底
+
+@order-types.ts
+@payment-service.ts
+@tax-calculator.ts
+@fraud-detection.ts

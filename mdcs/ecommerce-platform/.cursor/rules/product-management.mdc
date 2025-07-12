@@ -1,0 +1,248 @@
+---
+description: 商品管理機能開発の専用ルール
+globs:
+  - "src/app/(shop)/products/**/*.tsx"
+  - "src/components/ecommerce/product/**/*.tsx"
+  - "src/lib/products/**/*.ts"
+alwaysApply: false
+---
+
+# 商品管理機能ルール
+
+## 商品データモデル必須項目
+
+### 基本情報
+```typescript
+interface Product {
+  id: string;              // UUID必須
+  sku: string;             // 一意な商品コード
+  name: string;            // 商品名（多言語対応）
+  description: string;     // 商品説明（多言語対応）
+  category: Category;      // カテゴリ（階層構造）
+  tags: string[];          // タグ配列
+  status: ProductStatus;   // 販売状態
+  
+  // 価格情報
+  pricing: {
+    regular: number;       // 通常価格
+    sale?: number;         // セール価格
+    cost: number;          // 原価
+    currency: Currency;    // 通貨
+    taxClass: TaxClass;    // 税区分
+  };
+  
+  // 在庫情報
+  inventory: {
+    quantity: number;      // 在庫数
+    lowStockThreshold: number; // 在庫切れ警告ライン
+    trackInventory: boolean;   // 在庫追跡フラグ
+    backorderAllowed: boolean; // バックオーダー許可
+  };
+  
+  // SEO・表示情報
+  seo: {
+    slug: string;          // URL用スラッグ
+    metaTitle: string;     // メタタイトル
+    metaDescription: string; // メタ説明
+    keywords: string[];    // キーワード
+  };
+  
+  // 配送情報
+  shipping: {
+    weight: number;        // 重量
+    dimensions: Dimensions; // 寸法
+    shippingClass: ShippingClass; // 配送クラス
+    freeShipping: boolean; // 送料無料フラグ
+  };
+  
+  // メディア
+  images: ProductImage[]; // 商品画像配列
+  videos?: ProductVideo[]; // 商品動画配列
+  
+  // メタデータ
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+}
+```
+
+## 商品画像管理
+
+### 画像最適化必須
+- **フォーマット**: WebP優先、fallbackでJPEG
+- **サイズ**: 複数解像度（thumbnail, medium, large, original）
+- **圧縮**: 品質80%で最適化
+- **遅延読み込み**: Next.js Imageコンポーネント必須
+- **Alt属性**: アクセシビリティ対応必須
+
+```typescript
+// 推奨実装パターン
+const ProductImage = ({ product, priority = false }: ProductImageProps) => {
+  return (
+    <Image
+      src={product.images[0]?.src || '/images/placeholder.webp'}
+      alt={product.images[0]?.alt || `${product.name}の商品画像`}
+      width={400}
+      height={400}
+      priority={priority}
+      className="object-cover rounded-lg"
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    />
+  );
+};
+```
+
+## バリエーション管理
+
+### 商品バリエーション（サイズ・色など）
+```typescript
+interface ProductVariation {
+  id: string;
+  productId: string;
+  attributes: {
+    size?: string;         // サイズ
+    color?: string;        // 色
+    material?: string;     // 素材
+    [key: string]: string; // その他属性
+  };
+  sku: string;             // バリエーション固有SKU
+  pricing: VariationPricing;
+  inventory: VariationInventory;
+  images: ProductImage[];   // バリエーション固有画像
+  isDefault: boolean;      // デフォルトバリエーション
+}
+```
+
+## 在庫管理ルール
+
+### 在庫更新処理
+- **アトミック更新**: 在庫数変更は必ずトランザクション内
+- **競合制御**: 楽観的排他制御実装
+- **リアルタイム同期**: WebSocketで在庫状況配信
+- **在庫切れ通知**: 管理者への自動アラート
+
+```typescript
+// 在庫減算の推奨実装
+const decreaseInventory = async (productId: string, quantity: number) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const product = await tx.product.findUnique({
+      where: { id: productId },
+      select: { inventory: true, version: true }
+    });
+    
+    if (!product || product.inventory.quantity < quantity) {
+      throw new Error('insufficient_inventory');
+    }
+    
+    return await tx.product.update({
+      where: { 
+        id: productId,
+        version: product.version // 楽観的排他制御
+      },
+      data: {
+        inventory: {
+          quantity: product.inventory.quantity - quantity
+        },
+        version: { increment: 1 }
+      }
+    });
+  });
+  
+  // WebSocketで在庫更新を配信
+  await notifyInventoryUpdate(productId, result.inventory);
+  
+  return result;
+};
+```
+
+## カテゴリ管理
+
+### 階層構造カテゴリ
+```typescript
+interface Category {
+  id: string;
+  name: string;          // カテゴリ名
+  slug: string;          // URL用スラッグ
+  description?: string;  // カテゴリ説明
+  parentId?: string;     // 親カテゴリID
+  children?: Category[]; // 子カテゴリ配列
+  level: number;         // 階層レベル
+  sortOrder: number;     // 表示順序
+  isActive: boolean;     // 有効フラグ
+  seo: CategorySEO;      // SEO情報
+  image?: CategoryImage; // カテゴリ画像
+}
+```
+
+## 検索・フィルタリング
+
+### Elasticsearch統合
+- **全文検索**: 商品名・説明・タグ対象
+- **ファセット検索**: カテゴリ・価格・属性でフィルタ
+- **自動補完**: 入力に応じたサジェスト機能
+- **検索解析**: 検索クエリの分析・改善
+
+```typescript
+// 商品検索の実装例
+const searchProducts = async (params: ProductSearchParams) => {
+  const query = {
+    bool: {
+      must: [
+        ...(params.q ? [{
+          multi_match: {
+            query: params.q,
+            fields: ['name^3', 'description^2', 'tags']
+          }
+        }] : []),
+        ...(params.categoryId ? [{
+          term: { 'category.id': params.categoryId }
+        }] : [])
+      ],
+      filter: [
+        { term: { status: 'published' } },
+        ...(params.priceRange ? [{
+          range: {
+            'pricing.regular': {
+              gte: params.priceRange.min,
+              lte: params.priceRange.max
+            }
+          }
+        }] : [])
+      ]
+    }
+  };
+  
+  return await elasticsearch.search({
+    index: 'products',
+    body: { query, size: params.limit, from: params.offset }
+  });
+};
+```
+
+## パフォーマンス最適化
+
+### キャッシュ戦略
+- **商品一覧**: Redis 15分キャッシュ
+- **商品詳細**: Redis 30分キャッシュ
+- **在庫情報**: リアルタイム取得（キャッシュなし）
+- **画像**: CDN永続キャッシュ
+
+### データベース最適化
+- **インデックス**: SKU, category_id, status複合インデックス
+- **N+1問題**: includeで関連データ一括取得
+- **ページネーション**: cursor-based pagination推奨
+
+## テスト要件
+
+### 必須テストケース
+- ✅ 商品CRUD操作テスト
+- ✅ 在庫管理ロジックテスト
+- ✅ 検索機能テスト
+- ✅ 画像アップロード・最適化テスト
+- ✅ バリエーション管理テスト
+- ✅ カテゴリ階層テスト
+
+@product-types.ts
+@inventory-service.ts
+@search-service.ts
+@image-optimization.ts

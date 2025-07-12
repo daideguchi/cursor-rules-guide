@@ -1,60 +1,108 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ===== AI Control Rules Template - .gitignore =====
 
-# Dependencies
-node_modules/
-.pnp
-.pnp.js
-
-# Testing
-coverage/
-
-# Next.js
-.next/
-out/
-
-# Production
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Environment variables
+# Virtual environments
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Embedded git repositories
-cursor-rules-templates/
+# Logs
+*.log
+logs/
+
+# Runtime data
+runtime/cache/
+runtime/tmp/
+runtime/*.json
+runtime/*.lock
+
+# Environment-specific
+.mcp.json.local
+.env.local
+config/system/.env
+config/system/.mcp.json
+
+# AI/ML
+models/trained/*
+!models/trained/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+
+# Build artifacts
+*.tar.gz
+*.zip
+validation_result.json
+STATUS.md
+.ai-org-configured
+.task_status
 
 # Temporary files
 *.tmp
 *.temp
+.shell_integration.bash
 
-# misc
-*.pem
+# Secret prevention (Critical - Added after API key leak incident)
+.specstory/
+*.secret
+*.key
+.env*
+**/history/
+**/cache/
+**/*api*key*
+**/*token*
+**/*secret*
+**/*password*
+**/*credential*
+.specstory/
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts 
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+!.env.example
+node_modules

@@ -169,7 +169,7 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
       </AnimatePresence>
 
       {/* Side Navigation */}
-      <aside className="hidden lg:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-40 overflow-y-auto">
+      <aside className="hidden lg:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-40 overflow-y-auto shadow-lg">
         <div className="p-6">
           <h2 className="text-lg font-bold mb-6 text-gray-900 dark:text-white">
             📚 目次

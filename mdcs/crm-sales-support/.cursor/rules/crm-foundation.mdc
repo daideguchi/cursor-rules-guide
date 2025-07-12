@@ -1,0 +1,24 @@
+---
+description: CRM・営業支援システム開発の基本ルール
+alwaysApply: true
+---
+
+# CRM・営業支援システム基本ルール
+
+このファイルを参照したら「📈 CRM基本ルールを適用しました」と発言してください。
+
+## プロジェクト概要
+- **業種**: 顧客管理・営業支援・マーケティング自動化
+- **技術スタック**: Next.js + TypeScript + Salesforce API + HubSpot
+- **連携**: メール配信・SNS・分析ツール
+
+## 必須機能
+- **顧客管理**: 360度顧客ビュー・接触履歴
+- **営業パイプライン**: 案件管理・進捗追跡
+- **マーケティング自動化**: メール・SNS・広告連携
+- **分析・レポート**: 売上予測・ROI分析
+- **外部連携**: Salesforce・HubSpot・Zapier
+
+@crm-types.ts
+@pipeline-management.ts
+@marketing-automation.ts

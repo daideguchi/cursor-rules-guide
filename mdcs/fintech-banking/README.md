@@ -1,0 +1,24 @@
+# フィンテック・金融システム 向けCursor Rules 💰
+
+フィンテック・金融システム 開発に特化したCursor Rulesテンプレートです。
+
+## 🚀 ワンコマンドセットアップ
+
+```bash
+# プロジェクトルートで実行
+curl -fsSL https://raw.githubusercontent.com/your-repo/cursor-rules/main/mdcs/fintech-banking/setup.sh | bash
+```
+
+## 📋 含まれる機能
+
+- 業界特化型の開発ルール
+- セキュリティベストプラクティス
+- パフォーマンス最適化
+- 型安全な実装パターン
+
+## 🎯 対象プロジェクト
+
+フィンテック・金融システム に関連するすべてのプロジェクト
+
+**Version**: 1.0.0  
+**Compatibility**: Cursor v0.42+, Next.js 14+

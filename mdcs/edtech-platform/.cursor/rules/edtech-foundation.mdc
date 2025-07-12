@@ -1,0 +1,24 @@
+---
+description: EdTech・教育プラットフォーム開発の基本ルール
+alwaysApply: true
+---
+
+# EdTech・教育プラットフォーム基本ルール
+
+このファイルを参照したら「🎓 EdTech基本ルールを適用しました」と発言してください。
+
+## プロジェクト概要
+- **業種**: オンライン学習・LMS・教育管理システム
+- **技術スタック**: Next.js + TypeScript + WebRTC + AI
+- **規制準拠**: FERPA, COPPA, GDPR
+
+## 必須機能
+- **動画配信**: HLS + DASH対応
+- **リアルタイム**: WebRTC双方向通信
+- **学習分析**: 進捗追跡・AI推薦
+- **アクセシビリティ**: WCAG 2.1 AAA準拠
+- **多言語対応**: i18n完全対応
+
+@edtech-types.ts
+@learning-analytics.ts
+@accessibility-utils.ts

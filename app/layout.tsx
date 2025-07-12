@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { ToastProvider } from '@/components/providers/ToastProvider'
 import { ProgressBarProvider } from '@/components/providers/ProgressBarProvider'
+// import { StagewiseToolbar } from '@/components/ui/StagewiseToolbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -68,6 +69,11 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={inter.className}>
+        {/* <StagewiseToolbar
+          config={{
+            plugins: [], // カスタムプラグインを追加する場合はここに
+          }}
+        /> */}
         <ThemeProvider defaultTheme="light">
           <ProgressBarProvider>
             <ToastProvider>

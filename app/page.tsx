@@ -1048,7 +1048,7 @@ function IndustryCard({ industry, onPreview }: { industry: any; onPreview: (indu
 
   const generateCommand = () => {
     return `# ${industry.title}テンプレート適用 - ワンコマンド
-mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 ${industry.title}用Cursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursorを再起動 または Cmd+Shift+P → 'Reload Window'" && echo "2. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "3. 'Codebase Indexing' が100%完了まで待機" && echo "4. ✅ 準備完了！AIが最強のアシスタントに進化しました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 ${industry.title}用Cursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "2. 'Codebase Indexing' が100%完了まで待機" && echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"
 
 # 確認
 ls -la .cursor/rules/
@@ -3338,7 +3338,7 @@ alwaysApply: false
                     </h4>
                     <p className="text-sm" style={{ color: COLORS.textLight }}>
                       <strong>@</strong> は「名詞」（モノ・情報）、<strong>/</strong> は「動詞」（行動・命令）として覚えましょう。
-                      最強の組み合わせ：「@MyFile.js を読んでから /summarize して」
+                      便利な組み合わせ：「@MyFile.js を読んでから /summarize して」
                     </p>
                   </div>
                 </Card>
@@ -6964,7 +6964,7 @@ alwaysApply: true
                           { solution: "完全個人最適化", benefit: "一人ひとりに最適な学習・開発環境" },
                           { solution: "学習→実践の即座連携", benefit: "知識がリアルタイムで実践に反映" },
                           { solution: "定量的効果測定", benefit: "学習効果とROIの明確な可視化" },
-                          { solution: "自動改善サイクル", benefit: "継続的な最適化で常に進化" }
+                          { solution: "自動改善サイクル", benefit: "継続的な最適化で改善" }
                         ].map((solution, index) => (
                           <div 
                             key={index}
@@ -7190,7 +7190,7 @@ alwaysApply: true
                       </h4>
                       <CodeBlock 
                         code={`# ⚡ Cursor Rules完全環境 - ワンコマンド適用
-mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursorを再起動 または Cmd+Shift+P → 'Reload Window'" && echo "2. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "3. 'Codebase Indexing' が100%完了まで待機" && echo "4. ✅ 準備完了！AIが最強のアシスタントに進化しました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "2. 'Codebase Indexing' が100%完了まで待機" && echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"
 echo "Cursor Rules基本セットアップ完了！"`}
                         title="基本セットアップコマンド"
                       />
@@ -7205,17 +7205,17 @@ echo "Cursor Rules基本セットアップ完了！"`}
                           {
                             title: "Next.js プロジェクト",
                             command: `# Next.js最適化セットアップ
-mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && echo "🎉 Next.js用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化してください"`
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && echo "🎉 Next.js用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           },
                           {
                             title: "React + TypeScript",
                             command: `# React TypeScript環境
-mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && echo "🎉 React TypeScript用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化してください"`
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && echo "🎉 React TypeScript用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           },
                           {
                             title: "Node.js API",
                             command: `# Node.js API開発環境
-mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && echo "🎉 Node.js API用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化してください"`
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && echo "🎉 Node.js API用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           }
                         ].map((setup, index) => (
                           <div key={index}>
@@ -7499,7 +7499,7 @@ echo "複数プロジェクト管理システム構築完了！"`}
               <SectionHeader 
                 icon={TrendingUp}
                 title="14. 継続的改善の実践"
-                subtitle="Cursor Rulesを進化させ続けるためのフレームワーク"
+                subtitle="Cursor Rulesを改善し続けるためのフレームワーク"
                 isActive={activeSection === "continuous-improvement"}
               />
 

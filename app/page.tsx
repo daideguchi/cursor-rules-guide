@@ -1176,23 +1176,116 @@ export default function Home() {
     setPreviewModal({ isOpen: false, industry: null });
   };
 
-  // セクション一覧
+  // セクション一覧（サブセクション付き）
   const sections = [
-    { id: "hero", title: "Cursor Rules 完全ガイド" },
-    { id: "introduction", title: "1. はじめに：Cursor Rulesの力" },
-    { id: "when-to-use", title: "2. 設定すべきタイミング" },
-    { id: "basics", title: "3. 基本設定とファイル構造" },
-    { id: "rule-types", title: "4. ルールタイプの使い分け" },
-    { id: "slash-commands", title: "5. スラッシュコマンド完全ガイド" },
-    { id: "best-practices", title: "6. 効果的なルール記述" },
-    { id: "practical-examples", title: "7. 実践的な活用例" },
-    { id: "advanced-techniques", title: "8. 高度なテクニック" },
-    { id: "troubleshooting", title: "9. トラブルシューティング" },
-    { id: "enterprise-cases", title: "10. 企業導入事例" },
-    { id: "industry-templates", title: "11. 業種別MDCテンプレート集" },
-    { id: "asagami-integration", title: "12. asagami AI連携：次世代学習システム" },
-    { id: "one-command-setup", title: "13. ワンコマンド環境構築" },
-    { id: "continuous-improvement", title: "14. 継続的改善の実践" }
+    { 
+      id: "hero", 
+      title: "Cursor Rules 完全ガイド",
+      subsections: []
+    },
+    { 
+      id: "introduction", 
+      title: "1. はじめに：Cursor Rulesの力",
+      subsections: [
+        { id: "intro-what-is", title: "1.1 Cursor Rulesとは？" },
+        { id: "intro-benefits", title: "1.2 開発効率の劇的向上" },
+        { id: "intro-video", title: "1.3 推奨動画" }
+      ]
+    },
+    { 
+      id: "when-to-use", 
+      title: "2. 設定すべきタイミング",
+      subsections: [
+        { id: "timing-signs", title: "2.1 設定のサイン" },
+        { id: "timing-scenarios", title: "2.2 効果的な活用場面" }
+      ]
+    },
+    { 
+      id: "basics", 
+      title: "3. 基本設定とファイル構造",
+      subsections: [
+        { id: "basics-structure", title: "3.1 ファイル構造" },
+        { id: "basics-writing", title: "3.2 基本的な書き方" },
+        { id: "basics-examples", title: "3.3 設定例" },
+        { id: "basics-cursor-settings", title: "3.4 Cursor設定の詳細ガイド" }
+      ]
+    },
+    { 
+      id: "rule-types", 
+      title: "4. ルールタイプの使い分け",
+      subsections: [
+        { id: "types-always", title: "4.1 Always ルール" },
+        { id: "types-attached", title: "4.2 Auto Attached ルール" },
+        { id: "types-requested", title: "4.3 Agent Requested ルール" },
+        { id: "types-manual", title: "4.4 Manual ルール" }
+      ]
+    },
+    { 
+      id: "slash-commands", 
+      title: "5. スラッシュコマンド完全ガイド",
+      subsections: [
+        { id: "commands-basic", title: "5.1 基本コマンド" },
+        { id: "commands-advanced", title: "5.2 高度なコマンド" },
+        { id: "commands-custom", title: "5.3 カスタムコマンド" }
+      ]
+    },
+    { 
+      id: "best-practices", 
+      title: "6. 効果的なルール記述",
+      subsections: [
+        { id: "practices-tips", title: "6.1 記述のコツ" },
+        { id: "practices-mistakes", title: "6.2 よくある間違い" },
+        { id: "practices-improvement", title: "6.3 改善方法" }
+      ]
+    },
+    { 
+      id: "practical-examples", 
+      title: "7. 実践的な活用例",
+      subsections: [
+        { id: "examples-web", title: "7.1 Web開発" },
+        { id: "examples-mobile", title: "7.2 モバイル開発" },
+        { id: "examples-api", title: "7.3 API開発" }
+      ]
+    },
+    { 
+      id: "advanced-techniques", 
+      title: "8. 高度なテクニック",
+      subsections: []
+    },
+    { 
+      id: "troubleshooting", 
+      title: "9. トラブルシューティング",
+      subsections: []
+    },
+    { 
+      id: "enterprise-cases", 
+      title: "10. 企業導入事例",
+      subsections: []
+    },
+    { 
+      id: "industry-templates", 
+      title: "11. 業種別MDCテンプレート集",
+      subsections: []
+    },
+    { 
+      id: "asagami-integration", 
+      title: "12. asagami AI連携：次世代学習システム",
+      subsections: []
+    },
+    { 
+      id: "one-command-setup", 
+      title: "13. ワンコマンド環境構築",
+      subsections: [
+        { id: "setup-auto", title: "13.1 自動セットアップ" },
+        { id: "setup-templates", title: "13.2 テンプレート選択" },
+        { id: "setup-custom", title: "13.3 カスタマイズ" }
+      ]
+    },
+    { 
+      id: "continuous-improvement", 
+      title: "14. 継続的改善の実践",
+      subsections: []
+    }
   ];
 
   // スクロールスパイ機能
@@ -1348,11 +1441,15 @@ export default function Home() {
       <Header
         onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
         isMenuOpen={isMenuOpen}
+        sections={sections}
+        activeSection={activeSection}
       />
 
       <SideNavigation
         isOpen={isSideNavOpen}
         onToggle={() => setIsSideNavOpen(!isSideNavOpen)}
+        sections={sections}
+        activeSection={activeSection}
       />
 
       <main className="pt-16 lg:ml-80 min-h-screen">
@@ -1630,873 +1727,9 @@ export default function Home() {
                   style={{ backgroundColor: COLORS.border }}
                 ></div>
 
-                {/* Cursor完全ガイド */}
-                <div className="max-w-6xl mx-auto">
-                  <div className="text-center mb-8 sm:mb-12">
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4" style={{ color: COLORS.text }}>
-                      🚀 Cursorで理解すべき4つの操作モード
-                    </h2>
-                    <p className="text-lg sm:text-xl mb-8" style={{ color: COLORS.textLight }}>
-                      効率的な開発のための実践的ガイド
-                    </p>
-                  </div>
 
-                  {/* 4つのモード */}
-                  <div className="grid md:grid-cols-2 gap-8 mb-12">
-                    <div className="border-l-4" style={{ borderLeftColor: COLORS.primary }}>
-                      <Card>
-                        <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.text }}>
-                          1. ⌘I Agent モード
-                        </h3>
-                        <div className="mb-4">
-                          <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
-                            新機能開発・大規模変更
-                          </span>
-                        </div>
-                        <p className="text-sm mb-4" style={{ color: COLORS.textLight }}>
-                          ファイル全体の生成や複数ファイルにまたがる変更を自動実行
-                        </p>
-                        <div className="bg-gray-50 p-3 rounded-lg text-xs font-mono">
-                          例：「ユーザー認証機能をNextAuth.jsで実装」
-                        </div>
-                      </Card>
-                    </div>
 
-                    <div className="border-l-4" style={{ borderLeftColor: '#10b981' }}>
-                      <Card>
-                        <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.text }}>
-                          2. ⌘K Inline Edit
-                        </h3>
-                        <div className="mb-4">
-                          <span className="px-3 py-1 rounded-full bg-green-100 text-green-800 text-sm font-medium">
-                            部分修正・リファクタリング
-                          </span>
-                        </div>
-                        <p className="text-sm mb-4" style={{ color: COLORS.textLight }}>
-                          選択したコード部分のみを効率的に修正・改善
-                        </p>
-                        <div className="bg-gray-50 p-3 rounded-lg text-xs font-mono">
-                          例：関数を選択して「エラーハンドリング追加」
-                        </div>
-                      </Card>
-                    </div>
 
-                    <div className="border-l-4" style={{ borderLeftColor: '#f59e0b' }}>
-                      <Card>
-                        <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.text }}>
-                          3. ⌘L Chat モード
-                        </h3>
-                        <div className="mb-4">
-                          <span className="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 text-sm font-medium">
-                            質問・説明・相談
-                          </span>
-                        </div>
-                        <p className="text-sm mb-4" style={{ color: COLORS.textLight }}>
-                          コードの理解、デバッグ、設計相談など
-                        </p>
-                        <div className="bg-gray-50 p-3 rounded-lg text-xs font-mono">
-                          例：「このエラーの原因と解決策は？」
-                        </div>
-                      </Card>
-                    </div>
-
-                    <div className="border-l-4" style={{ borderLeftColor: '#8b5cf6' }}>
-                      <Card>
-                        <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.text }}>
-                          4. Tab 補完モード
-                        </h3>
-                        <div className="mb-4">
-                          <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm font-medium">
-                            リアルタイム支援
-                          </span>
-                        </div>
-                        <p className="text-sm mb-4" style={{ color: COLORS.textLight }}>
-                          入力中の自動補完とインライン提案
-                        </p>
-                        <div className="bg-gray-50 p-3 rounded-lg text-xs font-mono">
-                          例：関数名入力時の自動補完
-                        </div>
-                      </Card>
-                    </div>
-                  </div>
-
-                  {/* セクション区切り線 */}
-                  <div 
-                    className="w-full h-px my-8 sm:my-12"
-                    style={{ backgroundColor: COLORS.border }}
-                  ></div>
-
-                  {/* Cursor設定セクション */}
-                  <div className="mb-12">
-                    <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: COLORS.text }}>
-                      ⚙️ Cursor設定の完全ガイド
-                    </h2>
-                    
-                    <div className="grid lg:grid-cols-2 gap-8">
-                      {/* Rules & Memories 設定 */}
-                      <Card>
-                        <h3 className="text-xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                          📝 Rules & Memories 設定
-                        </h3>
-                        
-                        <div className="space-y-6">
-                          <div>
-                            <h4 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
-                              1. .cursorrules ファイル（非推奨）
-                            </h4>
-                            <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-3">
-                              <p className="text-sm text-yellow-800">
-                                ⚠️ 現在は非推奨ですが、使用する場合は設定で有効化が必要
-                              </p>
-                            </div>
-                            <div className="bg-gray-50 p-3 rounded-lg text-sm">
-                              <strong>設定手順：</strong><br />
-                              Settings → Rules & Memories → Include .cursorrules file<br />
-                              <span className="text-green-600">✓ チェックを入れる</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <h4 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
-                              2. User Rules（推奨）
-                            </h4>
-                            <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-3">
-                              <p className="text-sm text-green-800">
-                                ✅ 現在推奨されている方法
-                              </p>
-                            </div>
-                            <div className="bg-gray-50 p-3 rounded-lg text-sm">
-                              <strong>設定手順：</strong><br />
-                              Settings → Rules & Memories → User Rules<br />
-                              <span className="text-blue-600">「+ Add Rule」ボタンで追加</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <h4 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
-                              3. Project Rules
-                            </h4>
-                            <div className="bg-gray-50 p-3 rounded-lg text-sm">
-                              プロジェクト固有の設定。<br />
-                              <span className="text-blue-600">「+ Add Rule」でプロジェクト専用ルール追加</span>
-                            </div>
-                          </div>
-                        </div>
-                      </Card>
-
-                      {/* Indexing & Docs 設定 */}
-                      <Card>
-                        <h3 className="text-xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                          🔄 Indexing & Docs 設定
-                        </h3>
-                        
-                        <div className="space-y-6">
-                          <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
-                            <h4 className="font-semibold text-red-800 mb-2">
-                              ⚠️ 重要：Syncの実行
-                            </h4>
-                            <p className="text-sm text-red-700">
-                              ルール設定後は必ずSyncボタンを押してルールを確実に適用させる
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <h4 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
-                              1. Codebase Indexing
-                            </h4>
-                            <div className="bg-gray-50 p-3 rounded-lg text-sm mb-3">
-                              プロジェクト全体をインデックス化してAIの理解を向上
-                            </div>
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span>進捗:</span>
-                              <span className="text-green-600 font-semibold">100% (104 files)</span>
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <h4 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
-                              2. 同期の実行
-                            </h4>
-                            <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                              <p className="text-sm text-blue-800 mb-2">
-                                <strong>実行手順：</strong>
-                              </p>
-                              <ol className="text-sm text-blue-700 list-decimal list-inside space-y-1">
-                                <li>Settings → Indexing & Docs</li>
-                                <li>右上の「Sync」ボタンをクリック</li>
-                                <li>インデックス完了を確認</li>
-                              </ol>
-                            </div>
-                          </div>
-                        </div>
-                      </Card>
-                    </div>
-                  </div>
-
-                  {/* セクション区切り線 */}
-                  <div 
-                    className="w-full h-px my-8 sm:my-12"
-                    style={{ backgroundColor: COLORS.border }}
-                  ></div>
-
-                  {/* MCP Tools セクション */}
-                  <div className="mb-12">
-                    <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: COLORS.text }}>
-                      🔧 MCP Tools 設定ガイド
-                    </h2>
-                    
-                    <Card>
-                      <div className="mb-6">
-                        <p className="text-lg mb-4" style={{ color: COLORS.textLight }}>
-                          MCP（Model Context Protocol）は、AIモデルがリアルタイムでシステムやサービスとやり取りできる仕組みです。
-                        </p>
-                      </div>
-                      
-                      <div className="grid md:grid-cols-2 gap-8">
-                        <div>
-                          <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.text }}>
-                            📚 主要なMCPツール
-                          </h3>
-                          <div className="space-y-4">
-                            <div className="border rounded-lg p-4">
-                              <h4 className="font-semibold mb-2">File System Tools</h4>
-                              <p className="text-sm" style={{ color: COLORS.textLight }}>
-                                ファイルの読み書き、ディレクトリ操作
-                              </p>
-                            </div>
-                            <div className="border rounded-lg p-4">
-                              <h4 className="font-semibold mb-2">Git Tools</h4>
-                              <p className="text-sm" style={{ color: COLORS.textLight }}>
-                                Gitリポジトリの操作、コミット、ブランチ管理
-                              </p>
-                            </div>
-                            <div className="border rounded-lg p-4">
-                              <h4 className="font-semibold mb-2">Terminal Tools</h4>
-                              <p className="text-sm" style={{ color: COLORS.textLight }}>
-                                コマンドライン実行、スクリプト実行
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.text }}>
-                            ⚙️ 設定手順
-                          </h3>
-                          <div className="space-y-4">
-                            <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                              <h4 className="font-semibold text-blue-800 mb-2">1. 設定ファイルの作成</h4>
-                              <div className="bg-gray-900 text-white p-3 rounded text-xs font-mono mb-2">
-                                ~/.config/cursor/mcp.json
-                              </div>
-                              <p className="text-sm text-blue-700">
-                                MCP設定をJSON形式で定義
-                              </p>
-                            </div>
-                            
-                            <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                              <h4 className="font-semibold text-green-800 mb-2">2. Tools & Integrations</h4>
-                              <p className="text-sm text-green-700">
-                                Settings → Tools & Integrations<br />
-                                でMCPツールを有効化
-                              </p>
-                            </div>
-                            
-                            <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                              <h4 className="font-semibold text-yellow-800 mb-2">3. 参考リンク</h4>
-                              <ul className="text-sm text-yellow-700 space-y-1">
-                                <li>• <a href="https://docs.cursor.com/tools/mcp" className="underline" target="_blank">公式ドキュメント</a></li>
-                                <li>• <a href="https://zenn.dev/bamboohouse/articles/74037522a0a815" className="underline" target="_blank">設定解説記事</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-
-                  {/* 効率向上の期待値 */}
-                  <div 
-                    className="p-6 rounded-lg"
-                    style={{ backgroundColor: COLORS.primaryLight }}
-                  >
-                    <h3 className="text-xl font-semibold mb-4" style={{ color: COLORS.primary }}>
-                      📊 設定効果の期待値（ユーザー報告ベース）
-                    </h3>
-                    <div className="grid md:grid-cols-3 gap-6">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>
-                          2-3倍
-                        </div>
-                        <p className="text-sm" style={{ color: COLORS.textLight }}>
-                          コード生成速度向上<br />
-                          <span className="text-xs">(適切なルール設定時の体感)</span>
-                        </p>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>
-                          大幅改善
-                        </div>
-                        <p className="text-sm" style={{ color: COLORS.textLight }}>
-                          提案の精度向上<br />
-                          <span className="text-xs">(プロジェクトルール適用後)</span>
-                        </p>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>
-                          効率化
-                        </div>
-                        <p className="text-sm" style={{ color: COLORS.textLight }}>
-                          開発フロー改善<br />
-                          <span className="text-xs">(MCP Tools使用時)</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="mt-4 text-center">
-                      <p className="text-xs" style={{ color: COLORS.textLight }}>
-                        ※ 効果は個人の使用環境・プロジェクト内容により異なります
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* セクション区切り線 */}
-                <div 
-                  className="w-full h-px my-8 sm:my-12"
-                  style={{ backgroundColor: COLORS.border }}
-                ></div>
-
-                {/* AIエージェント完全ガイド */}
-                <div className="mb-12">
-                  <div className="text-center mb-8 sm:mb-12">
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4" style={{ color: COLORS.text }}>
-                      🤖 CursorのAIエージェント完全ガイド
-                    </h2>
-                    <p className="text-lg sm:text-xl mb-8" style={{ color: COLORS.textLight }}>
-                      AIアシスタントから自律的なプログラミングパートナーへ
-                    </p>
-                  </div>
-
-                  {/* AIエージェントとは */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      🎯 AIエージェントって何？
-                    </h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
-                      <div>
-                        <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg mb-6">
-                          <h4 className="text-lg font-semibold text-blue-800 mb-3">
-                            従来のAIツール
-                          </h4>
-                          <ul className="text-sm text-blue-700 space-y-2">
-                            <li>• ユーザーが指示を出す</li>
-                            <li>• AIがコードを生成</li>
-                            <li>• ユーザーが結果を確認・修正</li>
-                            <li>• 一問一答の関係</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="bg-green-50 border border-green-200 p-6 rounded-lg mb-6">
-                          <h4 className="text-lg font-semibold text-green-800 mb-3">
-                            Cursorのエージェント
-                          </h4>
-                          <ul className="text-sm text-green-700 space-y-2">
-                            <li>• 自分で計画を立てる</li>
-                            <li>• 適切なツールを選択</li>
-                            <li>• 自律的にコード編集・実行</li>
-                            <li>• 継続的なプログラミングパートナー</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-purple-50 border border-purple-200 p-6 rounded-lg">
-                      <h4 className="text-lg font-semibold text-purple-800 mb-4">
-                        🔄 エージェントの作業プロセス
-                      </h4>
-                      <div className="flex flex-wrap justify-center gap-4">
-                        <div className="flex items-center">
-                          <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm mr-2">1</div>
-                          <span className="text-sm">計画立案</span>
-                        </div>
-                        <div className="text-purple-400">→</div>
-                        <div className="flex items-center">
-                          <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm mr-2">2</div>
-                          <span className="text-sm">ツール選択</span>
-                        </div>
-                        <div className="text-purple-400">→</div>
-                        <div className="flex items-center">
-                          <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm mr-2">3</div>
-                          <span className="text-sm">実行</span>
-                        </div>
-                        <div className="text-purple-400">→</div>
-                        <div className="flex items-center">
-                          <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm mr-2">4</div>
-                          <span className="text-sm">結果確認</span>
-                        </div>
-                      </div>
-                      <p className="text-sm text-purple-700 mt-4">
-                        💡 この全プロセスが<strong>「エージェントTo-do」</strong>で可視化され、AIの思考過程が透明になります
-                      </p>
-                    </div>
-                  </Card>
-
-                  {/* AIエージェントの道具箱 */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      🧰 AIエージェントの「道具箱」
-                    </h3>
-                    
-                    <p className="text-lg mb-8" style={{ color: COLORS.textLight }}>
-                      Cursorのエージェントには、自律的に作業を進めるための豊富なツールが備わっています。
-                    </p>
-
-                    <div className="grid lg:grid-cols-3 gap-8">
-                      {/* 検索ツール */}
-                      <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-blue-800 mb-4">
-                          🔍 検索ツール
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="border-b border-blue-200 pb-2">
-                            <h5 className="font-semibold text-blue-700">Read File</h5>
-                            <p className="text-xs text-blue-600">ファイル内容を読み取り（最大750行）</p>
-                          </div>
-                          <div className="border-b border-blue-200 pb-2">
-                            <h5 className="font-semibold text-blue-700">List Directory</h5>
-                            <p className="text-xs text-blue-600">フォルダ構造の確認</p>
-                          </div>
-                          <div className="border-b border-blue-200 pb-2">
-                            <h5 className="font-semibold text-blue-700">Codebase</h5>
-                            <p className="text-xs text-blue-600">セマンティック検索で関連コード発見</p>
-                          </div>
-                          <div className="border-b border-blue-200 pb-2">
-                            <h5 className="font-semibold text-blue-700">Grep</h5>
-                            <p className="text-xs text-blue-600">キーワード・パターン検索</p>
-                          </div>
-                          <div className="border-b border-blue-200 pb-2">
-                            <h5 className="font-semibold text-blue-700">Search Files</h5>
-                            <p className="text-xs text-blue-600">あいまいなファイル名での検索</p>
-                          </div>
-                          <div>
-                            <h5 className="font-semibold text-blue-700">Web</h5>
-                            <p className="text-xs text-blue-600">インターネット検索</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* 編集ツール */}
-                      <div className="bg-green-50 border border-green-200 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-green-800 mb-4">
-                          ✏️ 編集ツール
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="border-b border-green-200 pb-2">
-                            <h5 className="font-semibold text-green-700">Edit & Reapply</h5>
-                            <p className="text-xs text-green-600">コード変更の提案と適用</p>
-                          </div>
-                          <div className="border-b border-green-200 pb-2">
-                            <h5 className="font-semibold text-green-700">Search & Replace</h5>
-                            <p className="text-xs text-green-600">大規模ファイルでの一括置換</p>
-                          </div>
-                          <div>
-                            <h5 className="font-semibold text-green-700">Delete File</h5>
-                            <p className="text-xs text-green-600">不要ファイルの削除（設定で無効化可能）</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* 実行ツール */}
-                      <div className="bg-orange-50 border border-orange-200 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-orange-800 mb-4">
-                          ⚡ 実行ツール
-                        </h4>
-                        <div className="space-y-3">
-                          <div>
-                            <h5 className="font-semibold text-orange-700">Terminal</h5>
-                            <p className="text-xs text-orange-600 mb-2">
-                              コマンド実行とリアルタイム結果確認
-                            </p>
-                            <div className="bg-gray-900 text-green-400 p-2 rounded text-xs font-mono">
-                              $ npm install<br />
-                              $ npm test<br />
-                              $ npm run build
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* AIエージェントの記憶と理解 */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      🧠 AIエージェントの「記憶」と「理解」
-                    </h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4" style={{ color: COLORS.primary }}>
-                          📚 コードベースの理解
-                        </h4>
-                        <div className="space-y-4">
-                          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-blue-800">インデックス化</h5>
-                            <p className="text-sm text-blue-700">
-                              プロジェクト全体を分析し、超高速な索引を作成
-                            </p>
-                          </div>
-                          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-blue-800">@-メンション</h5>
-                            <p className="text-sm text-blue-700">
-                              @folders、@filesで特定の箇所を簡単指定
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4" style={{ color: COLORS.primary }}>
-                          💾 永続的な記憶
-                        </h4>
-                        <div className="space-y-4">
-                          <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-green-800">Memory機能</h5>
-                            <p className="text-sm text-green-700">
-                              セッション間で設定や好みを記憶
-                            </p>
-                          </div>
-                          <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-green-800">外部ドキュメント</h5>
-                            <p className="text-sm text-green-700">
-                              @Docs、PDF、GitHubとの連携
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* サブエージェントの必要性 */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      🔄 なぜ「サブエージェント」が必要なの？
-                    </h3>
-                    
-                    <div className="bg-red-50 border border-red-200 p-6 rounded-lg mb-8">
-                      <h4 className="text-lg font-semibold text-red-800 mb-4">
-                        ⚠️ 現在の課題
-                      </h4>
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h5 className="font-semibold text-red-700 mb-2">単一エージェントの限界</h5>
-                          <ul className="text-sm text-red-600 space-y-1">
-                            <li>• エージェントが「詰まる」と全作業停止</li>
-                            <li>• エラーでストップしてしまう</li>
-                            <li>• 複数作業の同時進行が困難</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h5 className="font-semibold text-red-700 mb-2">工場の例</h5>
-                          <p className="text-sm text-red-600">
-                            優秀な作業員が一人だけ → その人が止まると生産ライン全体が停止
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-green-50 border border-green-200 p-6 rounded-lg mb-8">
-                      <h4 className="text-lg font-semibold text-green-800 mb-4">
-                        ✅ ユーザーが求める解決策
-                      </h4>
-                      <div className="grid md:grid-cols-3 gap-4">
-                        <div className="text-center p-4">
-                          <div className="text-3xl mb-2">🔀</div>
-                          <h5 className="font-semibold text-green-700">複数の作業を同時実行</h5>
-                          <p className="text-xs text-green-600">並列処理でスピードアップ</p>
-                        </div>
-                        <div className="text-center p-4">
-                          <div className="text-3xl mb-2">🎯</div>
-                          <h5 className="font-semibold text-green-700">専門家エージェント</h5>
-                          <p className="text-xs text-green-600">特定分野の専門化</p>
-                        </div>
-                        <div className="text-center p-4">
-                          <div className="text-3xl mb-2">🛡️</div>
-                          <h5 className="font-semibold text-green-700">フェイルセーフ</h5>
-                          <p className="text-xs text-green-600">一つが失敗しても継続</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                      <h4 className="text-lg font-semibold text-blue-800 mb-4">
-                        🛠️ ユーザーの工夫：「サブエージェント」の模倣
-                      </h4>
-                      
-                      <div className="grid lg:grid-cols-2 gap-8">
-                        <div>
-                          <h5 className="font-semibold text-blue-700 mb-3">専門家エージェントの作成</h5>
-                          <div className="space-y-3">
-                            <div className="bg-white p-3 rounded border">
-                              <h6 className="font-semibold text-blue-600">カスタムモード活用</h6>
-                              <p className="text-xs text-blue-500">
-                                「コードレビュアー」「テストジェネレーター」などの専門役割を設定
-                              </p>
-                            </div>
-                            <div className="bg-white p-3 rounded border">
-                              <h6 className="font-semibold text-blue-600">特定ツール＋指示セット</h6>
-                              <p className="text-xs text-blue-500">
-                                役割に応じた道具と命令文を組み合わせ
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div>
-                          <h5 className="font-semibold text-blue-700 mb-3">並列作業の実現</h5>
-                          <div className="space-y-3">
-                            <div className="bg-white p-3 rounded border">
-                              <h6 className="font-semibold text-blue-600">バックグラウンドエージェント</h6>
-                              <p className="text-xs text-blue-500">
-                                時間のかかるタスクを裏で実行
-                              </p>
-                            </div>
-                            <div className="bg-white p-3 rounded border">
-                              <h6 className="font-semibold text-blue-600">マルチタブワークフロー</h6>
-                              <p className="text-xs text-blue-500">
-                                複数チャットで同時進行（Ctrl+T）
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* 競合他社との比較 */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      ⚔️ Cursorの「仲間たち」と競争
-                    </h3>
-                    
-                    <div className="grid lg:grid-cols-3 gap-8">
-                      {/* Cursor */}
-                      <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-blue-800 mb-4">
-                          🏆 Cursor
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="text-green-600 text-sm">
-                            <strong>✅ 強み</strong>
-                            <ul className="mt-1 space-y-1">
-                              <li>• 複数ファイル編集が高速</li>
-                              <li>• 豊富なAIモデル選択肢</li>
-                              <li>• 高いカスタマイズ性</li>
-                              <li>• 統合されたエージェント体験</li>
-                            </ul>
-                          </div>
-                          <div className="text-red-600 text-sm">
-                            <strong>⚠️ 課題</strong>
-                            <ul className="mt-1 space-y-1">
-                              <li>• リクエストベース料金の不満</li>
-                              <li>• パフォーマンス問題</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* GitHub Copilot */}
-                      <div className="bg-gray-50 border border-gray-200 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-gray-800 mb-4">
-                          🐙 GitHub Copilot
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="text-green-600 text-sm">
-                            <strong>✅ 強み</strong>
-                            <ul className="mt-1 space-y-1">
-                              <li>• Microsoft/GitHub連携</li>
-                              <li>• 安定した体験</li>
-                              <li>• 定額制で予測しやすい</li>
-                              <li>• 慎重な計画段階</li>
-                            </ul>
-                          </div>
-                          <div className="text-red-600 text-sm">
-                            <strong>⚠️ 課題</strong>
-                            <ul className="mt-1 space-y-1">
-                              <li>• Cursorより処理が遅い</li>
-                              <li>• カスタマイズ制限</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Amazon Q */}
-                      <div className="bg-orange-50 border border-orange-200 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-orange-800 mb-4">
-                          🔶 Amazon Q
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="text-green-600 text-sm">
-                            <strong>✅ 強み</strong>
-                            <ul className="mt-1 space-y-1">
-                              <li>• AWS深度連携</li>
-                              <li>• クラウド特化</li>
-                              <li>• Amazonエコシステム</li>
-                            </ul>
-                          </div>
-                          <div className="text-red-600 text-sm">
-                            <strong>⚠️ 課題</strong>
-                            <ul className="mt-1 space-y-1">
-                              <li>• 汎用性が限定的</li>
-                              <li>• エージェント自律性がまだ発展中</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* 課題と限界 */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      ⚠️ Cursorの課題と現実的な限界
-                    </h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4 text-red-600">
-                          🐛 技術的な問題
-                        </h4>
-                        <div className="space-y-4">
-                          <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-red-700">パフォーマンス</h5>
-                            <ul className="text-sm text-red-600 mt-2 space-y-1">
-                              <li>• CPU・メモリ大量消費</li>
-                              <li>• アプリケーションクラッシュ</li>
-                              <li>• 30秒以上の応答遅延</li>
-                            </ul>
-                          </div>
-                          <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-red-700">信頼性</h5>
-                            <ul className="text-sm text-red-600 mt-2 space-y-1">
-                              <li>• 作業途中での停止</li>
-                              <li>• 文脈忘れによる重複作業</li>
-                              <li>• ターミナルの無限ループ</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4 text-orange-600">
-                          📊 生産性への影響
-                        </h4>
-                        <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-                          <h5 className="font-semibold text-yellow-800 mb-3">
-                            METR研究の驚くべき結果
-                          </h5>
-                          <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div className="text-center">
-                              <div className="text-2xl font-bold text-red-600">-19%</div>
-                              <p className="text-xs text-yellow-700">実際の作業速度</p>
-                            </div>
-                            <div className="text-center">
-                              <div className="text-2xl font-bold text-green-600">+20%</div>
-                              <p className="text-xs text-yellow-700">開発者の体感</p>
-                            </div>
-                          </div>
-                          <p className="text-sm text-yellow-700">
-                            <strong>「メタワーク」の増加：</strong><br />
-                            AIの管理・修正・文脈説明に時間がかかり、
-                            結果的に作業が遅くなる可能性
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* 未来と使い方 */}
-                  <Card className="mb-12">
-                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                      🚀 Cursorの未来と賢い使い方
-                    </h3>
-                    
-                    <div className="grid lg:grid-cols-2 gap-8">
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4" style={{ color: COLORS.primary }}>
-                          🎯 Anysphereのビジョン
-                        </h4>
-                        <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                          <p className="text-sm text-blue-700 mb-4">
-                            プログラマーをAIに置き換えるのではなく、
-                            <strong>AIと人間が協力する「人間参加型」</strong>のワークフロー
-                          </p>
-                          <div className="text-center">
-                            <div className="text-4xl mb-2">🤝</div>
-                            <p className="text-sm font-semibold text-blue-800">
-                              桁違いに効率的な<br />
-                              「人間とAIのプログラマー」
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-lg font-semibold mb-4" style={{ color: COLORS.primary }}>
-                          💡 成功のカギ
-                        </h4>
-                        <div className="space-y-4">
-                          <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-green-700">いつAIに任せるか？</h5>
-                            <ul className="text-sm text-green-600 mt-2 space-y-1">
-                              <li>• 新規プロジェクト開始</li>
-                              <li>• プロトタイプ作成</li>
-                              <li>• 定型コード生成</li>
-                              <li>• 明確な基準のタスク</li>
-                            </ul>
-                          </div>
-                          <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-                            <h5 className="font-semibold text-orange-700">いつ手動で行うか？</h5>
-                            <ul className="text-sm text-orange-600 mt-2 space-y-1">
-                              <li>• 複雑な既存コード</li>
-                              <li>• セキュリティ重要部分</li>
-                              <li>• 厳格な品質基準</li>
-                              <li>• 暗黙のルールが多い箇所</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-8 bg-purple-50 border border-purple-200 p-6 rounded-lg">
-                      <h4 className="text-lg font-semibold text-purple-800 mb-4">
-                        🎓 効果的な使い方のヒント
-                      </h4>
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h5 className="font-semibold text-purple-700 mb-2">始め方</h5>
-                          <ul className="text-sm text-purple-600 space-y-1">
-                            <li>• 小さく明確なタスクから開始</li>
-                            <li>• 「ジュニア開発者」として扱う</li>
-                            <li>• 継続的なレビューを実施</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h5 className="font-semibold text-purple-700 mb-2">上達のコツ</h5>
-                          <ul className="text-sm text-purple-600 space-y-1">
-                            <li>• カスタムモード・ルール設定に時間投資</li>
-                            <li>• AI使用判断スキルの習得</li>
-                            <li>• 人間参加型ワークフローの確立</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              </div>
             </section>
 
             {/* Introduction */}
@@ -2509,89 +1742,71 @@ export default function Home() {
               />
 
               <div className="space-y-8">
-                <Card>
-                  <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
+                {/* Main explanation */}
+                <div className="max-w-4xl mx-auto">
+                  <h3 className="text-2xl font-semibold mb-6 text-center" style={{ color: COLORS.text }}>
                     1.1 Cursor Rulesとは？
                   </h3>
-                  <p className="text-lg leading-relaxed mb-6" style={{ color: COLORS.textLight }}>
+                  <p className="text-lg leading-relaxed mb-8 text-center" style={{ color: COLORS.textLight }}>
                     Cursor Rulesは、AI搭載エディタCursorにおいて、<strong style={{ color: COLORS.primary }}>AIの振る舞いを制御し、コード補完や説明の精度を向上させるための革新的な機能</strong>です。
                     プロジェクトの全体像や開発における特定のルールをAIに深く理解させることで、より適切なコード提案や質問応答を可能にします。
                   </p>
                   
-                  <QuoteBlock source={<a href="https://docs.cursor.com/context/rules" target="_blank" rel="noopener noreferrer" className="inline-flex items-center hover:underline" style={{ color: COLORS.primary }}>Cursor公式ドキュメント <ExternalLink className="inline w-3 h-3 ml-1" /></a>}>
-                    <p className="text-lg leading-relaxed">
+                  {/* Key benefits - simplified layout */}
+                  <div className="grid md:grid-cols-3 gap-4 mb-8">
+                    <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                      <Zap className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                      <h4 className="font-semibold text-blue-800 dark:text-blue-300">開発効率向上</h4>
+                      <p className="text-sm text-blue-600 dark:text-blue-400">300%スピードアップ</p>
+                    </div>
+                    <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                      <Users className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                      <h4 className="font-semibold text-green-800 dark:text-green-300">チーム共有</h4>
+                      <p className="text-sm text-green-600 dark:text-green-400">統一された品質</p>
+                    </div>
+                    <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                      <Target className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+                      <h4 className="font-semibold text-purple-800 dark:text-purple-300">品質の一貫性</h4>
+                      <p className="text-sm text-purple-600 dark:text-purple-400">バグ70%削減</p>
+                    </div>
+                  </div>
+
+                  {/* Official quote */}
+                  <div className="bg-gray-50 dark:bg-gray-800 border-l-4 border-primary-500 p-6 rounded-r-lg">
+                    <p className="text-base leading-relaxed italic" style={{ color: COLORS.textLight }}>
                       「ルールは、AIへのプロンプトの先頭に一貫したコンテキストとして挿入されます。これにより、AIはコード生成、編集、ワークフロー支援において、
                       常にプロジェクトの背景や規約を理解した上で応答できるようになります。」
                     </p>
-                  </QuoteBlock>
-                </Card>
-
-                <div className="grid md:grid-cols-3 gap-6">
-                  {[
-                    {
-                      icon: <Zap className="w-6 h-6" />,
-                      title: "開発効率の劇的向上",
-                      description: "繰り返し指示が不要になり、AIが最初から適切な提案をします",
-                      effect: "開発速度300%向上"
-                    },
-                    {
-                      icon: <Users className="w-6 h-6" />,
-                      title: "チーム知識の共有",
-                      description: "全メンバーが同じレベルでAIを活用できます",
-                      effect: "チーム生産性200%向上"
-                    },
-                    {
-                      icon: <Target className="w-6 h-6" />,
-                      title: "品質の一貫性",
-                      description: "プロジェクト規約に沿った高品質なコードが生成されます",
-                      effect: "バグ発生率70%削減"
-                    }
-                  ].map((benefit, index) => (
-                    <Card key={index} className="text-center">
-                      <div 
-                        className="w-12 h-12 rounded-lg flex items-center justify-center text-white mb-4 mx-auto"
-                        style={{ backgroundColor: COLORS.primary }}
-                      >
-                        {benefit.icon}
-                      </div>
-                      <h4 className="text-lg font-semibold mb-2" style={{ color: COLORS.text }}>
-                        {benefit.title}
-                      </h4>
-                      <p className="text-sm mb-3" style={{ color: COLORS.textLight }}>
-                        {benefit.description}
-                      </p>
-                      <div 
-                        className="text-sm font-medium px-3 py-1 rounded"
-                        style={{ 
-                          backgroundColor: COLORS.primaryLight,
-                          color: COLORS.primary
-                        }}
-                      >
-                        {benefit.effect}
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-
-                <Card className="text-center">
-                  <div className="inline-block p-4 rounded-lg mb-4" style={{ backgroundColor: COLORS.primaryLight }}>
-                    <Monitor className="w-12 h-12" style={{ color: COLORS.primary }} />
+                    <p className="text-sm mt-3 text-gray-600 dark:text-gray-400">
+                      — <a href="https://docs.cursor.com/context/rules" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Cursor公式ドキュメント</a>
+                    </p>
                   </div>
-                  <h4 className="text-lg font-semibold mb-4" style={{ color: COLORS.text }}>
-                    🎥 推奨動画：Cursor Rules Before/After比較
-                  </h4>
-                  <p className="text-sm mb-4" style={{ color: COLORS.textLight }}>
-                    ルール設定前：一般的なコード提案<br/>
-                    ルール設定後：プロジェクト特化型の的確な提案
-                  </p>
-                  <button 
-                    className="inline-flex items-center px-6 py-3 rounded-lg text-white transition-colors"
-                    style={{ backgroundColor: COLORS.primary }}
-                  >
-                    <Play className="w-4 h-4 mr-2" />
-                    デモ動画を見る
-                  </button>
-                </Card>
+
+                  {/* Simple call to action */}
+                  <div className="text-center mt-8">
+                    <button 
+                      onClick={() => {
+                        const element = document.getElementById('one-command-setup');
+                        element?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      className="inline-flex items-center px-8 py-3 rounded-lg text-white transition-colors mr-4"
+                      style={{ backgroundColor: COLORS.primary }}
+                    >
+                      <Zap className="w-5 h-5 mr-2" />
+                      今すぐ設定する
+                    </button>
+                    <button 
+                      className="inline-flex items-center px-6 py-3 rounded-lg border transition-colors"
+                      style={{ 
+                        borderColor: COLORS.primary,
+                        color: COLORS.primary
+                      }}
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      デモ動画を見る
+                    </button>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -2605,35 +1820,35 @@ export default function Home() {
               />
 
               <div className="space-y-8">
-                <Card>
+                <div className="max-w-4xl mx-auto text-center">
                   <p className="text-lg leading-relaxed mb-6" style={{ color: COLORS.textLight }}>
-                    Agent/Askモードを使用している際に、以下のような状況に遭遇したら、積極的にRulesへの記述を検討しましょう。
-                    これらのサインは、AIが現在のプロジェクトコンテキストを十分に理解していないことを示しています。
+                    CursorでAIに質問したり、コードを書いてもらう時に、こんなことありませんか？<br/>
+                    <strong>そんな時がCursor Rulesの出番です！</strong>
                   </p>
-                </Card>
+                </div>
 
                 <div className="space-y-6">
                   {[
                     {
                       icon: <Code className="w-6 h-6" />,
-                      title: "AIの出力が意図と異なる",
-                      description: "期待した結果と違うコードや説明が生成される場合",
-                      examples: ["古いバージョンのAPIを使用", "プロジェクト構成を理解していない", "コーディング規約を守らない"],
-                      solution: "プロジェクト固有の技術スタックや規約をルールに明記"
+                      title: "😔 AIが思った通りに動いてくれない",
+                      description: "「なんか違う...」と思うことが多い",
+                      examples: ["古いコードの書き方をする", "プロジェクトの構成を分かってない", "チームのルールを知らない"],
+                      solution: "→ プロジェクトのルールをAIに教えてあげましょう！"
                     },
                     {
                       icon: <Settings className="w-6 h-6" />,
-                      title: "同じプロンプトを繰り返している",
-                      description: "毎回同じ指示を与えている作業がある場合",
-                      examples: ["「このファイルを参考にテストを作成して」", "「TypeScript使って」", "「コメントは日本語で書いて」"],
-                      solution: "繰り返し指示をルールとして永続化"
+                      title: "🔄 毎回同じことを説明している",
+                      description: "「また言わなきゃ...」が頻発する",
+                      examples: ["「TypeScript使って」", "「コメントは日本語で」", "「このファイルを参考にして」"],
+                      solution: "→ よく使う指示をルールに保存しておけば自動で適用！"
                     },
                     {
                       icon: <Target className="w-6 h-6" />,
-                      title: "プロジェクト固有の知識が必要",
-                      description: "ドメイン特有のルールや構成がある場合",
-                      examples: ["独自のディレクトリ構造", "特定のライブラリの使用ルール", "チーム固有の命名規則"],
-                      solution: "ドメイン知識とベストプラクティスをルール化"
+                      title: "🏢 会社やチーム独特のやり方がある",
+                      description: "「うちの会社ではこうするんです」パターン",
+                      examples: ["特殊なフォルダ構成", "独自のライブラリを使用", "チーム決めの命名ルール"],
+                      solution: "→ 会社・チーム専用のAIアシスタントに変身させられます！"
                     }
                   ].map((scenario, index) => (
                     <Card key={index}>
@@ -3302,6 +2517,159 @@ alwaysApply: false
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Cursor設定の詳細ガイド */}
+                <Card id="basics-cursor-settings">
+                  <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
+                    3.4 ⚙️ Cursor設定の詳細ガイド
+                  </h3>
+                  
+                  <div className="grid lg:grid-cols-2 gap-8">
+                    {/* Rules & Memories 設定 */}
+                    <div>
+                      <h4 className="text-xl font-semibold mb-6" style={{ color: COLORS.text }}>
+                        📝 Rules & Memories 設定
+                      </h4>
+                      
+                      <div className="space-y-6">
+                        <div>
+                          <h5 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
+                            1. .cursorrules ファイル（非推奨）
+                          </h5>
+                          <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-3">
+                            <p className="text-sm text-yellow-800">
+                              ⚠️ 現在は非推奨ですが、使用する場合は設定で有効化が必要
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+                            <strong>設定手順：</strong><br />
+                            Settings → Rules & Memories → Include .cursorrules file<br />
+                            <span className="text-green-600">✓ チェックを入れる</span>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
+                            2. User Rules（推奨）
+                          </h5>
+                          <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-3">
+                            <p className="text-sm text-green-800">
+                              ✅ 現在推奨されている方法
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+                            <strong>設定手順：</strong><br />
+                            Settings → Rules & Memories → User Rules<br />
+                            <span className="text-blue-600">「+ Add Rule」ボタンで追加</span>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
+                            3. Project Rules
+                          </h5>
+                          <div className="bg-gray-50 p-3 rounded-lg text-sm">
+                            プロジェクト固有の設定。<br />
+                            <span className="text-blue-600">「+ Add Rule」でプロジェクト専用ルール追加</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Indexing & Docs 設定 */}
+                    <div>
+                      <h4 className="text-xl font-semibold mb-6" style={{ color: COLORS.text }}>
+                        🔄 Indexing & Docs 設定
+                      </h4>
+                      
+                      <div className="space-y-6">
+                        <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
+                          <h5 className="font-semibold text-red-800 mb-2">
+                            ⚠️ 重要：Syncの実行
+                          </h5>
+                          <p className="text-sm text-red-700">
+                            ルール設定後は必ずSyncボタンを押してルールを確実に適用させる
+                          </p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
+                            1. Codebase Indexing
+                          </h5>
+                          <div className="bg-gray-50 p-3 rounded-lg text-sm mb-3">
+                            プロジェクト全体をインデックス化してAIの理解を向上
+                          </div>
+                          <div className="flex items-center justify-between p-3 border rounded-lg">
+                            <span>進捗:</span>
+                            <span className="text-green-600 font-semibold">100% (104 files)</span>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-3" style={{ color: COLORS.primary }}>
+                            2. 同期の実行
+                          </h5>
+                          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                            <p className="text-sm text-blue-800 mb-2">
+                              <strong>実行手順：</strong>
+                            </p>
+                            <ol className="text-sm text-blue-700 list-decimal list-inside space-y-1">
+                              <li>Settings → Indexing & Docs</li>
+                              <li>右上の「Sync」ボタンをクリック</li>
+                              <li>インデックス完了を確認</li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 効率向上の期待値 */}
+                  <div className="mt-8">
+                    <div 
+                      className="p-6 rounded-lg"
+                      style={{ backgroundColor: COLORS.primaryLight }}
+                    >
+                      <h4 className="text-xl font-semibold mb-4" style={{ color: COLORS.primary }}>
+                        📊 設定効果の期待値（ユーザー報告ベース）
+                      </h4>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        <div className="text-center">
+                          <div className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>
+                            2-3倍
+                          </div>
+                          <p className="text-sm" style={{ color: COLORS.textLight }}>
+                            コード生成速度向上<br />
+                            <span className="text-xs">(適切なルール設定時の体感)</span>
+                          </p>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>
+                            大幅改善
+                          </div>
+                          <p className="text-sm" style={{ color: COLORS.textLight }}>
+                            提案の精度向上<br />
+                            <span className="text-xs">(プロジェクトルール適用後)</span>
+                          </p>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>
+                            効率化
+                          </div>
+                          <p className="text-sm" style={{ color: COLORS.textLight }}>
+                            開発フロー改善<br />
+                            <span className="text-xs">(MCP Tools使用時)</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-4 text-center">
+                        <p className="text-xs" style={{ color: COLORS.textLight }}>
+                          ※ 効果は個人の使用環境・プロジェクト内容により異なります
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </Card>

@@ -10,9 +10,15 @@ import { SearchModal } from '@/components/ui/SearchModal'
 interface HeaderProps {
   onMenuToggle: () => void
   isMenuOpen: boolean
+  sections?: Array<{
+    id: string
+    title: string
+    subsections: Array<{ id: string; title: string }>
+  }>
+  activeSection?: string
 }
 
-export function Header({ onMenuToggle, isMenuOpen }: HeaderProps) {
+export function Header({ onMenuToggle, isMenuOpen, sections = [], activeSection = '' }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -77,32 +83,71 @@ export function Header({ onMenuToggle, isMenuOpen }: HeaderProps) {
             </div>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation with Dynamic Sub-headings */}
+          <nav className="hidden lg:flex items-center space-x-3">
+            {/* Key navigation items */}
             <a
               href="#introduction"
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
+                activeSection === 'introduction'
+                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
             >
-              はじめに
+              1. はじめに
             </a>
             <a
-              href="#setup"
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              href="#when-to-use"
+              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
+                activeSection === 'when-to-use'
+                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
             >
-              セットアップ
+              2. タイミング
             </a>
             <a
-              href="#templates"
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              href="#basics"
+              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
+                activeSection === 'basics'
+                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
             >
-              テンプレート
+              3. 基本設定
             </a>
             <a
-              href="#troubleshooting"
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              href="#rule-types"
+              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
+                activeSection === 'rule-types'
+                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
             >
-              困った時は
+              4. ルール
             </a>
+            <a
+              href="#one-command-setup"
+              className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors text-sm font-bold px-3 py-1 bg-primary-50 dark:bg-primary-900/20 rounded-full"
+            >
+              ⚡ ワンコマンド
+            </a>
+            
+            {/* Current section subsections */}
+            {sections.find(section => section.id === activeSection)?.subsections.length > 0 && (
+              <div className="flex items-center space-x-1 ml-4 pl-4 border-l border-gray-300 dark:border-gray-600">
+                <span className="text-xs text-gray-500 dark:text-gray-400 mr-2">現在:</span>
+                {sections.find(section => section.id === activeSection)?.subsections.slice(0, 3).map((subsection, index) => (
+                  <a
+                    key={subsection.id}
+                    href={`#${subsection.id}`}
+                    className="text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors px-1 py-0.5 rounded"
+                  >
+                    {subsection.title.split(' ')[1] || subsection.title}
+                  </a>
+                ))}
+              </div>
+            )}
           </nav>
 
           {/* Actions */}
@@ -200,34 +245,56 @@ export function Header({ onMenuToggle, isMenuOpen }: HeaderProps) {
             className="lg:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
           >
             <div className="px-4 py-4 space-y-3">
-              <a
-                href="#introduction"
-                onClick={onMenuToggle}
-                className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                はじめに
-              </a>
-              <a
-                href="#setup"
-                onClick={onMenuToggle}
-                className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                セットアップ
-              </a>
-              <a
-                href="#templates"
-                onClick={onMenuToggle}
-                className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                テンプレート
-              </a>
-              <a
-                href="#troubleshooting"
-                onClick={onMenuToggle}
-                className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                困った時は
-              </a>
+              {/* Main navigation */}
+              {sections.slice(1, 8).map((section) => (
+                <div key={section.id}>
+                  <a
+                    href={`#${section.id}`}
+                    onClick={onMenuToggle}
+                    className={`block py-2 transition-colors ${
+                      activeSection === section.id
+                        ? 'text-primary-600 dark:text-primary-400 font-medium'
+                        : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+                    }`}
+                  >
+                    {section.title}
+                  </a>
+                  
+                  {/* Show subsections for active section */}
+                  {activeSection === section.id && section.subsections.length > 0 && (
+                    <div className="ml-4 mt-1 space-y-1">
+                      {section.subsections.map((subsection) => (
+                        <a
+                          key={subsection.id}
+                          href={`#${subsection.id}`}
+                          onClick={onMenuToggle}
+                          className="block py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                        >
+                          {subsection.title}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              
+              {/* Quick access to important sections */}
+              <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
+                <a
+                  href="#one-command-setup"
+                  onClick={onMenuToggle}
+                  className="block py-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors font-bold"
+                >
+                  ⚡ 13. ワンコマンド環境構築
+                </a>
+                <a
+                  href="#troubleshooting"
+                  onClick={onMenuToggle}
+                  className="block py-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  9. トラブルシューティング
+                </a>
+              </div>
               <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                 <Button
                   variant="outline"

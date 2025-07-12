@@ -14,121 +14,138 @@ interface NavigationItem {
 interface SideNavigationProps {
   isOpen: boolean
   onToggle: () => void
+  sections?: Array<{
+    id: string
+    title: string
+    subsections: Array<{ id: string; title: string }>
+  }>
+  activeSection?: string
 }
 
 const navigationItems: NavigationItem[] = [
   {
     id: 'hero',
-    title: 'はじめに',
-    description: 'Cursor Rules完全ガイドの概要'
+    title: 'Cursor Rules 完全ガイド',
+    description: 'AIを理想的な開発パートナーに'
   },
   {
-    id: 'ai-driven-development',
-    title: 'AI駆動開発の全体像',
-    description: '2つの革新的手法の比較'
-  },
-  {
-    id: 'learning-path',
-    title: '段階的学習パス',
-    description: '5つのレベルで体系的に学習'
-  },
-  {
-    id: 'level-1',
-    title: 'レベル1: はじめの一歩',
-    description: 'Cursorとは？AIコーディングの基本',
+    id: 'introduction',
+    title: '1. はじめに：Cursor Rulesの力',
+    description: 'AIを単なるツールから理想的な開発パートナーへ',
     children: [
-      { id: 'what-is-cursor', title: 'Cursorって何？' },
-      { id: 'cursor-vs-vscode', title: 'VS Codeとの違い' },
-      { id: 'ai-coding-revolution', title: 'AI開発の革命的メリット' },
-      { id: 'cursor-features', title: 'Cursorの主要機能' }
+      { id: 'introduction', title: 'Cursor Rulesとは？' },
+      { id: 'introduction', title: '開発効率の劇的向上' },
+      { id: 'introduction', title: '推奨動画' }
     ]
   },
   {
-    id: 'level-2',
-    title: 'レベル2: ワンコマンド体験',
-    description: '最高品質のCursor Rulesを3ステップで導入',
+    id: 'when-to-use',
+    title: '2. 設定すべきタイミング',
+    description: 'AIの出力品質を改善する最適なタイミング',
     children: [
-      { id: 'auto-setup', title: '自動セットアップ' },
-      { id: 'cursor-rules-explanation', title: 'Cursor Rulesとは？' },
-      { id: 'mdc-files', title: '.mdcファイルの仕組み' }
+      { id: 'when-to-use', title: '効果的な設定時期' },
+      { id: 'when-to-use', title: '活用場面の判断' }
     ]
   },
   {
-    id: 'level-3',
-    title: 'レベル3: プロジェクト適用',
-    description: 'プロジェクトタイプ別のCursor Rules活用法',
+    id: 'basics',
+    title: '3. 基本設定とファイル構造',
+    description: 'Cursor Rulesの基本的な書き方と構造',
     children: [
-      { id: 'web-development', title: 'Webアプリケーション開発' },
-      { id: 'mobile-development', title: 'モバイルアプリ開発' },
-      { id: 'backend-development', title: 'Backend/API開発' },
-      { id: 'data-science', title: 'データサイエンス/ML開発' }
+      { id: 'basics', title: 'ファイル構造' },
+      { id: 'basics', title: '基本的な書き方' },
+      { id: 'basics', title: '設定例' }
     ]
   },
   {
-    id: 'level-4',
-    title: 'レベル4: チーム運用',
-    description: 'チーム開発での活用と継続的改善',
+    id: 'rule-types',
+    title: '4. ルールタイプの使い分け',
+    description: '目的に応じたルールの種類と使い方',
     children: [
-      { id: 'roi-measurement', title: 'ROI測定と効果分析' },
-      { id: 'implementation-roadmap', title: '3ヶ月導入ロードマップ' },
-      { id: 'best-practices', title: 'ベストプラクティス集' },
-      { id: 'success-stories', title: '実際のチーム成功事例' }
+      { id: 'rule-types', title: 'プロジェクト全体ルール' },
+      { id: 'rule-types', title: 'ファイルタイプ別ルール' },
+      { id: 'rule-types', title: 'タスク特化ルール' }
     ]
   },
   {
-    id: 'level-5',
-    title: 'レベル5: Claude Code Company',
-    description: 'AIエージェント組織による並列処理',
+    id: 'slash-commands',
+    title: '5. スラッシュコマンド完全ガイド',
+    description: 'より効率的な開発のためのコマンド活用',
     children: [
-      { id: 'claude-company-setup', title: 'セットアップガイド' },
-      { id: 'claude-company-tasks', title: 'タスク管理と指示方法' },
-      { id: 'claude-company-best-practices', title: '運用ベストプラクティス' },
-      { id: 'claude-company-use-cases', title: '実践的な活用例' }
+      { id: 'slash-commands', title: '基本コマンド' },
+      { id: 'slash-commands', title: '高度なコマンド' },
+      { id: 'slash-commands', title: 'カスタムコマンド' }
     ]
   },
   {
-    id: 'conclusion',
-    title: 'まとめ',
-    description: 'Cursor Rulesマスターへの道'
+    id: 'best-practices',
+    title: '6. 効果的なルール記述',
+    description: '品質の高いルールを書くためのベストプラクティス',
+    children: [
+      { id: 'best-practices', title: '記述のコツ' },
+      { id: 'best-practices', title: 'よくある間違い' },
+      { id: 'best-practices', title: '改善方法' }
+    ]
+  },
+  {
+    id: 'practical-examples',
+    title: '7. 実践的な活用例',
+    description: '実際のプロジェクトでの活用パターン',
+    children: [
+      { id: 'practical-examples', title: 'Web開発' },
+      { id: 'practical-examples', title: 'モバイル開発' },
+      { id: 'practical-examples', title: 'API開発' }
+    ]
+  },
+  {
+    id: 'advanced-techniques',
+    title: '8. 高度なテクニック',
+    description: '上級者向けの応用テクニック'
+  },
+  {
+    id: 'troubleshooting',
+    title: '9. トラブルシューティング',
+    description: 'よくある問題と解決方法'
+  },
+  {
+    id: 'enterprise-cases',
+    title: '10. 企業導入事例',
+    description: '実際の企業での成功事例'
+  },
+  {
+    id: 'industry-templates',
+    title: '11. 業種別MDCテンプレート集',
+    description: '業種別の専用テンプレート'
+  },
+  {
+    id: 'asagami-integration',
+    title: '12. asagami AI連携',
+    description: '次世代学習システムとの連携'
+  },
+  {
+    id: 'one-command-setup',
+    title: '13. ワンコマンド環境構築',
+    description: '即座にセットアップできる自動化ツール',
+    children: [
+      { id: 'one-command-setup', title: '自動セットアップ' },
+      { id: 'one-command-setup', title: 'テンプレート選択' },
+      { id: 'one-command-setup', title: 'カスタマイズ' }
+    ]
+  },
+  {
+    id: 'continuous-improvement',
+    title: '14. 継続的改善の実践',
+    description: 'チーム運用での活用と継続的改善'
   }
 ]
 
-export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
-  const [activeSection, setActiveSection] = useState('')
-  const [expandedSections, setExpandedSections] = useState<string[]>(['level-1', 'level-2', 'level-3', 'level-4', 'level-5'])
+export function SideNavigation({ isOpen, onToggle, sections = [], activeSection = '' }: SideNavigationProps) {
+  const [expandedSections, setExpandedSections] = useState<string[]>(['introduction', 'when-to-use', 'basics', 'rule-types', 'slash-commands', 'best-practices', 'practical-examples', 'one-command-setup'])
+  
+  // Use passed sections or fallback to default navigationItems
+  const items = sections.length > 0 ? sections : navigationItems
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // 全てのセクションIDを収集（親と子の両方）
-      const allSectionIds: string[] = []
-      navigationItems.forEach(item => {
-        allSectionIds.push(item.id)
-        if (item.children) {
-          item.children.forEach(child => allSectionIds.push(child.id))
-        }
-      })
-
-      const sections = allSectionIds.map(id => document.getElementById(id)).filter(Boolean)
-      const scrollPosition = window.scrollY + 100
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(allSectionIds[i])
-          break
-        }
-      }
-    }
-
-    // 初期設定
-    handleScroll()
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  // Scroll tracking is handled by parent component
 
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev => 
@@ -176,11 +193,11 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
           </h2>
           
           <nav className="space-y-1">
-            {navigationItems.map((item, index) => (
+            {items.map((item, index) => (
               <div key={item.id}>
                 <motion.button
                   onClick={() => {
-                    if (item.children) {
+                    if ((item as any).subsections?.length > 0 || item.children) {
                       toggleSection(item.id)
                     } else {
                       scrollToSection(item.id)
@@ -208,7 +225,7 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
                     </div>
                     <ChevronRight 
                       className={`w-4 h-4 transition-transform ${
-                        item.children 
+                        (item as any).subsections?.length > 0 || item.children
                           ? expandedSections.includes(item.id) ? 'rotate-90' : ''
                           : activeSection === item.id ? 'rotate-90' : 'group-hover:translate-x-1'
                       }`}
@@ -217,14 +234,14 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
                 </motion.button>
 
                 {/* 子メニュー */}
-                {item.children && expandedSections.includes(item.id) && (
+                {((item as any).subsections?.length > 0 || item.children) && expandedSections.includes(item.id) && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     className="ml-4 mt-1 space-y-1"
                   >
-                    {item.children.map((child, childIndex) => (
+                    {((item as any).subsections || item.children || []).map((child: any, childIndex: number) => (
                       <motion.button
                         key={child.id}
                         onClick={() => scrollToSection(child.id)}
@@ -253,13 +270,7 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
                 学習進捗
               </span>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                {(() => {
-                  if (activeSection.includes('level-1') || activeSection === 'what-is-cursor' || activeSection === 'cursor-vs-vscode' || activeSection === 'ai-coding-revolution' || activeSection === 'cursor-features') return '25%'
-                  if (activeSection.includes('level-2') || activeSection === 'auto-setup' || activeSection === 'cursor-rules-explanation' || activeSection === 'mdc-files') return '50%'
-                  if (activeSection.includes('level-3') || activeSection === 'web-development' || activeSection === 'mobile-development' || activeSection === 'backend-development' || activeSection === 'data-science') return '75%'
-                  if (activeSection.includes('level-4') || activeSection === 'roi-measurement' || activeSection === 'implementation-roadmap' || activeSection === 'best-practices' || activeSection === 'success-stories') return '100%'
-                  return '10%'
-                })()}
+                {Math.round(((navigationItems.findIndex(item => item.id === activeSection) + 1) / navigationItems.length) * 100)}%
               </span>
             </div>
             <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
@@ -267,13 +278,7 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
                 className="bg-blue-500 h-2 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ 
-                  width: (() => {
-                    if (activeSection.includes('level-1') || activeSection === 'what-is-cursor' || activeSection === 'cursor-vs-vscode' || activeSection === 'ai-coding-revolution' || activeSection === 'cursor-features') return '25%'
-                    if (activeSection.includes('level-2') || activeSection === 'auto-setup' || activeSection === 'cursor-rules-explanation' || activeSection === 'mdc-files') return '50%'
-                    if (activeSection.includes('level-3') || activeSection === 'web-development' || activeSection === 'mobile-development' || activeSection === 'backend-development' || activeSection === 'data-science') return '75%'
-                    if (activeSection.includes('level-4') || activeSection === 'roi-measurement' || activeSection === 'implementation-roadmap' || activeSection === 'best-practices' || activeSection === 'success-stories') return '100%'
-                    return '10%'
-                  })()
+                  width: `${Math.max(10, ((navigationItems.findIndex(item => item.id === activeSection) + 1) / navigationItems.length) * 100)}%`
                 }}
                 transition={{ duration: 0.3 }}
               />
@@ -283,16 +288,16 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
           {/* Quick Actions */}
           <div className="mt-6 space-y-2">
             <button
-              onClick={() => scrollToSection('level-2')}
+              onClick={() => scrollToSection('one-command-setup')}
               className="w-full p-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg font-medium text-sm hover:from-green-600 hover:to-blue-600 transition-all"
             >
               ⚡ ワンコマンド設定
             </button>
             <button
-              onClick={() => scrollToSection('level-3')}
+              onClick={() => scrollToSection('practical-examples')}
               className="w-full p-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium text-sm hover:from-purple-600 hover:to-pink-600 transition-all"
             >
-              🚀 プロジェクト適用
+              🚀 実践的な活用例
             </button>
           </div>
         </div>
@@ -311,7 +316,7 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
           </h2>
           
           <nav className="space-y-2">
-            {navigationItems.map((item, index) => (
+            {items.map((item, index) => (
               <motion.button
                 key={item.id}
                 onClick={() => {
@@ -373,16 +378,22 @@ export function SideNavigation({ isOpen, onToggle }: SideNavigationProps) {
           {/* Quick Actions */}
           <div className="mt-6 space-y-2">
             <button
-              onClick={() => scrollToSection('cursor-rules-setup')}
+              onClick={() => {
+                scrollToSection('one-command-setup')
+                onToggle()
+              }}
               className="w-full p-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg font-medium text-sm hover:from-green-600 hover:to-blue-600 transition-all"
             >
               ⚡ ワンコマンド設定
             </button>
             <button
-              onClick={() => scrollToSection('one-command-rules')}
+              onClick={() => {
+                scrollToSection('practical-examples')
+                onToggle()
+              }}
               className="w-full p-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium text-sm hover:from-purple-600 hover:to-pink-600 transition-all"
             >
-              🚀 カスタムルール
+              🚀 実践的な活用例
             </button>
           </div>
         </div>

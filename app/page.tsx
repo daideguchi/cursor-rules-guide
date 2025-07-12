@@ -178,7 +178,7 @@ function CodeBlock({ code, language = "bash", title, defaultExpanded = false }: 
 }
 
 // 引用ブロックコンポーネント
-function QuoteBlock({ children, source }: { children: React.ReactNode; source?: string }) {
+function QuoteBlock({ children, source }: { children: React.ReactNode; source?: React.ReactNode }) {
   return (
     <blockquote 
       className="border-l-4 pl-5 py-4 my-6 italic text-gray-600"

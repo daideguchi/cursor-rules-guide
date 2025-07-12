@@ -1047,7 +1047,33 @@ function IndustryCard({ industry, onPreview }: { industry: any; onPreview: (indu
   };
 
   const generateCommand = () => {
-    return `mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 ${industry.title}用Cursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "2. 'Codebase Indexing' が100%完了まで待機" && echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"`;
+    return `mkdir -p .cursor/rules/dev-rules && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" \\
+  -o ".cursor/rules/uiux.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" \\
+  -o ".cursor/rules/rules.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" \\
+  -o ".cursor/rules/todo.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" \\
+  -o ".cursor/rules/globals.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" \\
+  -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" \\
+  -o ".cursor/rules/dev-rules/coding-standards.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" \\
+  -o ".cursor/rules/dev-rules/git-workflow.mdc" && \\
+echo "🎉 ${industry.title}用Cursor Rules環境を適用完了！" && \\
+echo "" && \\
+echo "📋 ダウンロードされたファイル:" && \\
+ls -la .cursor/rules/ && \\
+ls -la .cursor/rules/dev-rules/ && \\
+echo "" && \\
+echo "🚀 次のステップ:" && \\
+echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && \\
+echo "2. 'Codebase Indexing' が100%完了まで待機" && \\
+echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && \\
+echo "" && \\
+echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"`;
   };
 
   return (
@@ -7180,7 +7206,33 @@ alwaysApply: true
                         1. 基本セットアップ（すべてのプロジェクト共通）
                       </h4>
                       <CodeBlock 
-                        code={`mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "2. 'Codebase Indexing' が100%完了まで待機" && echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"`}
+                        code={`mkdir -p .cursor/rules/dev-rules && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" \\
+  -o ".cursor/rules/uiux.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" \\
+  -o ".cursor/rules/rules.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" \\
+  -o ".cursor/rules/todo.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" \\
+  -o ".cursor/rules/globals.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" \\
+  -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" \\
+  -o ".cursor/rules/dev-rules/coding-standards.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" \\
+  -o ".cursor/rules/dev-rules/git-workflow.mdc" && \\
+echo "🎉 完全なCursor Rules環境を適用完了！" && \\
+echo "" && \\
+echo "📋 ダウンロードされたファイル:" && \\
+ls -la .cursor/rules/ && \\
+ls -la .cursor/rules/dev-rules/ && \\
+echo "" && \\
+echo "🚀 次のステップ:" && \\
+echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && \\
+echo "2. 'Codebase Indexing' が100%完了まで待機" && \\
+echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && \\
+echo "" && \\
+echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"`}
                         title="基本セットアップコマンド"
                       />
                     </div>
@@ -7193,15 +7245,33 @@ alwaysApply: true
                         {[
                           {
                             title: "Next.js プロジェクト",
-                            command: `mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && echo "🎉 Next.js用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
+                            command: `mkdir -p .cursor/rules/dev-rules && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" \\
+  -o ".cursor/rules/globals.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" \\
+  -o ".cursor/rules/uiux.mdc" && \\
+echo "🎉 Next.js用Cursor Rules適用完了！" && \\
+echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           },
                           {
                             title: "React + TypeScript",
-                            command: `mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && echo "🎉 React TypeScript用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
+                            command: `mkdir -p .cursor/rules/dev-rules && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" \\
+  -o ".cursor/rules/globals.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" \\
+  -o ".cursor/rules/dev-rules/coding-standards.mdc" && \\
+echo "🎉 React TypeScript用Cursor Rules適用完了！" && \\
+echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           },
                           {
                             title: "Node.js API",
-                            command: `mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && echo "🎉 Node.js API用Cursor Rules適用完了！" && echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
+                            command: `mkdir -p .cursor/rules/dev-rules && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" \\
+  -o ".cursor/rules/globals.mdc" && \\
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" \\
+  -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && \\
+echo "🎉 Node.js API用Cursor Rules適用完了！" && \\
+echo "🚀 Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化開始"`
                           }
                         ].map((setup, index) => (
                           <div key={index}>

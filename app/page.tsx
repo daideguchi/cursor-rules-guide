@@ -1662,7 +1662,7 @@ export default function Home() {
               {/* メインタイトル */}
               <div className="text-center mb-8 sm:mb-12">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6" style={{ color: COLORS.text }}>
-                  Cursor Rules 完全マスターガイド
+                  Cursor Rules
                 </h1>
                 <p className="text-lg sm:text-xl mb-8" style={{ color: COLORS.textLight }}>
                   AIを理想的な開発パートナーに変える、プロフェッショナル向け包括的教材
@@ -1720,6 +1720,7 @@ export default function Home() {
                     ワンコマンド環境構築へ →
                   </button>
                 </div>
+              </div>
 
                 {/* セクション区切り線 */}
                 <div 
@@ -2522,10 +2523,11 @@ alwaysApply: false
                 </Card>
 
                 {/* Cursor設定の詳細ガイド */}
-                <Card id="basics-cursor-settings">
-                  <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
-                    3.4 ⚙️ Cursor設定の詳細ガイド
-                  </h3>
+                <Card>
+                  <div id="basics-cursor-settings">
+                    <h3 className="text-2xl font-semibold mb-6" style={{ color: COLORS.text }}>
+                      3.4 ⚙️ Cursor設定の詳細ガイド
+                    </h3>
                   
                   <div className="grid lg:grid-cols-2 gap-8">
                     {/* Rules & Memories 設定 */}
@@ -2671,6 +2673,7 @@ alwaysApply: false
                         </p>
                       </div>
                     </div>
+                  </div>
                   </div>
                 </Card>
 

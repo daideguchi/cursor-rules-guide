@@ -197,7 +197,7 @@ export function SideNavigation({ isOpen, onToggle, sections = [], activeSection 
               <div key={item.id}>
                 <motion.button
                   onClick={() => {
-                    if ((item as any).subsections?.length > 0 || item.children) {
+                    if ((item as any).subsections?.length > 0 || (item as any).children) {
                       toggleSection(item.id)
                     } else {
                       scrollToSection(item.id)
@@ -217,15 +217,15 @@ export function SideNavigation({ isOpen, onToggle, sections = [], activeSection 
                       <div className="font-medium text-sm mb-1">
                         {item.title}
                       </div>
-                      {item.description && (
+                      {(item as any).description && (
                         <div className="text-xs text-gray-500 dark:text-gray-400">
-                          {item.description}
+                          {(item as any).description}
                         </div>
                       )}
                     </div>
                     <ChevronRight 
                       className={`w-4 h-4 transition-transform ${
-                        (item as any).subsections?.length > 0 || item.children
+                        (item as any).subsections?.length > 0 || (item as any).children
                           ? expandedSections.includes(item.id) ? 'rotate-90' : ''
                           : activeSection === item.id ? 'rotate-90' : 'group-hover:translate-x-1'
                       }`}
@@ -234,14 +234,14 @@ export function SideNavigation({ isOpen, onToggle, sections = [], activeSection 
                 </motion.button>
 
                 {/* 子メニュー */}
-                {((item as any).subsections?.length > 0 || item.children) && expandedSections.includes(item.id) && (
+                {((item as any).subsections?.length > 0 || (item as any).children) && expandedSections.includes(item.id) && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     className="ml-4 mt-1 space-y-1"
                   >
-                    {((item as any).subsections || item.children || []).map((child: any, childIndex: number) => (
+                    {((item as any).subsections || (item as any).children || []).map((child: any, childIndex: number) => (
                       <motion.button
                         key={child.id}
                         onClick={() => scrollToSection(child.id)}
@@ -337,9 +337,9 @@ export function SideNavigation({ isOpen, onToggle, sections = [], activeSection 
                     <div className="font-medium text-sm mb-1">
                       {item.title}
                     </div>
-                    {item.description && (
+                    {(item as any).description && (
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {item.description}
+                        {(item as any).description}
                       </div>
                     )}
                   </div>

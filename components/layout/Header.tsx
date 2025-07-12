@@ -78,7 +78,7 @@ export function Header({ onMenuToggle, isMenuOpen, sections = [], activeSection 
                 Cursor Rules Guide
               </h1>
               <p className="text-xs text-gray-600 dark:text-gray-400">
-                完全マスターガイド
+                マスターガイド
               </p>
             </div>
           </motion.div>
@@ -134,10 +134,12 @@ export function Header({ onMenuToggle, isMenuOpen, sections = [], activeSection 
             </a>
             
             {/* Current section subsections */}
-            {sections.find(section => section.id === activeSection)?.subsections.length > 0 && (
-              <div className="flex items-center space-x-1 ml-4 pl-4 border-l border-gray-300 dark:border-gray-600">
-                <span className="text-xs text-gray-500 dark:text-gray-400 mr-2">現在:</span>
-                {sections.find(section => section.id === activeSection)?.subsections.slice(0, 3).map((subsection, index) => (
+            {(() => {
+              const currentSection = sections?.find(section => section.id === activeSection);
+              return currentSection?.subsections && currentSection.subsections.length > 0 && (
+                <div className="flex items-center space-x-1 ml-4 pl-4 border-l border-gray-300 dark:border-gray-600">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 mr-2">現在:</span>
+                  {currentSection.subsections.slice(0, 3).map((subsection, index) => (
                   <a
                     key={subsection.id}
                     href={`#${subsection.id}`}
@@ -147,7 +149,8 @@ export function Header({ onMenuToggle, isMenuOpen, sections = [], activeSection 
                   </a>
                 ))}
               </div>
-            )}
+              );
+            })()}
           </nav>
 
           {/* Actions */}

@@ -158,6 +158,15 @@ curl -o .cursor/rules/project-management.mdc "https://raw.githubusercontent.com/
 - 朝上AI×Cursor Rules 連携解説
 - 段階的学習のためのワークシート
 
+### 📑 今日の資料
+
+**👉 [本日の追加資料・解説 (Google Drive)](https://drive.google.com/file/d/1NJLRK30yL1NorkZsLUkc8jzNsgMyo1Ng/view?usp=sharing)**
+
+- 最新のCursor Rules活用法
+- 実際の開発事例と解説
+- UI/UX改善のポイント
+- 本日の作業内容とアップデート
+
 ## 🎨 技術スタック
 
 - **フレームワーク**: Next.js 14 (App Router)

@@ -121,7 +121,7 @@ cursor-rules-guide/
 プロジェクトのルートディレクトリで、以下の**ワンコマンド**をコピー&ペーストするだけ！
 
 ```bash
-mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！"
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursorを再起動 または Cmd+Shift+P → 'Reload Window'" && echo "2. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "3. 'Codebase Indexing' が100%完了まで待機" && echo "4. ✅ 準備完了！AIが最強のアシスタントに進化しました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"
 ```
 
 ### 📋 適用されるファイル（7個）
@@ -136,17 +136,31 @@ mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.co
 | 💻 `dev-rules/coding-standards.mdc` | コーディング規約 |
 | 🔄 `dev-rules/git-workflow.mdc` | Git運用ルール |
 
-### 🎯 適用後の確認
+### 🎯 適用後の手順（重要！）
 
+#### 1️⃣ ファイル確認
 ```bash
 # 適用されたファイルを確認
 ls -la .cursor/rules/
 ls -la .cursor/rules/dev-rules/
-
-# Cursor を再起動して設定を反映
 ```
 
-**🎊 これで完了！** Cursor が最強のAIアシスタントに変身します。
+#### 2️⃣ Cursor設定
+1. **Cursorを再起動**  
+   `Cmd+Shift+P` → `Reload Window` または Cursor再起動
+
+2. **インデックス化の開始**  
+   `Cmd+,` → `Indexing & Docs` → `Continue` ボタンをクリック
+
+3. **完了まで待機**  
+   `Codebase Indexing` が100%になるまで待機（数分かかる場合があります）
+
+#### 3️⃣ 動作確認
+```bash
+# チャットで '@' を入力してルールファイルが表示されることを確認
+```
+
+**🎊 これで完了！** Cursor が最強のAIアシスタントに変身しました。
 
 ### 🔧 手動セットアップ（上級者向け）
 

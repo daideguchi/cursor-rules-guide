@@ -116,29 +116,55 @@ cursor-rules-guide/
 
 ## 🔥 クイックスタート（ワンコマンド）
 
-### すぐに試したい方向け
+### ⚡ 一発適用コマンド（推奨）
+
+プロジェクトのルートディレクトリで、以下の**ワンコマンド**をコピー&ペーストするだけ！
 
 ```bash
-# Cursor Rules を一瞬で設定
-mkdir -p .cursor/rules && curl -s https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/setup.sh | bash
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！"
 ```
 
-### 手動で設定したい方向け
+### 📋 適用されるファイル（7個）
+
+| ファイル | 説明 |
+|---------|------|
+| 📝 `globals.mdc` | グローバル設定・基本ルール |
+| 🎨 `uiux.mdc` | UI/UXデザインガイドライン |
+| 📋 `rules.mdc` | プロジェクト固有ルール |
+| ✅ `todo.mdc` | TODO管理・タスク運用 |
+| 🧪 `dev-rules/testing-guidelines.mdc` | テスト設計・実装ルール |
+| 💻 `dev-rules/coding-standards.mdc` | コーディング規約 |
+| 🔄 `dev-rules/git-workflow.mdc` | Git運用ルール |
+
+### 🎯 適用後の確認
+
+```bash
+# 適用されたファイルを確認
+ls -la .cursor/rules/
+ls -la .cursor/rules/dev-rules/
+
+# Cursor を再起動して設定を反映
+```
+
+**🎊 これで完了！** Cursor が最強のAIアシスタントに変身します。
+
+### 🔧 手動セットアップ（上級者向け）
+
+個別にファイルをダウンロードしたい場合：
 
 ```bash
 # ディレクトリ作成
-mkdir -p .cursor/rules
+mkdir -p .cursor/rules/dev-rules
 
-# 各ルールファイルをダウンロード
-curl -o .cursor/rules/dev-rules.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/dev-rules.mdc"
-curl -o .cursor/rules/uiux.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/uiux.mdc"
-curl -o .cursor/rules/performance.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/performance.mdc"
-curl -o .cursor/rules/security.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/security.mdc"
-curl -o .cursor/rules/testing.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/testing.mdc"
-curl -o .cursor/rules/project-management.mdc "https://raw.githubusercontent.com/daideguchi/cursor-rules-templates/main/project-management.mdc"
+# 個別ダウンロード
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc"
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc"
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc"
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc"
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc"
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc"
+curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc"
 ```
-
-**🎊 完了！** これで Cursor がプロレベルの AI アシスタントに変身します。
 
 ### 📖 詳しい使い方を知りたい方
 

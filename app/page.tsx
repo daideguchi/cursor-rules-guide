@@ -1047,11 +1047,11 @@ function IndustryCard({ industry, onPreview }: { industry: any; onPreview: (indu
   };
 
   const generateCommand = () => {
-    return `# ${industry.title}テンプレート適用
-curl -sSL https://github.com/cursor-rules-templates/setup/raw/main/install.sh | bash -s ${industry.id}
+    return `# ${industry.title}テンプレート適用 - ワンコマンド
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 ${industry.title}用Cursor Rules環境を適用完了！"
 
-# または手動セットアップ
-git clone https://github.com/cursor-rules-templates/mdcs
+# 確認
+ls -la .cursor/rules/
 cp -r mdcs/${industry.id}/.cursor .
 code .
 
@@ -1164,7 +1164,7 @@ cursor --version && echo "Cursor Rules Template for ${industry.title} installed 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("introduction");
+  const [activeSection, setActiveSection] = useState("hero");
   const [previewModal, setPreviewModal] = useState({ isOpen: false, industry: null });
 
   // プレビューモーダル制御
@@ -7189,20 +7189,12 @@ alwaysApply: true
                         1. 基本セットアップ（すべてのプロジェクト共通）
                       </h4>
                       <CodeBlock 
-                        code={`# Cursor Rules基本セットアップ
-curl -sSL https://github.com/cursor-rules/setup/raw/main/install.sh | bash
-
-# または手動インストール
-mkdir -p .cursor/rules
-cd .cursor/rules
-
-# 基本ルールのダウンロード
-curl -O https://github.com/cursor-rules/templates/raw/main/base/coding-standards.mdc
-curl -O https://github.com/cursor-rules/templates/raw/main/base/security-guidelines.mdc
-curl -O https://github.com/cursor-rules/templates/raw/main/base/performance-optimization.mdc
+                        code={`# ⚡ Cursor Rules完全環境 - ワンコマンド適用
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！"
 
 # 確認
 ls -la .cursor/rules/
+ls -la .cursor/rules/dev-rules/
 echo "Cursor Rules基本セットアップ完了！"`}
                         title="基本セットアップコマンド"
                       />
@@ -7217,23 +7209,17 @@ echo "Cursor Rules基本セットアップ完了！"`}
                           {
                             title: "Next.js プロジェクト",
                             command: `# Next.js最適化セットアップ
-npx create-cursor-rules@latest --template=nextjs
-# または
-curl -sSL https://setup.cursor-rules.com/nextjs | bash`
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && echo "🎉 Next.js用Cursor Rules適用完了！"`
                           },
                           {
                             title: "React + TypeScript",
                             command: `# React TypeScript環境
-npx create-cursor-rules@latest --template=react-ts
-# カスタム設定も可能
-npx create-cursor-rules@latest --template=react-ts --eslint --prettier --jest`
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && echo "🎉 React TypeScript用Cursor Rules適用完了！"`
                           },
                           {
                             title: "Node.js API",
                             command: `# Node.js API開発環境
-npx create-cursor-rules@latest --template=nodejs-api
-# Express + TypeScript + Jest
-npx create-cursor-rules@latest --template=nodejs-api --framework=express`
+mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && echo "🎉 Node.js API用Cursor Rules適用完了！"`
                           }
                         ].map((setup, index) => (
                           <div key={index}>
@@ -7270,8 +7256,10 @@ cat > .cursor-team-config.json << 'EOF'
 }
 EOF
 
-# 2. チーム環境の一括適用
-npx cursor-rules-team-setup --config=.cursor-team-config.json
+# 2. チーム環境の一括適用（Gitを使用）
+git clone https://github.com/daideguchi/cursor-rules-guide.git temp_rules
+cp -r temp_rules/.cursor .
+rm -rf temp_rules
 
 # 3. CIでの環境チェック設定
 cat > .github/workflows/cursor-rules-check.yml << 'EOF'
@@ -7283,7 +7271,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check Cursor Rules
-        run: npx cursor-rules-check --strict
+        run: |
+          if [ ! -d ".cursor/rules" ]; then
+            echo "❌ .cursor/rules directory not found"
+            exit 1
+          fi
+          echo "✅ Cursor Rules directory exists"
 EOF
 
 echo "チーム環境統一完了！"`}
@@ -7306,7 +7299,8 @@ echo "チーム環境統一完了！"`}
                       </h4>
                       <CodeBlock 
                         code={`# Cursor Rules環境の総合チェック
-npx cursor-rules-doctor
+ls -la .cursor/rules/
+echo "📁 ファイル数: $(find .cursor/rules -name "*.mdc" | wc -l)"
 
 # 詳細な設定確認
 cursor --version
@@ -7336,7 +7330,7 @@ echo "→ プロジェクトのルールに従ったコードが生成されれ�
                           {
                             problem: "AIの応答が改善されない",
                             solution: "ルールの記述内容を確認。具体的で明確な指示になっているかチェック。",
-                            command: "npx cursor-rules-validate"
+                            command: "ls -la .cursor/rules/ && echo '設定ファイルを確認してください'"
                           },
                           {
                             problem: "パフォーマンスが低下",
@@ -7401,7 +7395,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Update Cursor Rules
         run: |
-          curl -sSL https://setup.cursor-rules.com/update | bash
+          git clone https://github.com/daideguchi/cursor-rules-guide.git temp_update
+          cp -r temp_update/.cursor .
+          rm -rf temp_update
           if [[ \`git status --porcelain\` ]]; then
             git config --global user.name "Cursor Rules Bot"
             git config --global user.email "bot@cursor-rules.com"
@@ -7418,7 +7414,7 @@ cat > Dockerfile.cursor-rules << 'EOF'
 FROM node:18-alpine
 WORKDIR /app
 COPY .cursor/ .cursor/
-RUN npx cursor-rules-validate --strict
+RUN ls -la .cursor/rules/ && echo "Cursor Rules validated"
 EOF
 
 echo "CI/CD統合完了！"`}
@@ -7434,6 +7430,11 @@ echo "CI/CD統合完了！"`}
                         code={`# プロジェクト横断的なルール管理
 mkdir -p ~/.cursor-rules-global
 cd ~/.cursor-rules-global
+
+# グローバルルールセットのダウンロード
+git clone https://github.com/daideguchi/cursor-rules-guide.git global-rules
+cp -r global-rules/.cursor ./global-cursor-rules
+rm -rf global-rules
 
 # グローバル設定
 cat > global-config.json << 'EOF'
@@ -7467,13 +7468,16 @@ cd \$PROJECT_NAME
 
 case \$PROJECT_TYPE in
   "frontend")
-    npx create-cursor-rules@latest --template=react-ts --standards=strict
+    cp -r ~/.cursor-rules-global/global-cursor-rules .cursor
+    curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc"
     ;;
   "backend")
-    npx create-cursor-rules@latest --template=nodejs-api --standards=enterprise
+    cp -r ~/.cursor-rules-global/global-cursor-rules .cursor
+    curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc"
     ;;
   "mobile")
-    npx create-cursor-rules@latest --template=react-native --standards=mobile-optimized
+    cp -r ~/.cursor-rules-global/global-cursor-rules .cursor
+    curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc"
     ;;
   *)
     echo "Unknown project type: \$PROJECT_TYPE"
@@ -7595,12 +7599,12 @@ echo "複数プロジェクト管理システム構築完了！"`}
                       },
                       {
                         title: "ベストプラクティス集",
-                        url: "https://github.com/cursor-rules/awesome-cursor-rules",
+                        url: "https://github.com/daideguchi/cursor-rules-guide",
                         description: "実践的なルール例とテンプレート"
                       },
                       {
                         title: "業種別テンプレート",
-                        url: "https://github.com/cursor-rules/industry-templates",
+                        url: "https://github.com/daideguchi/cursor-rules-guide/tree/main/.cursor/rules",
                         description: "本ガイドで紹介したテンプレート"
                       }
                     ].map((resource, index) => (

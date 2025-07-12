@@ -83,74 +83,9 @@ export function Header({ onMenuToggle, isMenuOpen, sections = [], activeSection 
             </div>
           </motion.div>
 
-          {/* Desktop Navigation with Dynamic Sub-headings */}
+          {/* Simplified Navigation - no section links due to sidebar */}
           <nav className="hidden lg:flex items-center space-x-3">
-            {/* Key navigation items */}
-            <a
-              href="#introduction"
-              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
-                activeSection === 'introduction'
-                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-              }`}
-            >
-              1. はじめに
-            </a>
-            <a
-              href="#when-to-use"
-              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
-                activeSection === 'when-to-use'
-                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-              }`}
-            >
-              2. タイミング
-            </a>
-            <a
-              href="#basics"
-              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
-                activeSection === 'basics'
-                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-              }`}
-            >
-              3. 基本設定
-            </a>
-            <a
-              href="#rule-types"
-              className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
-                activeSection === 'rule-types'
-                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-              }`}
-            >
-              4. ルール
-            </a>
-            <a
-              href="#one-command-setup"
-              className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors text-sm font-bold px-3 py-1 bg-primary-50 dark:bg-primary-900/20 rounded-full"
-            >
-              ⚡ ワンコマンド
-            </a>
-            
-            {/* Current section subsections */}
-            {(() => {
-              const currentSection = sections?.find(section => section.id === activeSection);
-              return currentSection?.subsections && currentSection.subsections.length > 0 && (
-                <div className="flex items-center space-x-1 ml-4 pl-4 border-l border-gray-300 dark:border-gray-600">
-                  <span className="text-xs text-gray-500 dark:text-gray-400 mr-2">現在:</span>
-                  {currentSection.subsections.slice(0, 3).map((subsection, index) => (
-                  <a
-                    key={subsection.id}
-                    href={`#${subsection.id}`}
-                    className="text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors px-1 py-0.5 rounded"
-                  >
-                    {subsection.title.split(' ')[1] || subsection.title}
-                  </a>
-                ))}
-              </div>
-              );
-            })()}
+            {/* Navigation removed - using sidebar for section navigation */}
           </nav>
 
           {/* Actions */}

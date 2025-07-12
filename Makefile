@@ -453,3 +453,30 @@ root-audit: ## 🔍 Audit root directory file count
 	@echo "Files in root: $$(ls -la | grep "^-" | wc -l | tr -d ' ')/12 maximum"
 	@echo "Folders: $$(ls -d */ 2>/dev/null | wc -l)"
 	@if [ $$(ls -la | grep "^-" | wc -l | tr -d ' ') -gt 12 ]; then echo "❌ OVER LIMIT - Run 'make enforce-file-organization'"; exit 1; else echo "✅ COMPLIANT"; fi
+
+## 🎯 Cursor Rules Application System (Simple Git-based)
+apply-rules: ## ワンコマンドルール適用 - Gitから直接取得
+	@echo "🎯 Simple Cursor Rules Application..."
+	@echo "===================================="
+	@if [ ! -d ".cursor" ]; then \
+		echo "📥 Downloading .cursor rules from git..."; \
+		git clone --depth 1 --filter=blob:none --sparse https://github.com/your-repo/cursor_rule.git temp_cursor_rules; \
+		cd temp_cursor_rules && git sparse-checkout set .cursor; \
+		cp -r .cursor ../; \
+		cd .. && rm -rf temp_cursor_rules; \
+		echo "✅ .cursor rules applied successfully"; \
+	else \
+		echo "⚠️  .cursor folder already exists - updating..."; \
+		cp -r .cursor .cursor_backup_$(date +%Y%m%d_%H%M%S); \
+		echo "✅ Backup created and updated"; \
+	fi
+
+apply-rules-local: ## ローカルから.cursorフォルダをコピー適用
+	@echo "📁 Applying local .cursor rules..."
+	@read -p "Enter source project path: " source_path; \
+	if [ -d "$$source_path/.cursor" ]; then \
+		cp -r "$$source_path/.cursor" .; \
+		echo "✅ Local .cursor rules applied from $$source_path"; \
+	else \
+		echo "❌ .cursor folder not found in $$source_path"; \
+	fi

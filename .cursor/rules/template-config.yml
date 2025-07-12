@@ -1,0 +1,117 @@
+# Cursor Rules Template Configuration
+# This file defines project structure templates for different project types
+
+templates:
+  youtube_sheet:
+    name: "YouTube Channel Analysis Project"
+    description: "Google Apps Script project for YouTube channel analysis"
+    structure:
+      - "0_dashboard.gs"          # メインダッシュボード
+      - "2_benchmark.gs"          # ベンチマーク機能
+      - "4_channelCheck.gs"       # チャンネル詳細分析
+      - "test_dashboard.gs"       # テスト機能
+      - ".cursor/rules/rules.mdc" # プロジェクトルール
+      - "README.md"              # プロジェクト説明
+    file_patterns:
+      - "*.gs"                   # Google Apps Script files
+      - "*.md"                   # Documentation files
+    git_rules:
+      auto_commit: true
+      commit_message_format: "Update project rules: {timestamp}"
+    coding_standards:
+      language: "JavaScript"
+      framework: "Google Apps Script"
+      naming_convention: "camelCase"
+      comment_style: "JSDoc"
+
+  web_app:
+    name: "Web Application Project"
+    description: "Modern web application with React/Next.js"
+    structure:
+      - "src/components/"        # UIコンポーネント
+      - "src/pages/"            # ページコンポーネント
+      - "src/hooks/"            # カスタムフック
+      - "src/utils/"            # ユーティリティ関数
+      - "public/"               # 静的ファイル
+      - "tests/"                # テストファイル
+      - ".cursor/rules/rules.mdc"
+      - "README.md"
+    file_patterns:
+      - "*.tsx"
+      - "*.ts"
+      - "*.jsx"
+      - "*.js"
+      - "*.css"
+      - "*.scss"
+    git_rules:
+      auto_commit: true
+      commit_message_format: "feat: {description}"
+    coding_standards:
+      language: "TypeScript"
+      framework: "React/Next.js"
+      naming_convention: "PascalCase for components, camelCase for functions"
+      comment_style: "TSDoc"
+
+  api_server:
+    name: "API Server Project"
+    description: "RESTful API server with Express.js or similar"
+    structure:
+      - "src/controllers/"      # APIコントローラー
+      - "src/models/"          # データモデル
+      - "src/routes/"          # ルーティング
+      - "src/middleware/"      # ミドルウェア
+      - "src/services/"        # ビジネスロジック
+      - "tests/"               # テストファイル
+      - "config/"              # 設定ファイル
+      - ".cursor/rules/rules.mdc"
+      - "README.md"
+    file_patterns:
+      - "*.ts"
+      - "*.js"
+      - "*.json"
+    git_rules:
+      auto_commit: true
+      commit_message_format: "api: {description}"
+    coding_standards:
+      language: "TypeScript"
+      framework: "Express.js"
+      naming_convention: "camelCase"
+      comment_style: "JSDoc"
+
+  custom:
+    name: "Custom Project Template"
+    description: "User-defined custom project structure"
+    structure:
+      - "src/core/"             # コア機能
+      - "src/features/"         # 機能別モジュール
+      - "src/shared/"           # 共通コンポーネント
+      - "docs/"                 # ドキュメント
+      - "tests/"                # テスト
+      - ".cursor/rules/rules.mdc"
+      - "README.md"
+    file_patterns:
+      - "*"
+    git_rules:
+      auto_commit: false
+      commit_message_format: "update: {description}"
+    coding_standards:
+      language: "Auto-detect"
+      framework: "User-defined"
+      naming_convention: "User-defined"
+      comment_style: "Auto-detect"
+
+# Global settings applied to all templates
+global_settings:
+  auto_git_push: false
+  enforce_file_limits: true
+  max_root_files: 12
+  validation_enabled: true
+  backup_before_apply: true
+
+# Template variables that can be used in rules.mdc
+variables:
+  PROJECT_NAME: "cursor_rule"
+  DATE: "2025-07-13"
+  AUTHOR: "AI-Memory-System"
+  DESCRIPTION: "youtube_sheet project"
+  TEMPLATE_TYPE: "youtube_sheet"

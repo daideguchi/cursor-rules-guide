@@ -7182,6 +7182,7 @@ alwaysApply: true
                       <CodeBlock 
                         code={`mkdir -p .cursor/rules/dev-rules && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/uiux.mdc" -o ".cursor/rules/uiux.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/rules.mdc" -o ".cursor/rules/rules.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/todo.mdc" -o ".cursor/rules/todo.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/globals.mdc" -o ".cursor/rules/globals.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/testing-guidelines.mdc" -o ".cursor/rules/dev-rules/testing-guidelines.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/coding-standards.mdc" -o ".cursor/rules/dev-rules/coding-standards.mdc" && curl -fsSL "https://raw.githubusercontent.com/daideguchi/cursor-rules-guide/main/.cursor/rules/dev-rules/git-workflow.mdc" -o ".cursor/rules/dev-rules/git-workflow.mdc" && echo "🎉 完全なCursor Rules環境を適用完了！" && echo "" && echo "📋 ダウンロードされたファイル:" && ls -la .cursor/rules/ && ls -la .cursor/rules/dev-rules/ && echo "" && echo "🚀 次のステップ:" && echo "1. Cursor設定 (Cmd+,) → 'Indexing & Docs' → 'Continue' でインデックス化" && echo "2. 'Codebase Indexing' が100%完了まで待機" && echo "3. ✅ 準備完了！Cursor Rulesが適用されました" && echo "" && echo "💡 確認方法: チャットで '@' を入力するとルールファイルが表示されます"`}
                         title="基本セットアップコマンド"
+                        defaultExpanded={false}
                       />
                     </div>
 
@@ -7208,7 +7209,7 @@ alwaysApply: true
                             <h5 className="font-medium mb-2" style={{ color: COLORS.text }}>
                               {setup.title}
                             </h5>
-                            <CodeBlock code={setup.command} />
+                            <CodeBlock code={setup.command} defaultExpanded={false} />
                           </div>
                         ))}
                       </div>
@@ -7263,6 +7264,7 @@ EOF
 
 echo "チーム環境統一完了！"`}
                         title="チーム環境統一"
+                        defaultExpanded={false}
                       />
                     </div>
                   </div>
@@ -7295,6 +7297,7 @@ echo "以下のコマンドを Cursor のChatで実行してください："
 echo "「簡単なReactコンポーネントを作成してください」"
 echo "→ プロジェクトのルールに従ったコードが生成されれば成功"`}
                         title="環境検証"
+                        defaultExpanded={false}
                       />
                     </div>
 
@@ -7401,6 +7404,7 @@ EOF
 
 echo "CI/CD統合完了！"`}
                         title="CI/CD統合"
+                        defaultExpanded={false}
                       />
                     </div>
 

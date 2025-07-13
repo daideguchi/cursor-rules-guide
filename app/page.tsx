@@ -69,7 +69,8 @@ function CodeBlock({ code, language = "bash", title, defaultExpanded = false }: 
   defaultExpanded?: boolean;
 }) {
   const [isCopied, setIsCopied] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  // 強制的に折りたたみ状態で開始 - ユーザーの要求により「折りたたみは絶対」
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleCopy = async () => {
     try {
